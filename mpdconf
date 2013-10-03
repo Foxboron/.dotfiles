@@ -1,0 +1,9 @@
+music_directory    "~/Music"          # Can keep commented if XDG music dir.
+playlist_directory "~/.mpd/playlists"
+db_file            "~/.mpd/database"
+log_file           "~/.mpd/log"
+pid_file           "~/.mpd/pid"
+state_file         "~/.mpd/state"
+sticker_file       "~/.mpd/sticker.sql"
+bind_to_address    "127.0.0.1"
+port               "6600"
