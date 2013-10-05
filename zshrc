@@ -11,6 +11,11 @@ export EDITOR="vim"
 export PROJET_HOME="~/Dropbox/Python"
 
 
+#PRIMUS
+export PRIMUS_SYNC=0
+export vblank_mode=0
+
+
 PROMPT='%{$fg_bold[cyan]%}λ %n@%m %{$fg[green]%}%c %{$fg_bold[cyan]%}→ $(git_prompt_info)%{$reset_color%}'
 
 ZSH_THEME_GIT_PROMPT_PREFIX="λ %{$fg[blue]%}git %{$fg[red]%}"
