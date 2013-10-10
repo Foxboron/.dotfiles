@@ -7,3 +7,16 @@ state_file         "~/.mpd/state"
 sticker_file       "~/.mpd/sticker.sql"
 bind_to_address    "127.0.0.1"
 port               "6600"
+
+audio_output {
+	type		"alsa"
+	name		"My Sound Card"
+	mixer_type	"software"
+}
+
+
+
+audio_output {
+	type		"pulse"
+	name		"pulse audio"
+}

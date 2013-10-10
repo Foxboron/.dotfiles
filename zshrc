@@ -9,17 +9,17 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export EDITOR="vim"
 export PROJET_HOME="~/Dropbox/Python"
-
+export TERM="rxvt-unicode-256color"
 
 #PRIMUS
 export PRIMUS_SYNC=0
 export vblank_mode=0
 
 
-PROMPT='%{$fg_bold[cyan]%}λ %n@%m %{$fg[green]%}%c %{$fg_bold[cyan]%}→ $(git_prompt_info)%{$reset_color%}'
+PROMPT='%{$fg_bold[magenta]%}λ %n@%m %{$fg[green]%}%c %{$fg_bold[magenta]%}→ $(git_prompt_info)%{$reset_color%}'
 
 ZSH_THEME_GIT_PROMPT_PREFIX="λ %{$fg[blue]%}git %{$fg[red]%}"
-ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg_bold[cyan]%} → %{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg_bold[yellow]%} → %{$reset_color%}"
 
 export PYTHONPATH=/usr/lib/python3.3/site-packages
 
