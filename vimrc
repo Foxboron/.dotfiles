@@ -1,3 +1,4 @@
+set mouse=a
 set t_Co=256
 set noshowmode
 set laststatus=2
