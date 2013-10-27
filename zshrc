@@ -10,6 +10,7 @@ export LANG=en_US.UTF-8
 export EDITOR="vim"
 export PROJET_HOME="~/Dropbox/Python"
 export TERM="rxvt-unicode-256color"
+export RANGER_LOAD_DEFAULT_RC="FALSE"
 
 #PRIMUS
 export PRIMUS_SYNC=0
@@ -87,7 +88,7 @@ cb() {
 function cbf() { cat "$1" | cb; }  
 
 
-scrotf () {
+scrot-file () {
 	scrot "$1.png" -e 'mv $f ~/Dropbox/Public/sslinux'
 }
 
@@ -96,18 +97,18 @@ puburl () {
 	dropbox puburl $1 | cb
 }
 
-cbprint () {
+pubfile () {
 	dropbox puburl ~/Dropbox/Public/sslinux/$1.png | cb
 }
 
 
-db () {
+dblast () {
 	cd /home/fox/Dropbox/Public/sslinux
 	file="$(ls -t | head -1)"
 	puburl $file
 }
 
-scrotcb () {
+scrotpub () {
 	scrot "$1.png" -e 'mv $f ~/Dropbox/Public/sslinux'
 	cbprint $1
 }
