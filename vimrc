@@ -1,39 +1,53 @@
-let $PYTHONPATH="/usr/lib/python3.3/site-packages"
+execute pathogen#infect()
+colorscheme solarized
+syntax enable
+filetype plugin indent on
+
+let mapleader=","
 
 set mouse=a
-set t_Co=256
+set number
+"set t_Co=256
+set background=dark
+set so=50
 set noshowmode
 set laststatus=2
-execute pathogen#infect()
-syntax enable
+set clipboard=unnamed
+set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
+set guioptions-=m  "remove menu bar
+set guioptions-=T  "remove toolbar
+set guioptions-=r  "remove right-hand scroll bar
+
+
+let g:airline_theme="solarized"
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:airline_detect_whitespace = 0
+let g:pymode_folding = 0 
+let g:solarized_termcolors=16
+
 
 map nn :NERDTreeToggle<CR>
-
-" IMPORTANT: Uncomment one of the following lines to force
-" " using 256 colors (or 88 colors) if your terminal supports it,
-" " but does not automatically use 256 colors by default.
-" "set t_Co=256
-" "set t_Co=88
-let g:CSApprox_attr_map = { 'bold' : 'bold', 'italic' : '', 'sp' : '' }
-
-let g:pymode_folding = 0 
-let g:solarized_termcolors=256
-colorscheme solarized
-filetype plugin indent on
-set background=dark
-
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
 
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
+noremap <C-S> :update<CR>
+vnoremap <C-S> <C-C>:update<CR>
+inoremap <C-S> <C-O>:update<CR>
 
-set guioptions-=m  "remove menu bar
-set guioptions-=T  "remove toolbar
-set guioptions-=r  "remove right-hand scroll bar
+imap ii <Esc>
+
+"Unite
+let g:unite_prompt='» '
+nnoremap <leader>f :<C-u>Unite -start-insert file_rec/async<cr>
+nnoremap <leader>ug :<C-u>Unite grep:.<cr>
+nnoremap <leader>s :<C-u>Unite -quick-match buffer<cr>
+
+
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces

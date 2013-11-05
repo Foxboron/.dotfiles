@@ -8,7 +8,7 @@ source /usr/bin/virtualenvwrapper.sh
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export EDITOR="vim"
-export PROJET_HOME="~/Dropbox/Python"
+export PROJECT_HOME="~/Dropbox/Python"
 export TERM="rxvt-unicode-256color"
 export RANGER_LOAD_DEFAULT_RC="FALSE"
 
@@ -31,10 +31,13 @@ export PYTHONPATH=/usr/lib/python3.3/site-packages
 alias sshirc="mosh fox@146.185.137.105"
 alias tmux="tmux -2"
 
+
 alias music="ncmpcpp"
 
-alias yaoupg='yaourt -Syu'
-
+alias yaoupg='yaourt -Syua'
+alias yaoss='yaourt -Ss'
+alias yaos='yaourt -S'
+alias gvim="gvim --servername GVIM --remote-tab"
 alias pacupg='sudo pacman -Syu'        # Synchronize with repositories and then upgrade packages that are out of date on the local system.
 alias pacin='sudo pacman -S'           # Install specific package(s) from the repositories
 alias pacins='sudo pacman -U'          # Install specific package not from the repositories but from a file 
