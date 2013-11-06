@@ -33,11 +33,10 @@ alias tmux="tmux -2"
 
 
 alias music="ncmpcpp"
-
+alias gvimw="vim -g --servername GVIM"
 alias yaoupg='yaourt -Syua'
 alias yaoss='yaourt -Ss'
 alias yaos='yaourt -S'
-alias gvim="gvim --servername GVIM --remote-tab"
 alias pacupg='sudo pacman -Syu'        # Synchronize with repositories and then upgrade packages that are out of date on the local system.
 alias pacin='sudo pacman -S'           # Install specific package(s) from the repositories
 alias pacins='sudo pacman -U'          # Install specific package not from the repositories but from a file 
@@ -52,7 +51,14 @@ alias pacinsd='sudo pacman -S --asdeps'        # Install given package(s) as dep
 alias pacmir='sudo pacman -Syy'                # Force refresh of all package lists after updating /etc/pacman.d/mirrorlist
 
 
-
+gvim (){
+    if [ $# -eq 0 ]
+    then
+        gvimw
+    else
+        gvimw --remote-tab $1
+    fi
+}
 
 
 cb() {

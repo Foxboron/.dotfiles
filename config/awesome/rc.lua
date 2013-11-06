@@ -143,7 +143,7 @@ lain.widgets.calendar:attach(mytextclock, { font_size = 10 })
 
 -- Weather
 weathericon = wibox.widget.imagebox(beautiful.widget_weather)
-yawn = lain.widgets.yawn(123456, {
+yawn = lain.widgets.yawn(858130, {
     settings = function()
         widget:set_markup(markup("#eca4c4", forecast:lower() .. " @ " .. units .. "°C "))
     end
