@@ -8,7 +8,7 @@ source /usr/bin/virtualenvwrapper.sh
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export EDITOR="vim"
-export PROJECT_HOME="~/Dropbox/Python"
+export PROJECT_HOME="/home/fox/Dropbox/Python/"
 export TERM="rxvt-unicode-256color"
 export RANGER_LOAD_DEFAULT_RC="FALSE"
 
@@ -16,8 +16,10 @@ export RANGER_LOAD_DEFAULT_RC="FALSE"
 export PRIMUS_SYNC=0
 export vblank_mode=0
 
+#» 
+PROMPT='%{$fg_bold[red]%}λ %n@%m %{$fg[green]%}%c %{$fg_bold[red]%}» $(git_prompt_info)%{$reset_color%}'
 
-PROMPT='%{$fg_bold[red]%}λ %n@%m %{$fg[green]%}%c %{$fg_bold[red]%}→ $(git_prompt_info)%{$reset_color%}'
+#PROMPT='%{$fg_bold[red]%}λ %n@%m %{$fg[green]%}%c %{$fg_bold[red]%}→ $(git_prompt_info)%{$reset_color%}'
 
 ZSH_THEME_GIT_PROMPT_PREFIX="λ %{$fg[blue]%}git %{$fg[red]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg_bold[red]%} → %{$reset_color%}"

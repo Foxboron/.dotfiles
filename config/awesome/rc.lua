@@ -62,7 +62,7 @@ beautiful.init(awful.util.getdir("config") .. "/themes/multicolor/theme.lua")
 -- common
 modkey     = "Mod4"
 altkey     = "Mod1"
-terminal   = "urxvt"
+terminal   = "urxvtc"
 editor     = os.getenv("EDITOR") or "nano" or "vim"
 editor_cmd = terminal .. " -e " .. editor
 

@@ -2,7 +2,8 @@ execute pathogen#infect()
 
 call neobundle#rc(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/vimproc', {'build' : {'unix': 'make'}}
+NeoBundle 'tpope/vim-surround'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'emezeske/paredit.vim'
 NeoBundle 'Shougo/unite.vim'
@@ -77,7 +78,8 @@ call unite#filters#sorter_default#use(['sorter_rank'])
 call unite#custom#source('file,file/new,buffer,file_rec',
                 \ 'matchers', 'matcher_fuzzy')
 call unite#custom#source('file_rec', 'ignore_pattern', '\.*$')
-nnoremap <leader>f :<C-u>Unite -start-insert file_rec/async<cr>
+
+nnoremap <leader>f :<C-u>Unite -start-insert file_rec/async:.<cr>
 nnoremap <leader>dc :<C-u>Unite -start-insert file_rec/async:~/Dropbox/Clojure<cr>
 nnoremap <leader>ug :<C-u>Unite grep:.<cr>
 nnoremap <leader>s :<C-u>Unite -quick-match buffer<cr>
