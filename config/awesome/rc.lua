@@ -62,7 +62,7 @@ beautiful.init(awful.util.getdir("config") .. "/themes/multicolor/theme.lua")
 -- common
 modkey     = "Mod4"
 altkey     = "Mod1"
-terminal   = "urxvtc"
+terminal   = "urxvt"
 editor     = os.getenv("EDITOR") or "nano" or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -111,14 +111,14 @@ end
 kbdcfg = {}
 kbdcfg.cmd = "setxkbmap -option 'ctrl:nocaps'"
 kbdcfg.layout = { { "no", "" }, { "us", "" } }
-kbdcfg.current = 1  -- us is our default layout
+kbdcfg.current = 1 -- us is our default layout
 kbdcfg.widget = wibox.widget.textbox()
 kbdcfg.widget:set_text(" " .. kbdcfg.layout[kbdcfg.current][1] .. " ")
 kbdcfg.switch = function ()
 	kbdcfg.current = kbdcfg.current % #(kbdcfg.layout) + 1
 	local t = kbdcfg.layout[kbdcfg.current]
 	kbdcfg.widget:set_text(" " .. t[1] .. " ")
-	os.execute( kbdcfg.cmd .. " " .. t[1] .. " " .. t[2] )
+	os.execute( kbdcfg.cmd .. " " .. t[1] .. " ")
 end
 
 -- Mouse bindings

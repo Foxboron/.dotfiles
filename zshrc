@@ -1,16 +1,17 @@
 ZSH=$HOME/.oh-my-zsh
 
-plugins=(git archlinux git-extras gitfast git-flow github git-hubflow lein mosh pip ssh-agent sublime tmux tmuxinator virtualenv virtualenvwrapper)
+plugins=(git archlinux git-extras gitfast github lein mosh pip sublime tmux tmuxinator virtualenv virtualenvwrapper)
 
 source $ZSH/oh-my-zsh.sh
 source /usr/bin/virtualenvwrapper.sh
 
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
+export LC_ALL=en_US.utf8
+export LANG=en_US.utf8
 export EDITOR="vim"
 export PROJECT_HOME="/home/fox/Dropbox/Python/"
 export TERM="rxvt-unicode-256color"
 export RANGER_LOAD_DEFAULT_RC="FALSE"
+export GOPATH="/home/fox/.go/"
 
 #PRIMUS
 export PRIMUS_SYNC=0
@@ -35,6 +36,7 @@ alias tmux="tmux -2"
 
 
 alias music="ncmpcpp"
+alias viz='mpdviz -i --viz="wave" --imode="256" --icolor="true"'
 alias gvimw="vim -g --servername GVIM"
 alias yaoupg='yaourt -Syua'
 alias yaoss='yaourt -Ss'
@@ -51,7 +53,8 @@ alias paclocs='pacman -Qs'             # Search for package(s) in the local data
 alias pacupd='sudo pacman -Sy && sudo abs'     # Update and refresh the local package and ABS databases against repositories
 alias pacinsd='sudo pacman -S --asdeps'        # Install given package(s) as dependencies of another package
 alias pacmir='sudo pacman -Syy'                # Force refresh of all package lists after updating /etc/pacman.d/mirrorlist
-
+alias screen-one='xrandr --output VGA1 --off'
+alias screen-two='xrandr --output VGA1 --primary --auto'
 
 gvim (){
     if [ $# -eq 0 ]
@@ -60,6 +63,20 @@ gvim (){
     else
         gvimw --remote-tab $1
     fi
+}
+
+function git-fixup {
+  if [ $# -eq 1 ]
+  then
+    if [[ "$1" == HEAD* ]]
+    then
+      git add -A; git fixup $1; git ri $1~2
+    else
+      git add -A; git fixup $1; git ri $1~1
+    fi
+  else
+    echo "Usage: gf <commit-ref> "
+  fi
 }
 
 
@@ -124,4 +141,48 @@ scrotpub () {
 	cbprint $1
 }
 
-
+function extract()
+{
+     if [ -f $1 ] ; then
+         case $1 in
+            *.tar.bz2)   
+                tar xvjf $1     
+                ;;
+            *.tar.gz)    
+                tar xvzf $1     
+                ;;
+            *.bz2)       
+                bunzip2 $1      
+                ;;
+            *.rar)
+                unrar x $1      
+                ;;
+            *.gz)
+                gunzip $1       
+                ;;
+            *.tar)
+                tar xvf $1      
+                ;;
+            *.tbz2)
+                tar xvjf $1     
+                ;;
+            *.tgz)
+                tar xvzf $1     
+                ;;
+            *.zip)
+                unzip $1        
+                ;;
+            *.Z)
+                uncompress $1   
+                ;;
+            *.7z)
+                7z x $1         
+                ;;
+            *)  
+                echo "'$1' cannot be extracted via extract" 
+                ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
+}

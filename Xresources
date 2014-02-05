@@ -2,7 +2,7 @@
 !URxvt* iso14755	      : False
 xvt.buffered          : true
 xft.dpi		      : 98
-URxvt.font            : xft:monospace:size=10:antialias=true:hinting=true,xft:Inconsolata\ for\ Powerline:pixelsize=16
+URxvt*font            : xft:Dejavu Sans Mono:size=10:antialias=true:hinting=true
 URxvt.title           : urxvt
 URxvt.scrollBar       : False
 URxvt*termName	      : rxvt-unicode-256color

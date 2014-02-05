@@ -1,6 +1,10 @@
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 syndaemon -t -k -i 2 -d &
 xbindkeys
+setxkbmap -option 'ctrl:nocaps' no
+pulseaudio --start &
+pasystray &
 nm-applet &
-sleep 10 && dropboxd &
+dropboxd &
+synergyc archserver
 exec awesome
