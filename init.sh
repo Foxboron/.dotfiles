@@ -7,7 +7,7 @@ dir=~/.dotfiles                    # dotfiles directory
 olddir=~/.dotfiles_old             # old dotfiles backup directory
 files=`ls -A ~/.dotfiles`    # list of files/folders to symlink in homedir
 
-
+IgnoredFiles
 
 containsElement () {
 	  local e

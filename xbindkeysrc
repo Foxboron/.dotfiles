@@ -1,11 +1,14 @@
 "pulseaudio-ctl down"
-    m:0x0 + c:122
     XF86AudioLowerVolume
 
 "pulseaudio-ctl up"
-    m:0x0 + c:123
     XF86AudioRaiseVolume
 
 "pulseaudio-ctl mute"
-    m:0x0 + c:121
     XF86AudioMute
+
+"asus-kbd-backlight down"
+    XF86KbdBrightnessDown
+
+"asus-kbd-backlight up"
+    XF86KbdBrightnessUp

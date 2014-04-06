@@ -1,6 +1,10 @@
 ZSH=$HOME/.oh-my-zsh
 
-plugins=(git archlinux git-extras gitfast github lein mosh pip sublime tmux tmuxinator virtualenv virtualenvwrapper)
+plugins=(git archlinux git-extras gitfast 
+         github lein mosh pip sublime 
+         tmux virtualenv virtualenvwrapper
+         colorize command-not-found 
+         history-substring-search)
 
 source $ZSH/oh-my-zsh.sh
 source /usr/bin/virtualenvwrapper.sh
@@ -12,6 +16,7 @@ export PROJECT_HOME="/home/fox/Dropbox/Python/"
 export TERM="rxvt-unicode-256color"
 export RANGER_LOAD_DEFAULT_RC="FALSE"
 export GOPATH="/home/fox/.go/"
+export LEIN_JAVA_CMD="drip"
 
 #PRIMUS
 export PRIMUS_SYNC=0
@@ -38,23 +43,10 @@ alias tmux="tmux -2"
 alias music="ncmpcpp"
 alias viz='mpdviz -i --viz="wave" --imode="256" --icolor="true"'
 alias gvimw="vim -g --servername GVIM"
-alias yaoupg='yaourt -Syua'
-alias yaoss='yaourt -Ss'
-alias yaos='yaourt -S'
-alias pacupg='sudo pacman -Syu'        # Synchronize with repositories and then upgrade packages that are out of date on the local system.
-alias pacin='sudo pacman -S'           # Install specific package(s) from the repositories
-alias pacins='sudo pacman -U'          # Install specific package not from the repositories but from a file 
-alias pacre='sudo pacman -R'           # Remove the specified package(s), retaining its configuration(s) and required dependencies
-alias pacrem='sudo pacman -Rns'        # Remove the specified package(s), its configuration(s) and unneeded dependencies
-alias pacrep='pacman -Si'              # Display information about a given package in the repositories
-alias pacreps='pacman -Ss'             # Search for package(s) in the repositories
-alias pacloc='pacman -Qi'              # Display information about a given package in the local databas
-alias paclocs='pacman -Qs'             # Search for package(s) in the local database
-alias pacupd='sudo pacman -Sy && sudo abs'     # Update and refresh the local package and ABS databases against repositories
-alias pacinsd='sudo pacman -S --asdeps'        # Install given package(s) as dependencies of another package
-alias pacmir='sudo pacman -Syy'                # Force refresh of all package lists after updating /etc/pacman.d/mirrorlist
 alias screen-one='xrandr --output VGA1 --off'
 alias screen-two='xrandr --output VGA1 --primary --auto'
+alias vpn-connect='sudo systemctl start openvpn@SE-openvpn.service'
+
 
 gvim (){
     if [ $# -eq 0 ]
@@ -130,7 +122,7 @@ pubfile () {
 }
 
 
-dblast () {
+publast () {
 	cd /home/fox/Dropbox/Public/sslinux
 	file="$(ls -t | head -1)"
 	puburl $file
@@ -139,6 +131,11 @@ dblast () {
 scrotpub () {
 	scrot "$1.png" -e 'mv $f ~/Dropbox/Public/sslinux'
 	cbprint $1
+}
+
+scrotsel () {
+    scrot -s "$1.png" -e "mv $f ~/Dropbox/Public/sslinux"
+    cbprint $1
 }
 
 function extract()
