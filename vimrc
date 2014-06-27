@@ -33,11 +33,15 @@ set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
 set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
+
 set smartindent
 set tabstop=4
+set softtabstop=4
 set shiftwidth=4
 set expandtab
+set backspace=indent,eol,start
 
+set autoindent
 let g:airline_theme="solarized"
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
@@ -46,9 +50,15 @@ let g:pymode_folding = 0
 let g:solarized_termcolors=16
 let g:unite_source_rec_max_cache_files = 999999
 let g:jekyll_path = "~/blog"
+let g:instant_markdown_autostart = 0
+
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%81v.\+/
 
 
 map <Leader>jn  :JekyllPost<CR>
+
+map <Leader>mp :InstantMarkdownPreview<CR>
 
 map <Leader>gc :Gcommit<CR>
 map <Leader>gw :Gwrite <CR>
@@ -97,10 +107,10 @@ call unite#filters#sorter_default#use(['sorter_rank'])
 call unite#custom#source('file,file/new,buffer,file_rec',
                             \ 'matchers', 'matcher_fuzzy')
 "call unite#custom#source('grep', 'ignore_pattern', '\.*$')
-call unite#custom#source('file_rec', 'ignore_pattern', '\.*$')
+"call unite#custom#source('file_rec/async', 'ignore_pattern', '\.*')
 
 nnoremap <leader>b :<C-u>Unite -start-insert file<cr>
-nnoremap <leader>f :<C-u>Unite -start-insert file_rec/async<cr>
+nnoremap <leader>f :<C-u>Unite -start-insert file_rec/async:.<cr>
 nnoremap <leader>dc :<C-u>Unite -start-insert file_rec/async:~/Dropbox/Clojure<cr>
 nnoremap <leader>ug :<C-u>Unite -start-insert grep:.<cr>
 nnoremap <leader>s :<C-u>Unite -quick-match buffer<cr>
@@ -109,6 +119,7 @@ autocmd FileType unite call s:unite_settings()
 
 function! s:unite_settings()
   let b:SuperTabDisabled=1
+  imap <buffer> <C-s>   <Plug>(unite_redraw)
   imap <buffer> <C-j>   <Plug>(unite_select_next_line)
   imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
   imap <silent><buffer><expr> <C-x> unite#do_action('split')
