@@ -1,10 +1,12 @@
 ZSH=$HOME/.oh-my-zsh
 
-plugins=(git archlinux git-extras gitfast 
-         github lein mosh pip sublime 
+plugins=(git archlinux 
+         lein mosh 
          tmux virtualenv virtualenvwrapper
          colorize command-not-found 
          history-substring-search)
+
+export PATH=$PATH:/home/fox/.gem/ruby/2.1.0/bin:$HOME/bin
 
 source $ZSH/oh-my-zsh.sh
 source /usr/bin/virtualenvwrapper.sh
@@ -12,15 +14,18 @@ source /usr/bin/virtualenvwrapper.sh
 export LC_ALL=en_US.utf8
 export LANG=en_US.utf8
 export EDITOR="vim"
-export PROJECT_HOME="/home/fox/Dropbox/Python/"
 export TERM="rxvt-unicode-256color"
 export RANGER_LOAD_DEFAULT_RC="FALSE"
 export GOPATH="/home/fox/.go/"
-export LEIN_JAVA_CMD="drip"
-
 #PRIMUS
 export PRIMUS_SYNC=0
 export vblank_mode=0
+bindkey -v
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+bindkey -M vicmd '^E' end-of-line
+bindkey -M vicmd '^A' beginning-of-line
+
 
 #» 
 PROMPT='%{$fg_bold[red]%}λ %n@%m %{$fg[green]%}%c %{$fg_bold[red]%}» $(git_prompt_info)%{$reset_color%}'
@@ -37,6 +42,8 @@ export PYTHONPATH=/usr/lib/python3.3/site-packages
 ##ALIAS
 
 alias sshirc="mosh fox@146.185.137.105"
+alias sshzerda="mosh fox@192.168.1.55"
+alias sshvulpes="mosh fox@192.168.1.57"
 alias tmux="tmux -2"
 
 
@@ -46,6 +53,11 @@ alias gvimw="vim -g --servername GVIM"
 alias screen-one='xrandr --output VGA1 --off'
 alias screen-two='xrandr --output VGA1 --primary --auto'
 alias vpn-connect='sudo systemctl start openvpn@SE-openvpn.service'
+alias lock='dm-tool switch-to-greeter'
+alias locknosuspend="sed 's/HandleLidSwitch=suspend/HandleLidSwitch=ignore/g' /etc/systemd/logind.conf | sudo tee /etc/systemd/logind.conf && sudo systemctl restart systemd-logind" 
+alias locksuspend="sed 's/HandleLidSwitch=ignore/HandleLidSwitch=suspend/g' /etc/systemd/logind.conf | sudo tee /etc/systemd/logind.conf && sudo systemctl restart systemd-logind" 
+
+
 
 
 gvim (){
@@ -134,9 +146,31 @@ scrotpub () {
 }
 
 scrotsel () {
-    scrot -s "$1.png" -e "mv $f ~/Dropbox/Public/sslinux"
+    scrot -s "$1.png" -e "mv $1.png ~/Dropbox/Public/sslinux"
     cbprint $1
 }
+
+
+btscrot () {
+    scrot -s "$1.png" -e "mv $1.png ~/btsync/pub/pub"
+    cb "http://pub.velox.pw/pub/$1.png"
+}
+
+
+
+publish () {
+    if [ $# -eq 1 ]
+    then
+        cp -rR $1 ~/btsync/pub/pub
+        cb "http://pub.velox.pw/pub/$1"
+    else
+        cp -rR $1 ~/btsync/pub/pub/$2
+        cb "http://pub.velox.pw/pub/$2"
+   fi
+}
+
+
+
 
 function extract()
 {

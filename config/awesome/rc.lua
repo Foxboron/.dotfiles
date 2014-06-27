@@ -14,7 +14,6 @@ local wibox     = require("wibox")
 local beautiful = require("beautiful")
 local naughty   = require("naughty")
 local drop      = require("scratchdrop")
-package.loaded.lain = nil
 local lain      = require("lain")
 -- }}}
 
@@ -49,6 +48,7 @@ function run_once(cmd)
   awful.util.spawn_with_shell("pgrep -u $USER -x " .. findme .. " > /dev/null || (" .. cmd .. ")")
 end
 
+run_once("urxvtd")
 run_once("unclutter")
 -- }}}
 
@@ -67,7 +67,7 @@ editor     = os.getenv("EDITOR") or "nano" or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
 -- user defined
-browser    = "dwb"
+browser    = "firefox"
 browser2   = "iron"
 gui_editor = "gvim"
 graphics   = "gimp"
@@ -121,6 +121,28 @@ kbdcfg.switch = function ()
 	os.execute( kbdcfg.cmd .. " " .. t[1] .. " ")
 end
 
+
+-- Redshift widget
+icons_dir = require("lain.helpers").icons_dir
+local rs_on = icons_dir .. "/redshift/redshift_on.png"
+local rs_off = icons_dir .. "/redshift/redshift_off.png"
+
+
+redshiftwid = lain.widgets.contrib.redshift
+myredshift = wibox.widget.imagebox(rs_on)
+redshiftwid:attach(
+    myredshift,
+    function ()
+        if redshiftwid:is_active() then
+            myredshift:set_image(rs_on)
+        else
+            myredshift:set_image(rs_off)
+        end 
+    end 
+)
+
+
+
 -- Mouse bindings
 kbdcfg.widget:buttons(
 	awful.util.table.join(awful.button({ }, 1, function () kbdcfg.switch() end))
@@ -143,7 +165,7 @@ lain.widgets.calendar:attach(mytextclock, { font_size = 10 })
 
 -- Weather
 weathericon = wibox.widget.imagebox(beautiful.widget_weather)
-yawn = lain.widgets.yawn(858130, {
+yawn = lain.widgets.yawn(123456, {
     settings = function()
         widget:set_markup(markup("#eca4c4", forecast:lower() .. " @ " .. units .. "°C "))
     end
@@ -357,6 +379,7 @@ for s = 1, screen.count() do
     -- Widgets that are aligned to the upper right
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
+    right_layout:add(myredshift)
     --right_layout:add(mailicon)
     --right_layout:add(mailwidget)
     right_layout:add(kbdcfg.widget)
@@ -422,6 +445,7 @@ globalkeys = awful.util.table.join(
     -- Take a screenshot
     -- https://github.com/copycat-killer/dots/blob/master/bin/screenshot
     awful.key({ altkey }, "p", function() os.execute("screenshot") end),
+    awful.key({ modkey, "Shift"   }, "t",   function () redshiftwid:toggle()   end) ,
 
     -- Tag browsing
     awful.key({ modkey }, "Left",   awful.tag.viewprev       ),
@@ -495,6 +519,9 @@ globalkeys = awful.util.table.join(
         end),
     awful.key({ altkey, "Shift"   }, "l",      function () awful.tag.incmwfact( 0.05)     end),
     awful.key({ altkey, "Shift"   }, "h",      function () awful.tag.incmwfact(-0.05)     end),
+    awful.key({ altkey, "Shift"   }, "j",      function () awful.client.incwfact(0.05)     end),
+    awful.key({ altkey, "Shift"   }, "k",      function () awful.client.incwfact(-0.05)     end),
+ 
     awful.key({ modkey, "Shift"   }, "l",      function () awful.tag.incnmaster(-1)       end),
     awful.key({ modkey, "Shift"   }, "h",      function () awful.tag.incnmaster( 1)       end),
     awful.key({ modkey, "Control" }, "l",      function () awful.tag.incncol(-1)          end),
@@ -514,7 +541,7 @@ globalkeys = awful.util.table.join(
     -- Widgets popups
     awful.key({ altkey,           }, "c",      function () lain.widgets.calendar:show(7) end),
     awful.key({ altkey,           }, "h",      function () fswidget.show(7) end),
-    awful.key({ altkey,           }, "w",      function () yawn.show(7) end),
+    -- awful.key({ altkey,           }, "w",      function () yawn.show(7) end),
 
     -- ALSA volume control
     awful.key({ altkey }, "Up",
@@ -577,7 +604,15 @@ globalkeys = awful.util.table.join(
                   mypromptbox[mouse.screen].widget,
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
-              end)
+              end),
+              
+    --move and resize window
+    awful.key({ modkey, "Control" }, "Down",  function () awful.client.moveresize(  0,  20,   0,   0) end),
+    awful.key({ modkey, "Control" }, "Up",    function () awful.client.moveresize(  0, -20,   0,   0) end),
+    awful.key({ modkey, "Control" }, "Left",  function () awful.client.moveresize(-20,   0,   0,   0) end),
+    awful.key({ modkey, "Control" }, "Right", function () awful.client.moveresize( 20,   0,   0,   0) end),
+    awful.key({ modkey, "Control" }, "Next",  function () awful.client.moveresize( 20,  20, -40, -40) end),
+    awful.key({ modkey, "Control" }, "Prior", function () awful.client.moveresize(-20, -20,  40,  40) end)
 )
 
 clientkeys = awful.util.table.join(
@@ -665,7 +700,7 @@ awful.rules.rules = {
     { rule = { class = "Dwb" },
           properties = { tag = tags[1][1] } },
 
-    { rule = { class = "chromium" },
+    { rule = { class = "firefox" },
           properties = { tag = tags[1][1] } },
 
     { rule = { instance = "plugin-container" },
@@ -719,13 +754,16 @@ for s = 1, screen.count() do screen[s]:connect_signal("arrange", function ()
 
         if #clients > 0 then -- Fine grained borders and floaters control
             for _, c in pairs(clients) do -- Floaters always have borders
-                if awful.client.floating.get(c) or layout == "floating" then
+                -- No borders with only one humanly visible client
+                if layout == "max" then
+                    c.border_width = 0
+                elseif awful.client.floating.get(c) or layout == "floating" then
                     c.border_width = beautiful.border_width
-
-                -- No borders with only one visible client
-                elseif #clients == 1 or layout == "max" then
+                elseif #clients == 1 then 
                     clients[1].border_width = 0
-                    awful.client.moveresize(0, 0, 2, 2, clients[1])
+                    if layout ~= "max" then
+                        awful.client.moveresize(0, 0, 2, 0, clients[1])
+                    end
                 else
                     c.border_width = beautiful.border_width
                 end

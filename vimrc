@@ -1,9 +1,7 @@
 execute pathogen#infect()
-
 call neobundle#rc(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/vimproc.vim', {'build' : {'unix': 'make'}}
-NeoBundle 'tpope/vim-surround'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'emezeske/paredit.vim'
 NeoBundle 'Shougo/unite.vim'
@@ -47,6 +45,18 @@ let g:airline_detect_whitespace = 0
 let g:pymode_folding = 0 
 let g:solarized_termcolors=16
 let g:unite_source_rec_max_cache_files = 999999
+let g:jekyll_path = "~/blog"
+
+
+map <Leader>jn  :JekyllPost<CR>
+
+map <Leader>gc :Gcommit<CR>
+map <Leader>gw :Gwrite <CR>
+map <Leader>gp :Git push<CR>
+map <Leader>gs :Gstatus<CR>
+map <Leader>gq :Gwq<CR>
+
+
 
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -63,27 +73,36 @@ nnoremap tn  :tabnext<Space>
 nnoremap tm  :tabm<Space>
 nnoremap td  :tabclose<CR>
 
-
-
+" How do i even vim?
+noremap <C-Q> :wq<CR>
+inoremap <C-Q> <C-O>:wq<CR>
 noremap <C-S> :update<CR>
 vnoremap <C-S> <C-C>:update<CR>
 inoremap <C-S> <C-O>:update<CR>
 
-imap ii <Esc>
+inoremap <C-A> <Home>
+inoremap <C-E> <End>
+
 
 "Unite
 let g:unite_update_time = 1
 let g:unite_prompt='» '
+let g:unite_source_rec_async_command= 'ag --nocolor --nogroup --hidden -g ""'
+let g:unite_source_grep_command = 'ag'
+let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+let g:unite_source_grep_recursive_opt = ''
+
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
-"call unite#custom#source('file,file/new,buffer,file_rec',
-"                \ 'matchers', 'matcher_fuzzy')
+call unite#custom#source('file,file/new,buffer,file_rec',
+                            \ 'matchers', 'matcher_fuzzy')
 "call unite#custom#source('grep', 'ignore_pattern', '\.*$')
-"call unite#custom#source('file_rec', 'ignore_pattern', '\.*$')
+call unite#custom#source('file_rec', 'ignore_pattern', '\.*$')
+
 nnoremap <leader>b :<C-u>Unite -start-insert file<cr>
 nnoremap <leader>f :<C-u>Unite -start-insert file_rec/async<cr>
 nnoremap <leader>dc :<C-u>Unite -start-insert file_rec/async:~/Dropbox/Clojure<cr>
-nnoremap <leader>ug :<C-u>Unite grep:.<cr>
+nnoremap <leader>ug :<C-u>Unite -start-insert grep:.<cr>
 nnoremap <leader>s :<C-u>Unite -quick-match buffer<cr>
 
 autocmd FileType unite call s:unite_settings()

@@ -11,7 +11,9 @@ port               "6600"
 audio_output {
 	type		"alsa"
 	name		"Alsa"
+    device                  "default"
 	mixer_type	"software"
+    mixer_device "default"
 }
 
 
