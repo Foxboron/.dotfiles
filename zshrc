@@ -20,6 +20,9 @@ export GOPATH="/home/fox/.go/"
 #PRIMUS
 export PRIMUS_SYNC=0
 export vblank_mode=0
+
+
+#VIM Mode
 bindkey -v
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
@@ -27,10 +30,8 @@ bindkey -M vicmd '^E' end-of-line
 bindkey -M vicmd '^A' beginning-of-line
 
 
-#» 
 PROMPT='%{$fg_bold[red]%}λ %n@%m %{$fg[green]%}%c %{$fg_bold[red]%}» $(git_prompt_info)%{$reset_color%}'
 
-#PROMPT='%{$fg_bold[red]%}λ %n@%m %{$fg[green]%}%c %{$fg_bold[red]%}→ $(git_prompt_info)%{$reset_color%}'
 
 ZSH_THEME_GIT_PROMPT_PREFIX="λ %{$fg[blue]%}git %{$fg[red]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg_bold[red]%} → %{$reset_color%}"
@@ -118,38 +119,6 @@ cb() {
 # ------------------------------------------------
 # Copy contents of a file
 function cbf() { cat "$1" | cb; }  
-
-
-scrot-file () {
-	scrot "$1.png" -e 'mv $f ~/Dropbox/Public/sslinux'
-}
-
-
-puburl () {
-	dropbox puburl $1 | cb
-}
-
-pubfile () {
-	dropbox puburl ~/Dropbox/Public/sslinux/$1.png | cb
-}
-
-
-publast () {
-	cd /home/fox/Dropbox/Public/sslinux
-	file="$(ls -t | head -1)"
-	puburl $file
-}
-
-scrotpub () {
-	scrot "$1.png" -e 'mv $f ~/Dropbox/Public/sslinux'
-	cbprint $1
-}
-
-scrotsel () {
-    scrot -s "$1.png" -e "mv $1.png ~/Dropbox/Public/sslinux"
-    cbprint $1
-}
-
 
 btscrot () {
     scrot -s "$1.png" -e "mv $1.png ~/btsync/pub/pub"
