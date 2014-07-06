@@ -34,6 +34,13 @@ set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
 
+"Fix line breaks
+set wrap
+set linebreak
+set nolist
+set textwidth=0
+set wrapmargin=0
+
 set smartindent
 set tabstop=4
 set softtabstop=4
@@ -47,10 +54,15 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_detect_whitespace = 0
 let g:pymode_folding = 0 
+let g:pymode_doc = 0
+"let g:pymode_python='python3'
+let g:pymode_virtualenv = 1
 let g:solarized_termcolors=16
 let g:unite_source_rec_max_cache_files = 999999
 let g:jekyll_path = "~/blog"
 let g:instant_markdown_autostart = 0
+
+
 
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
@@ -60,12 +72,11 @@ map <Leader>jn  :JekyllPost<CR>
 
 map <Leader>mp :InstantMarkdownPreview<CR>
 
-map <Leader>gc :Gcommit<CR>
-map <Leader>gw :Gwrite <CR>
+map <Leader>gc :Gcommit -a<CR>
+"map <Leader>gw :Gwrite <CR>
 map <Leader>gp :Git push<CR>
 map <Leader>gs :Gstatus<CR>
 map <Leader>gq :Gwq<CR>
-
 
 
 nnoremap <C-h> <C-w>h
@@ -130,9 +141,8 @@ function! s:unite_settings()
 endfunction
 
 
-au BufWritePost ~/.vimrc :source ~/.vimrc
+au BufWritePost ~/.vimrc :source ~/.vimrc | AirlineRefresh
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
-

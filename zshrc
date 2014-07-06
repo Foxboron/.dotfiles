@@ -28,9 +28,20 @@ bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 bindkey -M vicmd '^E' end-of-line
 bindkey -M vicmd '^A' beginning-of-line
-
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
+bindkey '^w' backward-kill-word
 
 PROMPT='%{$fg_bold[red]%}λ %n@%m %{$fg[green]%}%c %{$fg_bold[red]%}» $(git_prompt_info)%{$reset_color%}'
+
+function zle-line-init zle-keymap-select {
+    VIM_PROMPT="%{$fg_bold[red]%} [% %{$fg_bold[green]%}NORMAL%{$fg_bold[red]%}]%  %{$reset_color%}"
+    RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}$EPS1"
+    zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
+export KEYTIMEOUT=1
 
 
 ZSH_THEME_GIT_PROMPT_PREFIX="λ %{$fg[blue]%}git %{$fg[red]%}"
@@ -42,11 +53,7 @@ export PYTHONPATH=/usr/lib/python3.3/site-packages
 
 ##ALIAS
 
-alias sshirc="mosh fox@146.185.137.105"
-alias sshzerda="mosh fox@192.168.1.55"
-alias sshvulpes="mosh fox@192.168.1.57"
 alias tmux="tmux -2"
-
 
 alias music="ncmpcpp"
 alias viz='mpdviz -i --viz="wave" --imode="256" --icolor="true"'
@@ -55,11 +62,7 @@ alias screen-one='xrandr --output VGA1 --off'
 alias screen-two='xrandr --output VGA1 --primary --auto'
 alias vpn-connect='sudo systemctl start openvpn@SE-openvpn.service'
 alias lock='dm-tool switch-to-greeter'
-alias locknosuspend="sed 's/HandleLidSwitch=suspend/HandleLidSwitch=ignore/g' /etc/systemd/logind.conf | sudo tee /etc/systemd/logind.conf && sudo systemctl restart systemd-logind" 
-alias locksuspend="sed 's/HandleLidSwitch=ignore/HandleLidSwitch=suspend/g' /etc/systemd/logind.conf | sudo tee /etc/systemd/logind.conf && sudo systemctl restart systemd-logind" 
-
-
-
+alias ssh="mosh"
 
 gvim (){
     if [ $# -eq 0 ]
