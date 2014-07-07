@@ -33,6 +33,13 @@ set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
 set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
+set guioptions-=e
+set guioptions-=L
+set guioptions-=l
+set guioptions-=R
+set guioptions-=b
+set guioptions-=h
+set guiheadroom=0
 
 "Fix line breaks
 set wrap
@@ -73,7 +80,7 @@ map <Leader>jn  :JekyllPost<CR>
 map <Leader>mp :InstantMarkdownPreview<CR>
 
 map <Leader>gc :Gcommit -a<CR>
-"map <Leader>gw :Gwrite <CR>
+map <Leader>gw :Gwrite <CR>
 map <Leader>gp :Git push<CR>
 map <Leader>gs :Gstatus<CR>
 map <Leader>gq :Gwq<CR>

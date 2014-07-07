@@ -690,7 +690,7 @@ awful.rules.rules = {
                      focus = awful.client.focus.filter,
                      keys = clientkeys,
                      buttons = clientbuttons,
-	                   size_hints_honor = false } },
+	                 size_hints_honor = false } },
     { rule = { class = "URxvt" },
           properties = { opacity = 0.99 } },
 
