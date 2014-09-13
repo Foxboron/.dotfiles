@@ -1,19 +1,47 @@
-execute pathogen#infect()
-call neobundle#rc(expand('~/.vim/bundle/'))
-NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundle 'Shougo/vimproc.vim', {'build' : {'unix': 'make'}}
-NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'emezeske/paredit.vim'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'bling/vim-airline'
-NeoBundle 'klen/python-mode'
-NeoBundle 'kien/rainbow_parentheses.vim'
-NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'tpope/vim-fireplace'
-NeoBundle 'tpope/vim-classpath'
-NeoBundle 'guns/vim-clojure-static'
+let IWantPlug=1
+let VimPlugDir=expand('~/.vim/autoload/plug.vim')
+if !filereadable(VimPlugDir)
+    echo "Installing vim-plug.."
+    echo ""
+    silent !mkdir -p ~/.vim/autoload
+    silent !mkdir -p ~/.vim/bundle
+    silent !curl -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    let IWantPlug=0
+endif
 
-NeoBundleCheck
+
+
+set rtp+=$HOME/.vim/autoload/plug.vim
+
+
+call plug#begin('~/.vim/bundle')
+
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'Shougo/unite.vim'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'emezeske/paredit.vim', {'for' : ['clojure', 'hy']}
+Plug 'bling/vim-airline'
+Plug 'klen/python-mode', {'for' : 'python'}
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'tpope/vim-fireplace', {'for' : 'clojure'}
+Plug 'tpope/vim-classpath', {'for' : 'clojure'}
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-markdown', {'for' : 'markdown'}
+Plug 'guns/vim-clojure-static', {'for' : 'clojure'}
+Plug 'hylang/vim-hy', {'for' : 'hy'}
+Plug 'wting/rust.vim', {'for' : 'rust'}
+
+
+call plug#end()
+
+if IWantPlug == 0
+  echo "Installing Bundles, please ignore key map error messages"
+  echo ""
+  :PlugUpdate
+endif
+
 
 colorscheme solarized
 syntax enable
