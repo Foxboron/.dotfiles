@@ -21,6 +21,8 @@ export GOPATH="/home/fox/.go/"
 export PRIMUS_SYNC=0
 export vblank_mode=0
 
+stty ixany 
+stty ixoff -ixon
 
 #VIM Mode
 bindkey -v

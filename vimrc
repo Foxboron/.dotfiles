@@ -23,7 +23,7 @@ let mapleader=","
 
 set mouse=a
 set number
-"set t_Co=256
+set t_Co=256
 set background=dark
 set so=50
 set noshowmode
@@ -64,11 +64,13 @@ let g:pymode_folding = 0
 let g:pymode_doc = 0
 "let g:pymode_python='python3'
 let g:pymode_virtualenv = 1
-let g:solarized_termcolors=16
+let g:solarized_termcolors=256
 let g:unite_source_rec_max_cache_files = 999999
 let g:jekyll_path = "~/blog"
 let g:instant_markdown_autostart = 0
 
+
+let base16colorspace=256 
 
 
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
@@ -128,8 +130,7 @@ call unite#custom#source('file,file/new,buffer,file_rec',
 "call unite#custom#source('file_rec/async', 'ignore_pattern', '\.*')
 
 nnoremap <leader>b :<C-u>Unite -start-insert file<cr>
-nnoremap <leader>f :<C-u>Unite -start-insert file_rec/async:.<cr>
-nnoremap <leader>dc :<C-u>Unite -start-insert file_rec/async:~/Dropbox/Clojure<cr>
+nnoremap <leader>f :<C-u>Unite -start-insert file_rec/async<cr>
 nnoremap <leader>ug :<C-u>Unite -start-insert grep:.<cr>
 nnoremap <leader>s :<C-u>Unite -quick-match buffer<cr>
 
@@ -153,3 +154,8 @@ au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
+
+" Markdown
+au FileType markdown set tabstop=2
+au FileType markdown set softtabstop=2
+au FileType markdown set shiftwidth=2
