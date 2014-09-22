@@ -68,10 +68,9 @@ editor_cmd = terminal .. " -e " .. editor
 
 -- user defined
 browser    = "firefox"
-browser2   = "iron"
+rss        = "liferea"
 gui_editor = "gvim"
-graphics   = "gimp"
-mail       = terminal .. " -e mutt "
+mail       = "geary"
 
 local layouts = {
     awful.layout.suit.floating,
@@ -89,8 +88,8 @@ local layouts = {
 
 -- {{{ Tags
 tags = {
-   names = { "web", "term", "dev", "media", "files", "other" },
-   layout = { layouts[1], layouts[9], layouts[2], layouts[1], layouts[7], layouts[1] }
+   names = { "web", "term", "dev", "mail", "rss", "media", "files", "other" },
+   layout = { layouts[1], layouts[9], layouts[2], layouts[9], layouts[8], layouts[8], layouts[8], layouts[8] }
 }
 for s = 1, screen.count() do
 -- Each screen has its own tag table.
@@ -592,9 +591,9 @@ globalkeys = awful.util.table.join(
 
     -- User programs
     awful.key({ modkey }, "q", function () awful.util.spawn(browser) end),
-    awful.key({ modkey }, "i", function () awful.util.spawn(browser2) end),
-    awful.key({ modkey }, "s", function () awful.util.spawn(gui_editor) end),
-    awful.key({ modkey }, "g", function () awful.util.spawn(graphics) end),
+    awful.key({ modkey }, "i", function () awful.util.spawn(mail) end),
+    awful.key({ modkey }, "g", function () awful.util.spawn(gui_editor) end),
+    awful.key({ modkey }, "s", function () awful.util.spawn(rss) end),
 
     -- Prompt
     awful.key({ modkey }, "r", function () mypromptbox[mouse.screen]:run() end),
@@ -697,21 +696,25 @@ awful.rules.rules = {
     { rule = { class = "MPlayer" },
           properties = { floating = true } },
 
-    { rule = { class = "Dwb" },
-          properties = { tag = tags[1][1] } },
+    { rule = { class = "Firefox" },
+          properties = { tag = tags[1][1],
+                         switchtotag = true } },
 
-    { rule = { class = "firefox" },
-          properties = { tag = tags[1][1] } },
+    { rule = { class = "Gvim" },
+          properties = { tag = tags[1][3],
+                         switchtotag = true } },
+
+    { rule = { class = "Geary" },
+          properties = { tag = tags[1][4],
+                         switchtotag = true } },
+
+    { rule = { class = "Liferea" },
+          properties = { tag = tags[1][5],
+                         switchtotag = true } },
 
     { rule = { instance = "plugin-container" },
           properties = { tag = tags[1][1] } },
 
-	  { rule = { class = "Gimp" },
-     	    properties = { tag = tags[1][4] } },
-
-    { rule = { class = "Gimp", role = "gimp-image-window" },
-          properties = { maximized_horizontal = true,
-                         maximized_vertical = true } },
 }
 -- }}}
 

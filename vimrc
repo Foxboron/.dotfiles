@@ -10,7 +10,6 @@ if !filereadable(VimPlugDir)
 endif
 
 
-
 set rtp+=$HOME/.vim/autoload/plug.vim
 
 
@@ -33,7 +32,6 @@ Plug 'guns/vim-clojure-static', {'for' : 'clojure'}
 Plug 'hylang/vim-hy', {'for' : 'hy'}
 Plug 'wting/rust.vim', {'for' : 'rust'}
 
-
 call plug#end()
 
 if IWantPlug == 0
@@ -43,7 +41,7 @@ if IWantPlug == 0
 endif
 
 
-colorscheme solarized
+colorscheme solarized 
 syntax enable
 filetype plugin indent on
 
@@ -55,6 +53,8 @@ set t_Co=256
 set background=dark
 set so=50
 set noshowmode
+set wildmenu
+set lazyredraw
 set laststatus=2
 set clipboard=unnamed
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
@@ -90,15 +90,11 @@ let g:airline_powerline_fonts = 1
 let g:airline_detect_whitespace = 0
 let g:pymode_folding = 0 
 let g:pymode_doc = 0
-"let g:pymode_python='python3'
 let g:pymode_virtualenv = 1
 let g:solarized_termcolors=256
 let g:unite_source_rec_max_cache_files = 999999
 let g:jekyll_path = "~/blog"
 let g:instant_markdown_autostart = 0
-
-
-let base16colorspace=256 
 
 
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
@@ -115,11 +111,14 @@ map <Leader>gp :Git push<CR>
 map <Leader>gs :Gstatus<CR>
 map <Leader>gq :Gwq<CR>
 
-
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+inoremap <C-A> <Home>
+inoremap <C-E> <End>
+nnoremap <C-A> <Home>
+nnoremap <C-E> <End>
 
 
 nnoremap th  :tabfirst<CR>
@@ -138,8 +137,6 @@ noremap <C-S> :update<CR>
 vnoremap <C-S> <C-C>:update<CR>
 inoremap <C-S> <C-O>:update<CR>
 
-inoremap <C-A> <Home>
-inoremap <C-E> <End>
 
 
 "Unite
@@ -154,8 +151,6 @@ call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
 call unite#custom#source('file,file/new,buffer,file_rec',
                             \ 'matchers', 'matcher_fuzzy')
-"call unite#custom#source('grep', 'ignore_pattern', '\.*$')
-"call unite#custom#source('file_rec/async', 'ignore_pattern', '\.*')
 
 nnoremap <leader>b :<C-u>Unite -start-insert file<cr>
 nnoremap <leader>f :<C-u>Unite -start-insert file_rec/async<cr>
