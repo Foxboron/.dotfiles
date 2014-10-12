@@ -1,10 +1,10 @@
 ZSH=$HOME/.oh-my-zsh
 
-plugins=(git archlinux 
-         lein mosh 
+plugins=(gitfastgit-extra
+         archlinux 
+         lein mosh systemd
          tmux virtualenv virtualenvwrapper
-         colorize command-not-found 
-         history-substring-search)
+         colorize command-not-found)
 
 export PATH=$PATH:/home/fox/.gem/ruby/2.1.0/bin:$HOME/bin
 
@@ -28,6 +28,7 @@ stty ixoff -ixon
 bindkey -v
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
+
 bindkey -M vicmd '^E' end-of-line
 bindkey -M vicmd '^A' beginning-of-line
 bindkey '^?' backward-delete-char
@@ -65,6 +66,7 @@ alias screen-two='xrandr --output VGA1 --primary --auto'
 alias vpn-connect='sudo systemctl start openvpn@SE-openvpn.service'
 alias lock='dm-tool switch-to-greeter'
 alias ssh="mosh"
+alias catp="pygmentize -g"
 
 gvim (){
     if [ $# -eq 0 ]
@@ -143,51 +145,4 @@ publish () {
    fi
 }
 
-
-
-
-function extract()
-{
-     if [ -f $1 ] ; then
-         case $1 in
-            *.tar.bz2)   
-                tar xvjf $1     
-                ;;
-            *.tar.gz)    
-                tar xvzf $1     
-                ;;
-            *.bz2)       
-                bunzip2 $1      
-                ;;
-            *.rar)
-                unrar x $1      
-                ;;
-            *.gz)
-                gunzip $1       
-                ;;
-            *.tar)
-                tar xvf $1      
-                ;;
-            *.tbz2)
-                tar xvjf $1     
-                ;;
-            *.tgz)
-                tar xvzf $1     
-                ;;
-            *.zip)
-                unzip $1        
-                ;;
-            *.Z)
-                uncompress $1   
-                ;;
-            *.7z)
-                7z x $1         
-                ;;
-            *)  
-                echo "'$1' cannot be extracted via extract" 
-                ;;
-        esac
-    else
-        echo "'$1' is not a valid file"
-    fi
-}
+source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh

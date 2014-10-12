@@ -17,6 +17,7 @@ call plug#begin('~/.vim/bundle')
 
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'Shougo/unite.vim'
+Plug 'junegunn/vim-plug'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'emezeske/paredit.vim', {'for' : ['clojure', 'hy']}
@@ -31,7 +32,12 @@ Plug 'tpope/vim-markdown', {'for' : 'markdown'}
 Plug 'guns/vim-clojure-static', {'for' : 'clojure'}
 Plug 'hylang/vim-hy', {'for' : 'hy'}
 Plug 'wting/rust.vim', {'for' : 'rust'}
-
+Plug 'ervandew/supertab'
+Plug 'tpope/vim-surround'
+Plug 'whatyouhide/vim-gotham'
+Plug 'KevinGoodsell/vim-csexact'
+Plug 'godlygeek/csapprox'
+""
 call plug#end()
 
 if IWantPlug == 0
@@ -40,8 +46,17 @@ if IWantPlug == 0
   :PlugUpdate
 endif
 
+set t_Co=256
 
-colorscheme solarized 
+colorscheme gotham 
+let g:jellybeans_use_lowcolor_black = 0
+let g:jellybeans_overrides = {
+\    'Todo': { 'guifg': '303030', 'guibg': 'f0f000',
+\              'ctermfg': 'Black', 'ctermbg': 'Yellow',
+\              'attr': 'bold' },
+\}
+
+
 syntax enable
 filetype plugin indent on
 
@@ -49,8 +64,6 @@ let mapleader=","
 
 set mouse=a
 set number
-set t_Co=256
-set background=dark
 set so=50
 set noshowmode
 set wildmenu
@@ -69,6 +82,11 @@ set guioptions-=b
 set guioptions-=h
 set guiheadroom=0
 
+" No more annoying files!
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swap//
+set undodir=~/.vim/undo//
+
 "Fix line breaks
 set wrap
 set linebreak
@@ -82,18 +100,19 @@ set softtabstop=4
 set shiftwidth=4
 set expandtab
 set backspace=indent,eol,start
-
 set autoindent
-let g:airline_theme="solarized"
+set ignorecase
+set smartcase
+set autochdir
+
+let g:airline_theme="gotham256"
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_detect_whitespace = 0
 let g:pymode_folding = 0 
 let g:pymode_doc = 0
 let g:pymode_virtualenv = 1
-let g:solarized_termcolors=256
 let g:unite_source_rec_max_cache_files = 999999
-let g:jekyll_path = "~/blog"
 let g:instant_markdown_autostart = 0
 
 
@@ -120,6 +139,20 @@ inoremap <C-E> <End>
 nnoremap <C-A> <Home>
 nnoremap <C-E> <End>
 
+"Easymotion keybinds
+map ø <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+map  n <Plug>(easymotion-next)
+map  N <Plug>(easymotion-prev)
+map <Space>l <Plug>(easymotion-lineforward)
+map <Space>j <Plug>(easymotion-j)
+map <Space>k <Plug>(easymotion-k)
+map <Space>h <Plug>(easymotion-linebackward)
+nmap s <Plug>(easymotion-s2)
+let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
+let g:EasyMotion_smartcase = 1
+
+
 
 nnoremap th  :tabfirst<CR>
 nnoremap tj  :tabnext<CR>
@@ -137,6 +170,7 @@ noremap <C-S> :update<CR>
 vnoremap <C-S> <C-C>:update<CR>
 inoremap <C-S> <C-O>:update<CR>
 
+nnoremap <leader>e :edit<Space>
 
 
 "Unite
@@ -172,11 +206,14 @@ function! s:unite_settings()
 endfunction
 
 
-au BufWritePost ~/.vimrc :source ~/.vimrc | AirlineRefresh
+au BufWritePost ~/.vimrc :source ~/.vimrc | CSExactColors 
+
+
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
+
 
 " Markdown
 au FileType markdown set tabstop=2
