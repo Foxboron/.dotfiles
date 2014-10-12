@@ -6,7 +6,7 @@ xft.dpi		      : 98
 urxvt*font            : xft:DejaVu\ Sans\ Mono\ for\ Powerline:size=10:antialias=true:hinting=true,xft:Inconsolata\ for\ Powerline:pixelsize=12
 URxvt.title           : urxvt
 URxvt.scrollBar       : False
-URxvt*termName	      : rxvt-unicode-256color
+URxvt*termName	      : screen-256color
 urxvt.saveLines: 1000000
 
 URxvt.urgentOnBell:  true

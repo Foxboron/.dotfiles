@@ -11,10 +11,22 @@ export PATH=$PATH:/home/fox/.gem/ruby/2.1.0/bin:$HOME/bin
 source $ZSH/oh-my-zsh.sh
 source /usr/bin/virtualenvwrapper.sh
 
+# Set TERM based on hostname
+
+
+
+case "$HOST" in
+    hackbook) 
+        export TERM="rxvt-unicode-256color";;
+    debian)
+        export TERM="screen-256color";;
+    *)
+        export TERM="rxvt-unicode-256color";;
+esac
+
 export LC_ALL=en_US.utf8
 export LANG=en_US.utf8
 export EDITOR="vim"
-export TERM="rxvt-unicode-256color"
 export RANGER_LOAD_DEFAULT_RC="FALSE"
 export GOPATH="/home/fox/.go/"
 #PRIMUS

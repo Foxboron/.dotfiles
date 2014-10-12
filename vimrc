@@ -15,29 +15,30 @@ set rtp+=$HOME/.vim/autoload/plug.vim
 
 call plug#begin('~/.vim/bundle')
 
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'Shougo/unite.vim'
-Plug 'junegunn/vim-plug'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'Lokaltog/vim-easymotion'
-Plug 'emezeske/paredit.vim', {'for' : ['clojure', 'hy']}
-Plug 'bling/vim-airline'
-Plug 'klen/python-mode', {'for' : 'python'}
-Plug 'kien/rainbow_parentheses.vim'
 Plug 'altercation/vim-colors-solarized'
-Plug 'tpope/vim-fireplace', {'for' : 'clojure'}
-Plug 'tpope/vim-classpath', {'for' : 'clojure'}
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-markdown', {'for' : 'markdown'}
+Plug 'bling/vim-airline'
+Plug 'ervandew/supertab'
+Plug 'emezeske/paredit.vim', {'for' : ['clojure', 'hy']}
+Plug 'godlygeek/csapprox'
+Plug 'goldfeld/vim-seek'
 Plug 'guns/vim-clojure-static', {'for' : 'clojure'}
 Plug 'hylang/vim-hy', {'for' : 'hy'}
-Plug 'wting/rust.vim', {'for' : 'rust'}
-Plug 'ervandew/supertab'
+Plug 'junegunn/vim-plug'
+Plug 'KevinGoodsell/vim-csexact'
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'klen/python-mode', {'for' : 'python'}
+Plug 'Lokaltog/vim-easymotion'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-classpath', {'for' : 'clojure'}
+Plug 'tpope/vim-fireplace', {'for' : 'clojure'}
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-markdown', {'for' : 'markdown'}
 Plug 'tpope/vim-surround'
 Plug 'whatyouhide/vim-gotham'
-Plug 'KevinGoodsell/vim-csexact'
-Plug 'godlygeek/csapprox'
-""
+Plug 'wting/rust.vim', {'for' : 'rust'}
+
 call plug#end()
 
 if IWantPlug == 0
@@ -46,22 +47,15 @@ if IWantPlug == 0
   :PlugUpdate
 endif
 
+
 set t_Co=256
-
 colorscheme gotham 
-let g:jellybeans_use_lowcolor_black = 0
-let g:jellybeans_overrides = {
-\    'Todo': { 'guifg': '303030', 'guibg': 'f0f000',
-\              'ctermfg': 'Black', 'ctermbg': 'Yellow',
-\              'attr': 'bold' },
-\}
-
+set bg=dark
 
 syntax enable
 filetype plugin indent on
 
 let mapleader=","
-
 set mouse=a
 set number
 set so=50
@@ -81,6 +75,7 @@ set guioptions-=R
 set guioptions-=b
 set guioptions-=h
 set guiheadroom=0
+set ttimeoutlen=50
 
 " No more annoying files!
 set backupdir=~/.vim/backup//
@@ -112,24 +107,23 @@ let g:airline_detect_whitespace = 0
 let g:pymode_folding = 0 
 let g:pymode_doc = 0
 let g:pymode_virtualenv = 1
-let g:unite_source_rec_max_cache_files = 999999
 let g:instant_markdown_autostart = 0
 
 
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%81v.\+/
-
 
 map <Leader>jn  :JekyllPost<CR>
-
 map <Leader>mp :InstantMarkdownPreview<CR>
 
+
+" Git
 map <Leader>gc :Gcommit -a<CR>
 map <Leader>gw :Gwrite <CR>
 map <Leader>gp :Git push<CR>
 map <Leader>gs :Gstatus<CR>
 map <Leader>gq :Gwq<CR>
 
+
+" Emacs anyone?
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
@@ -153,7 +147,7 @@ let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 let g:EasyMotion_smartcase = 1
 
 
-
+" Tab movements
 nnoremap th  :tabfirst<CR>
 nnoremap tj  :tabnext<CR>
 nnoremap tk  :tabprev<CR>
@@ -169,12 +163,13 @@ inoremap <C-Q> <C-O>:wq<CR>
 noremap <C-S> :update<CR>
 vnoremap <C-S> <C-C>:update<CR>
 inoremap <C-S> <C-O>:update<CR>
-
 nnoremap <leader>e :edit<Space>
+inoremap <C-J><C-J> <ESC>
 
 
 "Unite
 let g:unite_update_time = 1
+let g:unite_source_rec_max_cache_files = 999999
 let g:unite_prompt='» '
 let g:unite_source_rec_async_command= 'ag --nocolor --nogroup --hidden -g ""'
 let g:unite_source_grep_command = 'ag'
@@ -206,9 +201,11 @@ function! s:unite_settings()
 endfunction
 
 
+
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%81v.\+/
+
 au BufWritePost ~/.vimrc :source ~/.vimrc | CSExactColors 
-
-
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
