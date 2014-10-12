@@ -6,7 +6,25 @@ root_dir=~
 
 dir=$root_dir/.dotfiles                    # dotfiles directory
 olddir=$root_dir/.dotfiles_old             # old dotfiles backup directory
-files=`find . -type f -not \( -wholename "*./.git*" -or -wholename "./init.sh" -or -wholename "./README.md" -prune \)`    # list of files/folders to symlink in homedir
+
+
+echo -n "Creating $olddir for backup of any existing dotfiles in $root_dir ..."
+mkdir -p $olddir
+echo "done"
+
+echo -n "Changing to the $dir directory ..."
+cd $dir
+echo "done"
+echo ""
+
+# Sometimes we just want the bare bones
+# Expand to more options later on
+case "$1" in
+    bare) 
+        files=`find . -type f \( -wholename "./vimrc" -or -wholename "./zshrc" -prune \)` ;;
+    *) 
+        files=`find . -type f -not \( -wholename "*./.git*" -or -wholename "./init.sh" -or -wholename "./README.md" -prune \)` ;;
+esac
 
 
 
@@ -26,17 +44,9 @@ function elementExists() {
 }
 
 
-echo -n "Creating $olddir for backup of any existing dotfiles in $root_dir ..."
-mkdir -p $olddir
-echo "done"
-
-echo -n "Changing to the $dir directory ..."
-cd $dir
-echo "done"
-
+echo "Moving any existing dotfiles from $root_dir to $olddir"
 
 for file in $files; do
-    echo "Moving any existing dotfiles from $root_dir to $olddir"
     rel_path=`dirname $file`
     file_name=`basename $file`
     in_array=`elementExists $no_dot $rel_path`
@@ -47,7 +57,7 @@ for file in $files; do
     if [ $rel_path == "." ]; then
         new_home_dir=$root_dir/$rel_path
 
-        mv $root_dir/.$file_name $root_dir/.dotfiles_old
+        mv $root_dir/.$file_name $root_dir/.dotfiles_old 2>/dev/null
         ln -s `pwd`/$file_name $new_home_dir/.$file_name
         echo ""
     
@@ -56,7 +66,7 @@ for file in $files; do
         new_home_dir=$root_dir/$rel_path
         mkdir -p $new_home_dir
 
-        mv $new_home_dir/$file_name $root_dir/.dotfiles_old/$dotted_dir
+        mv $new_home_dir/$file_name $root_dir/.dotfiles_old/$dotted_dir 2>/dev/null
 
         ln -s `pwd`/$file $new_home_dir/$file_name
     
@@ -67,9 +77,10 @@ for file in $files; do
 
         mkdir -p $new_home_dir
 
-        mv $new_home_dir/$file_name $root_dir/.dotfiles_old/$dotted_dir
+        mv $new_home_dir/$file_name $root_dir/.dotfiles_old/$dotted_dir 2>/dev/null
 
         ln -s `pwd`/$file $new_home_dir/$file_name
     fi
 
 done
+

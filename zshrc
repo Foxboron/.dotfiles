@@ -2,6 +2,7 @@ ZSH=$HOME/.oh-my-zsh
 
 plugins=(gitfastgit-extra
          archlinux 
+         history-substring-search
          lein mosh systemd
          tmux virtualenv virtualenvwrapper
          colorize command-not-found)
@@ -157,4 +158,3 @@ publish () {
    fi
 }
 
-source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
