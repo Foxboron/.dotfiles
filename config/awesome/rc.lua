@@ -70,7 +70,7 @@ editor_cmd = terminal .. " -e " .. editor
 browser    = "firefox"
 rss        = "liferea"
 gui_editor = "gvim"
-mail       = "geary"
+mail       = "thunderbird"
 
 local layouts = {
     awful.layout.suit.floating,
@@ -108,7 +108,7 @@ end
 --{{{ Keymaps
 -- Keyboard map indicator and changer
 kbdcfg = {}
-kbdcfg.cmd = "setxkbmap -option 'ctrl:nocaps'"
+kbdcfg.cmd = "setxkbmap -option 'caps:ctrl_modifier'"
 kbdcfg.layout = { { "no", "" }, { "us", "" } }
 kbdcfg.current = 1 -- us is our default layout
 kbdcfg.widget = wibox.widget.textbox()
@@ -704,7 +704,7 @@ awful.rules.rules = {
           properties = { tag = tags[1][3],
                          switchtotag = true } },
 
-    { rule = { class = "Geary" },
+    { rule = { class = "Thunderbird" },
           properties = { tag = tags[1][4],
                          switchtotag = true } },
 

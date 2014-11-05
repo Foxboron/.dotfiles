@@ -7,7 +7,7 @@ plugins=(gitfastgit-extra
          tmux virtualenv virtualenvwrapper
          colorize command-not-found)
 
-export PATH=$PATH:/home/fox/.gem/ruby/2.1.0/bin:$HOME/bin
+export PATH=$PATH:$HOME/bin
 
 source $ZSH/oh-my-zsh.sh
 source /usr/bin/virtualenvwrapper.sh
@@ -28,11 +28,11 @@ esac
 export LC_ALL=en_US.utf8
 export LANG=en_US.utf8
 export EDITOR="vim"
-export RANGER_LOAD_DEFAULT_RC="FALSE"
-export GOPATH="/home/fox/.go/"
 #PRIMUS
 export PRIMUS_SYNC=0
 export vblank_mode=0
+export TERMINAL=urxvt
+export LEIN_JAVA_CMD=drip
 
 stty ixany 
 stty ixoff -ixon
@@ -63,7 +63,7 @@ export KEYTIMEOUT=1
 ZSH_THEME_GIT_PROMPT_PREFIX="λ %{$fg[blue]%}git %{$fg[red]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg_bold[red]%} → %{$reset_color%}"
 
-export PYTHONPATH=/usr/lib/python3.3/site-packages
+#export PYTHONPATH=/usr/lib/python3.3/site-packages
 
 
 
@@ -78,7 +78,6 @@ alias screen-one='xrandr --output VGA1 --off'
 alias screen-two='xrandr --output VGA1 --primary --auto'
 alias vpn-connect='sudo systemctl start openvpn@SE-openvpn.service'
 alias lock='dm-tool switch-to-greeter'
-alias ssh="mosh"
 alias catp="pygmentize -g"
 
 gvim (){
@@ -158,3 +157,22 @@ publish () {
    fi
 }
 
+
+pretty_git_log() {
+    git log --graph --pretty="tformat:${FORMAT}" $* |
+        # Replace (2 years ago) with (2 years)
+        sed -Ee 's/(^[^<]*) ago\)/\1)/' |
+        # Replace (2 years, 5 months) with (2 years)
+        sed -Ee 's/(^[^<]*), [[:digit:]]+ .*months?\)/\1)/' |
+        # Line columns up based on } delimiter
+        column -s '}' -t |
+        # Color merge commits specially
+        sed -Ee "s/(Merge (branch|remote-tracking branch|pull request) .*$)/$(printf $ANSI_RED)\1$(printf $ANSI_RESET)/" |
+        # Page only if we're asked to.
+        if [ -n "$GIT_NO_PAGER" ]; then
+            cat
+        else
+            # Page only if needed.
+            less --quit-if-one-screen --no-init --RAW-CONTROL-CHARS --chop-long-lines
+        fi
+}

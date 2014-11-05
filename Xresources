@@ -11,15 +11,19 @@ urxvt.saveLines: 1000000
 
 URxvt.urgentOnBell:  true
 
-URxvt.perl-ext-common:  default,matcher,clipboard,url-select
+URxvt.perl-ext-common:  default,matcher,selection-to-clipboard,url-select,keyboard-select,clipboard
 URxvt.url-launcher:      /usr/bin/firefox
 URxvt.matcher.button:   1
+
+URxvt.keysym.C-v: perl:keyboard-select:activate
+URxvt.keysym.M-s: perl:keyboard-select:search
+
 
 
 URxvt.keysym.C-S-C:   perl:clipboard:copy
 URxvt.keysym.C-S-V:   perl:clipboard:paste
-URxvt.clipboard.copycmd:  xclip -i -selection clipboard
-URxvt.clipboard.pastecmd: xclip -o -selection clipboard
+
+URxvt.clipboard.autocopy: true
 
 URxvt.keysym.C-u: perl:url-select:select_next
 
