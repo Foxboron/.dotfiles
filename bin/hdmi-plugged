@@ -1,5 +1,0 @@
-#!/bin/bash
-
-export XAUTHORITY=/home/fox/.Xauthority
-export DISPLAY=:0.0
-/usr/bin/xrandr -display :0 --output eDP1 --auto --output HDMI1 --auto --above eDP1
