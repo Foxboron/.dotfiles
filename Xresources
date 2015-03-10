@@ -2,8 +2,8 @@
 !URxvt* iso14755	      : False
 xvt.buffered          : true
 xft.dpi		      : 98
-!URxvt*font            : xft:DejaVu Sans Mono for Powerline:size=10:antialias=true:hinting=true
-urxvt*font            : xft:DejaVu\ Sans\ Mono\ for\ Powerline:size=10:antialias=true:hinting=true,xft:Inconsolata\ for\ Powerline:pixelsize=12
+!URxvt*font            : xft:Inconsolata\ for\ Powerline:size=10:antialias=true:hinting=true
+urxvt*font            : xft:DejaVu\ Sans\ Mono\ for\ Powerline:size=10:antialias=true:hinting=true,xft:Inconsolata\ for\ Powerline:pixelsize=20:xft:Unifont:pixelsize=12:antialias=true
 URxvt.title           : urxvt
 URxvt.scrollBar       : False
 URxvt*termName	      : screen-256color
@@ -11,17 +11,18 @@ urxvt.saveLines: 1000000
 
 URxvt.urgentOnBell:  true
 
-URxvt.perl-ext-common:  default,matcher,selection-to-clipboard,url-select,keyboard-select,clipboard
+URxvt.perl-ext-common:  default,matcher,url-select,keyboard-select,clipboard
 URxvt.url-launcher:      /usr/bin/firefox
 URxvt.matcher.button:   1
+URxvt.keysym.C-S-u: perl:keyboard-select:activate
 
 URxvt.keysym.C-v: perl:keyboard-select:activate
 URxvt.keysym.M-s: perl:keyboard-select:search
 
 
 
-URxvt.keysym.C-S-C:   perl:clipboard:copy
-URxvt.keysym.C-S-V:   perl:clipboard:paste
+!URxvt.keysym.C-S-C:   perl:clipboard:copy
+!URxvt.keysym.C-S-V:   perl:clipboard:paste
 
 URxvt.clipboard.autocopy: true
 
@@ -82,6 +83,5 @@ URxvt*color14: #80d9d8
 !URxvt*color7: #CCCCC6
 URxvt*color7: #F8F8F2
 URxvt*color15: #F8F8F2
-
 
 

@@ -7,32 +7,9 @@ plugins=(gitfastgit-extra
          tmux virtualenv virtualenvwrapper
          colorize command-not-found)
 
-export PATH=$PATH:$HOME/bin
 
 source $ZSH/oh-my-zsh.sh
 source /usr/bin/virtualenvwrapper.sh
-
-# Set TERM based on hostname
-
-
-
-case "$HOST" in
-    hackbook) 
-        export TERM="rxvt-unicode-256color";;
-    debian)
-        export TERM="screen-256color";;
-    *)
-        export TERM="rxvt-unicode-256color";;
-esac
-
-export LC_ALL=en_US.utf8
-export LANG=en_US.utf8
-export EDITOR="vim"
-#PRIMUS
-export PRIMUS_SYNC=0
-export vblank_mode=0
-export TERMINAL=urxvt
-export LEIN_JAVA_CMD=drip
 
 stty ixany 
 stty ixoff -ixon
@@ -41,9 +18,13 @@ stty ixoff -ixon
 bindkey -v
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
+bindkey '^K' history-substring-search-up
+bindkey '^J' history-substring-search-down
 
 bindkey -M vicmd '^E' end-of-line
 bindkey -M vicmd '^A' beginning-of-line
+bindkey '^E' end-of-line
+bindkey '^A' beginning-of-line
 bindkey '^?' backward-delete-char
 bindkey '^h' backward-delete-char
 bindkey '^w' backward-kill-word
@@ -70,24 +51,14 @@ ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg_bold[red]%} → %{$reset_color%}"
 ##ALIAS
 
 alias tmux="tmux -2"
-
-alias music="ncmpcpp"
-alias viz='mpdviz -i --viz="wave" --imode="256" --icolor="true"'
-alias gvimw="vim -g --servername GVIM"
-alias screen-one='xrandr --output VGA1 --off'
-alias screen-two='xrandr --output VGA1 --primary --auto'
-alias vpn-connect='sudo systemctl start openvpn@SE-openvpn.service'
 alias lock='dm-tool switch-to-greeter'
 alias catp="pygmentize -g"
+alias vimrc="vim ~/.vimrc"
+alias zshrc="vim ~/.zshrc"
+alias psg="ps aux | grep "
+alias G="| grep "
+alias L="| less "
 
-gvim (){
-    if [ $# -eq 0 ]
-    then
-        gvimw
-    else
-        gvimw --remote-tab $1
-    fi
-}
 
 function git-fixup {
   if [ $# -eq 1 ]
@@ -104,46 +75,9 @@ function git-fixup {
 }
 
 
-cb() {
-  local _scs_col="\e[0;32m"; local _wrn_col='\e[1;31m'; local _trn_col='\e[0;33m'
-  # Check that xclip is installed.
-  if ! type xclip > /dev/null 2>&1; then
-    echo -e "$_wrn_col""You must have the 'xclip' program installed.\e[0m"
-  # Check user is not root (root doesn't have access to user xorg server)
-  elif [[ "$USER" == "root" ]]; then
-    echo -e "$_wrn_col""Must be regular user (not root) to copy a file to the clipboard.\e[0m"
-  else
-    # If no tty, data should be available on stdin
-    if ! [[ "$( tty )" == /dev/* ]]; then
-      input="$(< /dev/stdin)"
-    # Else, fetch input from params
-    else
-      input="$*"
-    fi
-    if [ -z "$input" ]; then  # If no input, print usage message.
-      echo "Copies a string to the clipboard."
-      echo "Usage: cb <string>"
-      echo "       echo <string> | cb"
-    else
-      # Copy input to clipboard
-      echo -n "$input" | xclip -selection c
-      # Truncate text for status
-      if [ ${#input} -gt 80 ]; then input="$(echo $input | cut -c1-80)$_trn_col...\e[0m"; fi
-      # Print status.
-      echo -e "$_scs_col""Copied to clipboard:\e[0m $input"
-    fi
-  fi
-}
 # Aliases / functions leveraging the cb() function
 # ------------------------------------------------
 # Copy contents of a file
-function cbf() { cat "$1" | cb; }  
-
-btscrot () {
-    scrot -s "$1.png" -e "mv $1.png ~/btsync/pub/pub"
-    cb "http://pub.velox.pw/pub/$1.png"
-}
-
 
 
 publish () {
@@ -175,4 +109,8 @@ pretty_git_log() {
             # Page only if needed.
             less --quit-if-one-screen --no-init --RAW-CONTROL-CHARS --chop-long-lines
         fi
+}
+
+vimx () {
+    urxvt -e zsh -i -c vim $1 2> /dev/null &
 }

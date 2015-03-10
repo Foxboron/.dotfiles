@@ -149,7 +149,8 @@ kbdcfg.widget:buttons(
 
 
 -- {{{ Freedesktop Menu
-require("freedesktop/freedesktop")
+mymainmenu = awful.menu.new({ items = require("menugen").build_menu(),
+                              theme = { height = 16, width = 130 }})
 -- }}}
 
 -- {{{ Wibox
@@ -523,8 +524,8 @@ globalkeys = awful.util.table.join(
  
     awful.key({ modkey, "Shift"   }, "l",      function () awful.tag.incnmaster(-1)       end),
     awful.key({ modkey, "Shift"   }, "h",      function () awful.tag.incnmaster( 1)       end),
-    awful.key({ modkey, "Control" }, "l",      function () awful.tag.incncol(-1)          end),
-    awful.key({ modkey, "Control" }, "h",      function () awful.tag.incncol( 1)          end),
+    -- awful.key({ modkey, "Control" }, "l",      function () awful.tag.incncol(-1)          end),
+    -- awful.key({ modkey, "Control" }, "h",      function () awful.tag.incncol( 1)          end),
     awful.key({ modkey,           }, "space",  function () awful.layout.inc(1)  end),
     awful.key({ modkey, "Shift"   }, "space",  function () awful.layout.inc(-1)  end),
     awful.key({ modkey, "Control" }, "n",      awful.client.restore),
@@ -614,11 +615,24 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "Prior", function () awful.client.moveresize(-20, -20,  40,  40) end)
 )
 
+local wa = screen[mouse.screen].workarea
+ww = wa.width
+wh = wa.height
+ph = 22 -- (panel height)
+
+
 clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
+    awful.key({ modkey, "Control" }, "h",  function (c) c:geometry( { width = ww / 2, height = wh, x = 0, y = ph } ) end),
+    awful.key({ modkey, "Control" }, "j",  function (c) c:geometry( { width = ww, height = wh / 2, x = 0, y = wh / 2 + ph } ) end),
+    awful.key({ modkey, "Control", "Shift" }, "k", function (c) c:geometry( { width = ww / 2, height = wh / 2, x = ww / 2, y = ph } ) end),
+    awful.key({ modkey, "Control", "Shift" }, "l",  function (c) c:geometry( { width = ww / 2, height = wh / 2, x = ww / 2, y = wh / 2 + ph } ) end),
+    awful.key({ modkey, "Control", "Shift" }, "h",  function (c) c:geometry( { width = ww / 2, height = wh / 2, x = 0, y = ph } ) end),
+    awful.key({ modkey, "Control", "Shift" }, "j",   function (c) c:geometry( { width = ww / 2, height = wh / 2, x = 0, y = wh / 2 + ph } ) end),
+    awful.key({ modkey, "Control" }, "KP_Begin", function (c) c:geometry( { width = ww, height = wh, x = 0, y = ph } ) end),
     awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
     awful.key({ modkey,           }, "n",

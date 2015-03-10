@@ -12,13 +12,10 @@ endif
 
 set rtp+=$HOME/.vim/autoload/plug.vim
 
-
 call plug#begin('~/.vim/bundle')
-
 Plug 'bling/vim-airline'
 Plug 'ervandew/supertab'
 Plug 'kovisoft/paredit', {'for' : ['clojure', 'hy']}
-Plug 'godlygeek/csapprox'
 Plug 'goldfeld/vim-seek'
 Plug 'guns/vim-clojure-static', {'for' : 'clojure'}
 Plug 'hylang/vim-hy', {'for' : 'hy'}
@@ -27,8 +24,8 @@ Plug 'KevinGoodsell/vim-csexact'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'klen/python-mode', {'for' : 'python'}
 Plug 'Lokaltog/vim-easymotion'
-Plug 'Shougo/unite.vim'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'Shougo/unite.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fireplace', {'for' : 'clojure'}
@@ -39,7 +36,10 @@ Plug 'tpope/vim-surround'
 Plug 'whatyouhide/vim-gotham'
 Plug 'wting/rust.vim', {'for' : 'rust'}
 Plug 'Raimondi/YAIFA'
+Plug 'szw/vim-ctrlspace'
 Plug 'zhaocai/GoldenView.Vim'
+Plug 'jceb/vim-orgmode'
+Plug 'Valloric/YouCompleteMe'
 
 call plug#end()
 
@@ -58,32 +58,27 @@ syntax enable
 filetype plugin indent on
 
 let mapleader=","
+let maplocalleader=","
 set nocompatible
 set mouse=a
 set number
 set so=50
 set noshowmode
 set wildmenu
+set wildignore=btsync/*,
 set lazyredraw
 set laststatus=2
 set clipboard=unnamed
-set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
-set guioptions-=m  "remove menu bar
-set guioptions-=T  "remove toolbar
-set guioptions-=r  "remove right-hand scroll bar
-set guioptions-=e
-set guioptions-=L
-set guioptions-=l
-set guioptions-=R
-set guioptions-=b
-set guioptions-=h
-set guiheadroom=0
+set hidden
 set ttimeoutlen=50
+set splitright
+set autowriteall
 
 " No more annoying files!
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
 set undodir=~/.vim/undo//
+set noswapfile
 
 "Fix line breaks
 set wrap
@@ -92,24 +87,31 @@ set nolist
 set textwidth=0
 set wrapmargin=0
 
+" Indentions
 set smartindent
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
 set backspace=indent,eol,start
+
+" Smart shit
 set autoindent
+set cindent
 set ignorecase
 set smartcase
+
+" Fuck you Python-mode
+set completeopt=menu
 
 let g:airline_theme="gotham256"
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_detect_whitespace = 0
+let g:airline_exclude_preview = 1
 let g:instant_markdown_autostart = 0
 let g:tmux_session = "repl"
 let g:goldenview__enable_default_mapping = 0
-
 
 let g:pymode_folding = 0 
 let g:pymode_doc = 0
@@ -120,31 +122,43 @@ let g:pymode_lint_cwindow = 0
 
 map <Leader>jn  :JekyllPost<CR>
 map <Leader>mp :InstantMarkdownPreview<CR>
-
+map <leader>w :e ~/.notes.org<CR>
 
 " Git
-map <Leader>gc :Gcommit -a<CR>
+map <leader>gg :Gstatus<CR>
+map <leader>gd :Gdiff<CR>
+map <Leader>ga :Git add<CR>
+map <Leader>gc :Gcommit<CR>
 map <Leader>gw :Gwrite <CR>
-map <Leader>gp :Git push<CR>
+map <Leader>gpp :Gpush<CR>
+map <Leader>gp :Gpull<CR>
 map <Leader>gs :Gstatus<CR>
 map <Leader>gq :Gwq<CR>
 
+" Org-mode
+map <leader>nh G2o<Esc>i* 
+
 
 " Emacs anyone?
-map <C-j> <C-W>j<C-W>_
-map <C-j> <C-W>k<C-W>_
-map <C-h> <C-W>h<C-W>_
-map <C-l> <C-W>l<C-W>_
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+map <C-W>f :vnew<CR>
+
+vnoremap <C-A> <Home>
 inoremap <C-A> <Home>
+vnoremap <C-E> <End>
 inoremap <C-E> <End>
 nnoremap <C-A> <Home>
 nnoremap <C-E> <End>
+nnoremap <C-Q> %
 
 "Easymotion keybinds
 map ø <Plug>(easymotion-sn)
 map / <Plug>(easymotion-tn)
-map  n <Plug>(easymotion-next)
-map  N <Plug>(easymotion-prev)
+"map  n <Plug>(easymotion-next)
+"map  N <Plug>(easymotion-prev)
 map <Space>l <Plug>(easymotion-lineforward)
 map <Space>j <Plug>(easymotion-j)
 map <Space>k <Plug>(easymotion-k)
@@ -152,17 +166,15 @@ map <Space>h <Plug>(easymotion-linebackward)
 let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 let g:EasyMotion_smartcase = 1
 
-nmap <CR> <Plug>(easymotion-repeat)
-
-
+"nmap <CR> <Plug>(easymotion-repeat)
 
 " Tab movements
 nnoremap th  :tabfirst<CR>
 nnoremap tj  :tabnext<CR>
 nnoremap tk  :tabprev<CR>
 nnoremap tl  :tablast<CR>
-nnoremap tt  :tabedit<Space>
 nnoremap tm  :tabm<Space>
+nnoremap tn  :tabnew<CR>
 nnoremap td  :tabclose<CR>
 nnoremap bj  :bnext<CR>
 nnoremap bk  :bprev<CR>
@@ -176,33 +188,9 @@ inoremap <C-J><C-J> <ESC>
 
 nnoremap <C-W>v :vsplit<CR>
 nnoremap <C-W>s :split<CR>
+nnoremap <C-W>q :q!<CR>
 
-function! SwapWindowPos(win2)
-    let win1 = winnr()
-    let win2 = a:win2
-    if win2 > 0 && win2 <= winnr('$') && win1 != win2
-        let buf1 = bufnr('%')
-        let line1 = line('.')
-        let col1 = col('.')
-        exe win2 . "wincmd w"
-        let buf2 = bufnr("%")
-        let line2 = line('.')
-        let col2 = col('.')
-        if buf1 != buf2
-            exe 'buf' buf1
-            exe win1 . "wincmd w"
-            exe 'buf' buf2
-            exe win2 . "wincmd w"
-        else
-            call cursor(line1, col1)
-            redraw
-            exe win1 . "wincmd w"
-            call cursor(line2, col2)
-            exe win2 . "wincmd w"
-        endif
-    endif
-endfunction
-nnoremap <silent> <leader>w :call SwapWindowPos(1)<CR>
+nnoremap <silent> <C-f> :SwitchGoldenViewMain<CR>
 
 "Unite
 let g:unite_update_time = 1
@@ -218,10 +206,8 @@ call unite#filters#sorter_default#use(['sorter_rank'])
 call unite#custom#source('file,file/new,buffer,file_rec',
                             \ 'matchers', 'matcher_fuzzy')
 
-nnoremap <leader>b :<C-u>Unite -start-insert file<cr>
 nnoremap <leader>f :<C-u>Unite -start-insert file_rec/async<cr>
 nnoremap <leader>ug :<C-u>Unite -start-insert grep:.<cr>
-nnoremap <leader>s :<C-u>Unite -quick-match buffer<cr>
 
 autocmd FileType unite call s:unite_settings()
 
@@ -234,7 +220,6 @@ function! s:unite_settings()
 
   nmap <buffer> <ESC> <Plug>(unite_exit)
 endfunction
-
 
 
 function! RenameFile()
@@ -258,6 +243,8 @@ au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
+au InsertEnter * set nornu
+au InsertLeave * set rnu
 
 " Markdown
 au FileType markdown set tabstop=2
@@ -269,23 +256,55 @@ au BufReadPost *
   \   exe "normal g'\"" |
   \ endif
 
+
 " Starts a repl using vim-proc
 " Jacked some logic from leiningen-vim to autorun whenever a fireplace command
 " is issued without a connection.
 " If someone does see this and wonder WTF i'm doing, i got no idea.
 
-
-fun! s:portfile() abort
-    if getfsize('./.nrepl-port') > 0
-        return './.nrepl-port'
+function! s:detect(file) abort
+  if !exists('b:leiningen_root')
+    let root = simplify(fnamemodify(a:file, ':p:s?[\/]$??'))
+    if !isdirectory(fnamemodify(root, ':h'))
+      return ''
     endif
-endf
+    let previous = ""
+    while root !=# previous
+      if filereadable(root . '/project.clj') && join(readfile(root . '/project.clj', '', 50)) =~# '(\s*defproject'
+        let b:leiningen_root = root
+        let b:java_root = root
+        break
+      endif
+      let previous = root
+      let root = fnamemodify(root, ':h')
+    endwhile
+  endif
+  return exists('b:leiningen_root')
+endfunction
 
-let g:repl_start=0
+
+function! s:portfile() abort
+  if !exists('b:leiningen_root')
+    return ''
+  endif
+
+  let root = b:leiningen_root
+  let portfiles = [root.'/.nrepl-port', root.'/target/repl-port', root.'/target/repl/repl-port']
+
+  for f in portfiles
+    if getfsize(f) > 0
+      return f
+    endif
+  endfor
+  return ''
+endfunction
+
+
 function! ReplFn() abort
-    if g:repl_start == 0
+    call s:detect(expand('%:p'))
+    let portfile = s:portfile()
+    if empty(portfile)
         execute "call vimproc#popen2('lein repl')"
-        let g:repl_start=1
     else
         return {}
     endif
@@ -300,10 +319,10 @@ function! ReplFn() abort
         \ fireplace#register_port_file(portfile, b:leiningen_root)
 endfunction
 command! Repl call ReplFn()
+command! Vimrc :e ~/.vimrc
+command! Zshrc :e ~/.zshrc
 
-augroup leiningen
-    autocmd!
-    autocmd User FireplacePreConnect call ReplFn()
-augroup END
-
-
+" augroup leiningen
+"     autocmd!
+"     autocmd User FireplacePreConnect call ReplFn()
+" augroup END
