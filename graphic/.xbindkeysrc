@@ -1,0 +1,14 @@
+"amixer -D pulse sset Master 5%-"
+    XF86AudioLowerVolume
+
+"amixer -D pulse sset Master 5%+"
+    XF86AudioRaiseVolume
+
+"amixer -D pulse sset Master toggle"
+    XF86AudioMute
+
+"asus-kbd-backlight down"
+    XF86KbdBrightnessDown
+
+"asus-kbd-backlight up"
+    XF86KbdBrightnessUp
