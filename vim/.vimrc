@@ -21,7 +21,7 @@ Plug 'goldfeld/vim-seek'
 Plug 'guns/vim-clojure-static', {'for' : 'clojure'}
 Plug 'hylang/vim-hy', {'for' : 'hy'}
 Plug 'junegunn/vim-plug'
-Plug 'KevinGoodsell/vim-csexact'
+"Plug 'KevinGoodsell/vim-csexact'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'klen/python-mode', {'for' : 'python'}
 Plug 'Lokaltog/vim-easymotion'
@@ -268,8 +268,8 @@ map <leader>n :call RenameFile()<cr>
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
 
-au BufWritePost ~/.vimrc :source ~/.vimrc | CSExactColors 
-au VimEnter * CSExactColors
+au BufWritePost ~/.vimrc :source ~/.vimrc "| CSExactColors 
+"au VimEnter * CSExactColors
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare

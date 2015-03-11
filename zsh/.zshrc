@@ -112,5 +112,25 @@ pretty_git_log() {
 }
 
 vimx () {
-    urxvt -e zsh -i -c vim $1 2> /dev/null &
+    urxvt \
+-foreground rgb:98/d1/ce \
+-background rgb:0a/0f/14 \
+-cursorColor rgb:98/d1/ce \
+-color0 rgb:0a/0f/14 \
+-color8 rgb:10/15/1b \
+-color1 rgb:c3/30/27 \
+-color9 rgb:d2/69/39 \
+-color2 rgb:26/a9/8b \
+-color10 rgb:08/1f/2d \
+-color3 rgb:ed/b5/4b \
+-color11 rgb:24/53/61 \
+-color4 rgb:19/54/65 \
+-color12 rgb:09/37/48 \
+-color5 rgb:4e/51/65 \
+-color13 rgb:88/8b/a5 \
+-color6 rgb:33/85/9d \
+-color14 rgb:59/9c/aa \
+-color7 rgb:98/d1/ce \
+-color15 rgb:d3/eb/e9 \
+        -e zsh -i -c nvim $# 2> /dev/null &
 }
