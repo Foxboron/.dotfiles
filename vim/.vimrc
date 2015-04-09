@@ -40,7 +40,7 @@ Plug 'Raimondi/YAIFA'
 Plug 'szw/vim-ctrlspace'
 Plug 'zhaocai/GoldenView.Vim'
 Plug 'jceb/vim-orgmode'
-
+Plug 'scrooloose/syntastic'
 
 
 call plug#end()
@@ -123,6 +123,7 @@ let g:pymode_virtualenv = 1
 let g:pymode_warnings = 0
 let g:pymode_options_colorcolumn = 0
 let g:pymode_lint_cwindow = 0
+let g:syntastic_javascript_checkers = ['gjslint']
 
 map <Leader>jn  :JekyllPost<CR>
 map <Leader>mp :InstantMarkdownPreview<CR>
