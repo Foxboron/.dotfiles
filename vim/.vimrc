@@ -41,6 +41,7 @@ Plug 'szw/vim-ctrlspace'
 Plug 'zhaocai/GoldenView.Vim'
 Plug 'jceb/vim-orgmode'
 Plug 'scrooloose/syntastic'
+Plug 'chrisbra/SudoEdit.vim'
 
 
 call plug#end()

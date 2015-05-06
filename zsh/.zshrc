@@ -132,5 +132,5 @@ vimx () {
 -color14 rgb:59/9c/aa \
 -color7 rgb:98/d1/ce \
 -color15 rgb:d3/eb/e9 \
-        -e zsh -i -c "vim $#" 2> /dev/null &
+        -e zsh -i -c "vim $*" 2> /dev/null &
 }
