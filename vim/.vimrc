@@ -12,17 +12,17 @@ endif
 
 set rtp+=$HOME/.vim/autoload/plug.vim
 
+"let g:rainbow#blacklist = ["#11151c","#0c1014", 232, 233, 234]
+
 call plug#begin('~/.vim/bundle')
 Plug 'bling/vim-airline'
 Plug 'ervandew/supertab'
 Plug 'kovisoft/paredit', {'for' : ['clojure', 'hy']}
-"Plug 'godlygeek/csapprox'
 Plug 'goldfeld/vim-seek'
 Plug 'guns/vim-clojure-static', {'for' : 'clojure'}
 Plug 'hylang/vim-hy', {'for' : 'hy'}
 Plug 'junegunn/vim-plug'
-"Plug 'KevinGoodsell/vim-csexact'
-Plug 'kien/rainbow_parentheses.vim'
+Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'klen/python-mode', {'for' : 'python'}
 Plug 'Lokaltog/vim-easymotion'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
@@ -42,7 +42,6 @@ Plug 'zhaocai/GoldenView.Vim'
 Plug 'jceb/vim-orgmode'
 Plug 'scrooloose/syntastic'
 Plug 'chrisbra/SudoEdit.vim'
-
 
 call plug#end()
 
@@ -108,9 +107,8 @@ set ignorecase
 set smartcase
 
 let g:airline_theme="gotham256"
-"let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#whitespace#enabled = 1
 let g:airline_powerline_fonts = 1
-let g:airline_detect_whitespace = 0
 let g:airline_exclude_preview = 1
 let g:instant_markdown_autostart = 0
 let g:tmux_session = "repl"
@@ -125,6 +123,7 @@ let g:pymode_warnings = 0
 let g:pymode_options_colorcolumn = 0
 let g:pymode_lint_cwindow = 0
 let g:syntastic_javascript_checkers = ['gjslint']
+
 
 map <Leader>jn  :JekyllPost<CR>
 map <Leader>mp :InstantMarkdownPreview<CR>
@@ -150,6 +149,8 @@ inoremap <C-A> <Home>
 inoremap <C-E> <End>
 nnoremap <C-A> <Home>
 nnoremap <C-E> <End>
+vnoremap <C-A> <Home>
+vnoremap <C-E> <End>
 nnoremap <C-Q> %
 
 "Easymotion keybinds
@@ -272,13 +273,12 @@ match OverLength /\%81v.\+/
 
 au BufWritePost ~/.vimrc :source ~/.vimrc "| CSExactColors 
 "au VimEnter * CSExactColors
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+au VimEnter * RainbowParentheses
 
 au InsertEnter * set nornu
 au InsertLeave * set rnu
+
+au FocusLost * silent! wa
 
 " Markdown
 au FileType markdown set tabstop=2
@@ -299,63 +299,63 @@ au BufReadPost *
 
 
 
-function! s:detect(file) abort
-  if !exists('b:leiningen_root')
-    let root = simplify(fnamemodify(a:file, ':p:s?[\/]$??'))
-    if !isdirectory(fnamemodify(root, ':h'))
-      return ''
-    endif
-    let previous = ""
-    while root !=# previous
-      if filereadable(root . '/project.clj') && join(readfile(root . '/project.clj', '', 50)) =~# '(\s*defproject'
-        let b:leiningen_root = root
-        let b:java_root = root
-        break
-      endif
-      let previous = root
-      let root = fnamemodify(root, ':h')
-    endwhile
-  endif
-  return exists('b:leiningen_root')
-endfunction
+" function! s:detect(file) abort
+"   if !exists('b:leiningen_root')
+"     let root = simplify(fnamemodify(a:file, ':p:s?[\/]$??'))
+"     if !isdirectory(fnamemodify(root, ':h'))
+"       return ''
+"     endif
+"     let previous = ""
+"     while root !=# previous
+"       if filereadable(root . '/project.clj') && join(readfile(root . '/project.clj', '', 50)) =~# '(\s*defproject'
+"         let b:leiningen_root = root
+"         let b:java_root = root
+"         break
+"       endif
+"       let previous = root
+"       let root = fnamemodify(root, ':h')
+"     endwhile
+"   endif
+"   return exists('b:leiningen_root')
+" endfunction
 
 
-function! s:portfile() abort
-  if !exists('b:leiningen_root')
-    return ''
-  endif
+" function! s:portfile() abort
+"   if !exists('b:leiningen_root')
+"     return ''
+"   endif
 
-  let root = b:leiningen_root
-  let portfiles = [root.'/.nrepl-port', root.'/target/repl-port', root.'/target/repl/repl-port']
+"   let root = b:leiningen_root
+"   let portfiles = [root.'/.nrepl-port', root.'/target/repl-port', root.'/target/repl/repl-port']
 
-  for f in portfiles
-    if getfsize(f) > 0
-      return f
-    endif
-  endfor
-  return ''
-endfunction
+"   for f in portfiles
+"     if getfsize(f) > 0
+"       return f
+"     endif
+"   endfor
+"   return ''
+" endfunction
 
 
-function! ReplFn() abort
-    call s:detect(expand('%:p'))
-    let portfile = s:portfile()
-    if empty(portfile)
-        execute "call vimproc#popen2('lein repl')"
-    else
-        return {}
-    endif
-    let i = 0
-    let portfile = s:portfile()
-    while empty(portfile) && i < 300 && !getchar(0)
-        let i += 1
-        sleep 100m
-        let portfile = s:portfile()
-    endwhile
-    return empty(portfile) ? {} :
-        \ fireplace#register_port_file(portfile, b:leiningen_root)
-endfunction
-command! Repl call ReplFn()
+" function! ReplFn() abort
+"     call s:detect(expand('%:p'))
+"     let portfile = s:portfile()
+"     if empty(portfile)
+"         execute "call vimproc#popen2('lein repl')"
+"     else
+"         return {}
+"     endif
+"     let i = 0
+"     let portfile = s:portfile()
+"     while empty(portfile) && i < 300 && !getchar(0)
+"         let i += 1
+"         sleep 100m
+"         let portfile = s:portfile()
+"     endwhile
+"     return empty(portfile) ? {} :
+"         \ fireplace#register_port_file(portfile, b:leiningen_root)
+" endfunction
+"command! Repl call ReplFn()
 command! Vimrc :e ~/.vimrc
 
 " augroup leiningen
