@@ -59,7 +59,7 @@ set bg=dark
 syntax enable
 filetype plugin indent on
 
-let mapleader=","
+let mapleader=" "
 let maplocalleader=","
 set nocompatible
 set mouse=a
