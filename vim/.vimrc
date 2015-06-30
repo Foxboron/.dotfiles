@@ -35,13 +35,13 @@ Plug 'tpope/vim-markdown', {'for' : 'markdown'}
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-surround'
 Plug 'whatyouhide/vim-gotham'
-Plug 'wting/rust.vim', {'for' : 'rust'}
 Plug 'Raimondi/YAIFA'
 Plug 'szw/vim-ctrlspace'
 Plug 'zhaocai/GoldenView.Vim'
 Plug 'jceb/vim-orgmode'
 Plug 'scrooloose/syntastic'
 Plug 'chrisbra/SudoEdit.vim'
+Plug 'rust-lang/rust.vim', {'for': 'rust'}
 
 call plug#end()
 
@@ -72,16 +72,6 @@ set laststatus=2
 set clipboard=unnamed
 set hidden
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
-set guioptions-=m  "remove menu bar
-set guioptions-=T  "remove toolbar
-set guioptions-=r  "remove right-hand scroll bar
-set guioptions-=e
-set guioptions-=L
-set guioptions-=l
-set guioptions-=R
-set guioptions-=b
-set guioptions-=h
-set guiheadroom=0
 set ttimeoutlen=50
 
 " No more annoying files!
@@ -111,9 +101,7 @@ let g:airline#extensions#whitespace#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_exclude_preview = 1
 let g:instant_markdown_autostart = 0
-let g:tmux_session = "repl"
 let g:goldenview__enable_default_mapping = 0
-let g:ctrlspace_project_root_markers = [".git", ".hg", ".svn", ".bzr", "_darcs", "CVS", "project.clj"]
 let g:org_indent = 0
 
 let g:pymode_folding = 0 
@@ -188,32 +176,6 @@ inoremap <C-J><C-J> <ESC>
 nnoremap <C-W>v :vsplit<CR>
 nnoremap <C-W>s :split<CR>
 
-function! SwapWindowPos(win2)
-    let win1 = winnr()
-    let win2 = a:win2
-    if win2 > 0 && win2 <= winnr('$') && win1 != win2
-        let buf1 = bufnr('%')
-        let line1 = line('.')
-        let col1 = col('.')
-        exe win2 . "wincmd w"
-        let buf2 = bufnr("%")
-        let line2 = line('.')
-        let col2 = col('.')
-        if buf1 != buf2
-            exe 'buf' buf1
-            exe win1 . "wincmd w"
-            exe 'buf' buf2
-            exe win2 . "wincmd w"
-        else
-            call cursor(line1, col1)
-            redraw
-            exe win1 . "wincmd w"
-            call cursor(line2, col2)
-            exe win2 . "wincmd w"
-        endif
-    endif
-endfunction
-nnoremap <silent> <C-f> :call SwapWindowPos(1)<CR>
 nnoremap <silent> <C-f> :SwitchGoldenViewMain<CR>
 
 "Unite
@@ -246,16 +208,6 @@ function! s:unite_settings()
 endfunction
 
 
-" CtrlSpace
-" Lets see if this plugin replaces unite!
-"nnoremap <silent><leader>f :CtrlSpace O<CR>
-nnoremap tt  :CtrlSpaceTabLabel<CR>
-nnoremap <silent><leader>t :CtrlSpace l<CR>
-let g:ctrlspace_load_last_workspace_on_start = 1
-let g:ctrlspace_save_workspace_on_exit = 1
-let g:ctrlspace_glob_command = 'ag -l --nocolor -g ""'
-
-
 function! RenameFile()
     let old_name = expand('%')
     let new_name = input('New file name: ', expand('%'), 'file')
@@ -274,6 +226,9 @@ match OverLength /\%81v.\+/
 au BufWritePost ~/.vimrc :source ~/.vimrc "| CSExactColors 
 "au VimEnter * CSExactColors
 au VimEnter * RainbowParentheses
+
+au VimEnter * silent! !dynamic-colors switch gotham
+au VimLeave * silent! !dynamic-colors switch default
 
 au InsertEnter * set nornu
 au InsertLeave * set rnu
