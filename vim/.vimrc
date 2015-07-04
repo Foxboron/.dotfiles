@@ -29,19 +29,23 @@ Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'Shougo/unite.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fireplace', {'for' : 'clojure'}
+Plug 'tpope/vim-fireplace', {'for' : ['clojure', 'hy']}
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-markdown', {'for' : 'markdown'}
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-surround'
 Plug 'whatyouhide/vim-gotham'
 Plug 'Raimondi/YAIFA'
-Plug 'szw/vim-ctrlspace'
 Plug 'zhaocai/GoldenView.Vim'
 Plug 'jceb/vim-orgmode'
 Plug 'scrooloose/syntastic'
 Plug 'chrisbra/SudoEdit.vim'
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
+Plug 'Shougo/neocomplete.vim' 
+Plug 'jaxbot/github-issues.vim'  
+Plug 'mattn/gist-vim' 
+Plug 'rking/ag.vim' 
+Plug 'Shougo/vimshell.vim'
 
 call plug#end()
 
@@ -75,9 +79,9 @@ set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
 set ttimeoutlen=50
 
 " No more annoying files!
-set backupdir=~/.vim/backup//
-set directory=~/.vim/swap//
-set undodir=~/.vim/undo//
+set backupdir=~/.vim/backup/
+set directory=~/.vim/swap/
+set undodir=~/.vim/undo/
 
 "Fix line breaks
 set wrap
@@ -112,6 +116,17 @@ let g:pymode_options_colorcolumn = 0
 let g:pymode_lint_cwindow = 0
 let g:syntastic_javascript_checkers = ['gjslint']
 
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 2
+
+
+
+let g:gist_clip_command = 'pbcopy'
+let g:gist_detect_filetype = 1
+map <leader>p :Gist -c<CR>
+
+map <C-\> :execute "Ag " . expand("<cword>") <CR>
 
 map <Leader>jn  :JekyllPost<CR>
 map <Leader>mp :InstantMarkdownPreview<CR>
@@ -122,7 +137,7 @@ map <Leader>ga :Git add<CR>
 map <Leader>gc :Gcommit -a<CR>
 map <Leader>gw :Gwrite <CR>
 map <Leader>gp :Git push<CR>
-map <Leader>gs :Gstatus<CR>
+map <Leader>g :Gstatus<CR>
 map <Leader>gq :Gwq<CR>
 map <leader>nh G2o<Esc>i* 
 
@@ -133,13 +148,9 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-inoremap <C-A> <Home>
-inoremap <C-E> <End>
-nnoremap <C-A> <Home>
-nnoremap <C-E> <End>
-vnoremap <C-A> <Home>
-vnoremap <C-E> <End>
-nnoremap <C-Q> %
+noremap <C-A> <Home>
+noremap <C-E> <End>
+noremap <C-Q> %
 
 "Easymotion keybinds
 map ø <Plug>(easymotion-sn)
@@ -223,22 +234,19 @@ map <leader>n :call RenameFile()<cr>
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
 
-au BufWritePost ~/.vimrc :source ~/.vimrc "| CSExactColors 
-"au VimEnter * CSExactColors
+"au BufWritePost ~/.vimrc :source ~/.vimrc "| CSExactColors 
 au VimEnter * RainbowParentheses
 
-au VimEnter * silent! !dynamic-colors switch gotham
-au VimLeave * silent! !dynamic-colors switch default
+if !has('nvim')
+    au VimEnter * silent! !dynamic-colors switch gotham
+    au VimLeave * silent! !dynamic-colors switch default
+end
 
 au InsertEnter * set nornu
 au InsertLeave * set rnu
 
 au FocusLost * silent! wa
 
-" Markdown
-au FileType markdown set tabstop=2
-au FileType markdown set softtabstop=2
-au FileType markdown set shiftwidth=2
 
 au BufReadPost *
   \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -246,75 +254,7 @@ au BufReadPost *
   \ endif
 
 
-" Starts a repl using vim-proc
-" Jacked some logic from leiningen-vim to autorun whenever a fireplace command
-" is issued without a connection.
-" If someone does see this and wonder WTF i'm doing, i got no idea.
-
-
-
-
-" function! s:detect(file) abort
-"   if !exists('b:leiningen_root')
-"     let root = simplify(fnamemodify(a:file, ':p:s?[\/]$??'))
-"     if !isdirectory(fnamemodify(root, ':h'))
-"       return ''
-"     endif
-"     let previous = ""
-"     while root !=# previous
-"       if filereadable(root . '/project.clj') && join(readfile(root . '/project.clj', '', 50)) =~# '(\s*defproject'
-"         let b:leiningen_root = root
-"         let b:java_root = root
-"         break
-"       endif
-"       let previous = root
-"       let root = fnamemodify(root, ':h')
-"     endwhile
-"   endif
-"   return exists('b:leiningen_root')
-" endfunction
-
-
-" function! s:portfile() abort
-"   if !exists('b:leiningen_root')
-"     return ''
-"   endif
-
-"   let root = b:leiningen_root
-"   let portfiles = [root.'/.nrepl-port', root.'/target/repl-port', root.'/target/repl/repl-port']
-
-"   for f in portfiles
-"     if getfsize(f) > 0
-"       return f
-"     endif
-"   endfor
-"   return ''
-" endfunction
-
-
-" function! ReplFn() abort
-"     call s:detect(expand('%:p'))
-"     let portfile = s:portfile()
-"     if empty(portfile)
-"         execute "call vimproc#popen2('lein repl')"
-"     else
-"         return {}
-"     endif
-"     let i = 0
-"     let portfile = s:portfile()
-"     while empty(portfile) && i < 300 && !getchar(0)
-"         let i += 1
-"         sleep 100m
-"         let portfile = s:portfile()
-"     endwhile
-"     return empty(portfile) ? {} :
-"         \ fireplace#register_port_file(portfile, b:leiningen_root)
-" endfunction
-"command! Repl call ReplFn()
-command! Vimrc :e ~/.vimrc
-
-" augroup leiningen
-"     autocmd!
-"     autocmd User FireplacePreConnect call ReplFn()
-" augroup END
-
+" Custom functins for different stuff
+if filereadable(glob("~/.vim/fn.vim"))
+    so ~/.vim/fn.vim
+endif

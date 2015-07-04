@@ -51,7 +51,7 @@ ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg_bold[red]%} → %{$reset_color%}"
 ##ALIAS
 
 alias tmux="tmux -2"
-alias lock='dm-tool switch-to-greeter'
+alias lock='udiskie-umount -a && dm-tool switch-to-greeter && udiskie-mount -a'
 alias catp="pygmentize -g"
 alias vimrc="vim ~/.vimrc"
 alias zshrc="vim ~/.zshrc"
@@ -133,4 +133,12 @@ vimx () {
 -color7 rgb:98/d1/ce \
 -color15 rgb:d3/eb/e9 \
         -e zsh -i -c "vim $*" 2> /dev/null &
+}
+
+
+nvim (){
+    dynamic-colors switch gotham
+    /usr/bin/nvim
+    dynamic-colors switch default
+
 }
