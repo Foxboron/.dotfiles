@@ -16,7 +16,6 @@ set rtp+=$HOME/.vim/autoload/plug.vim
 
 call plug#begin('~/.vim/bundle')
 Plug 'bling/vim-airline'
-Plug 'ervandew/supertab'
 Plug 'kovisoft/paredit', {'for' : ['clojure', 'hy']}
 Plug 'goldfeld/vim-seek'
 Plug 'guns/vim-clojure-static', {'for' : 'clojure'}
@@ -24,7 +23,7 @@ Plug 'hylang/vim-hy', {'for' : 'hy'}
 Plug 'junegunn/vim-plug'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'klen/python-mode', {'for' : 'python'}
-Plug 'Lokaltog/vim-easymotion'
+Plug 'haya14busa/incsearch.vim'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'Shougo/unite.vim'
 Plug 'terryma/vim-multiple-cursors'
@@ -32,7 +31,6 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fireplace', {'for' : ['clojure', 'hy']}
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-markdown', {'for' : 'markdown'}
-Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-surround'
 Plug 'whatyouhide/vim-gotham'
 Plug 'Raimondi/YAIFA'
@@ -43,9 +41,6 @@ Plug 'chrisbra/SudoEdit.vim'
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
 Plug 'Shougo/neocomplete.vim' 
 Plug 'jaxbot/github-issues.vim'  
-Plug 'mattn/gist-vim' 
-Plug 'rking/ag.vim' 
-Plug 'Shougo/vimshell.vim'
 
 call plug#end()
 
@@ -117,16 +112,21 @@ let g:pymode_lint_cwindow = 0
 let g:syntastic_javascript_checkers = ['gjslint']
 
 let g:neocomplete#enable_at_startup = 1
+let g:acp_enableAtStartup = 0
 let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#sources#syntax#min_keyword_length = 2
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
 
+set hlsearch
 
-let g:gist_clip_command = 'pbcopy'
-let g:gist_detect_filetype = 1
-map <leader>p :Gist -c<CR>
+map /  <Plug>(incsearch-forward)
+nnoremap <silent> q :<C-u>nohlsearch<CR>
 
-map <C-\> :execute "Ag " . expand("<cword>") <CR>
+map ø :
 
 map <Leader>jn  :JekyllPost<CR>
 map <Leader>mp :InstantMarkdownPreview<CR>
@@ -152,19 +152,11 @@ noremap <C-A> <Home>
 noremap <C-E> <End>
 noremap <C-Q> %
 
-"Easymotion keybinds
-map ø <Plug>(easymotion-sn)
-map / <Plug>(easymotion-tn)
-"map  n <Plug>(easymotion-next)
-"map  N <Plug>(easymotion-prev)
-map <Space>l <Plug>(easymotion-lineforward)
-map <Space>j <Plug>(easymotion-j)
-map <Space>k <Plug>(easymotion-k)
-map <Space>h <Plug>(easymotion-linebackward)
-let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
-let g:EasyMotion_smartcase = 1
 
 "nmap <CR> <Plug>(easymotion-repeat)
+"
+cnoremap <C-J> <Up>
+cnoremap <C-K> <Down>
 
 " Tab movements
 nnoremap th  :tabfirst<CR>
@@ -209,7 +201,6 @@ nnoremap <leader>ug :<C-u>Unite -start-insert grep:.<cr>
 autocmd FileType unite call s:unite_settings()
 
 function! s:unite_settings()
-  let b:SuperTabDisabled=1
   imap <buffer> <C-j>   <ESC>
   nmap <silent><buffer><expr> <C-v> unite#do_action('split')
   nmap <silent><buffer><expr> <C-s> unite#do_action('vsplit')
@@ -234,7 +225,6 @@ map <leader>n :call RenameFile()<cr>
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
 
-"au BufWritePost ~/.vimrc :source ~/.vimrc "| CSExactColors 
 au VimEnter * RainbowParentheses
 
 if !has('nvim')
@@ -253,8 +243,15 @@ au BufReadPost *
   \   exe "normal g'\"" |
   \ endif
 
+function! Mutt()
+    vnew
+    terminal mutt
+endfunction
 
+command! S source ~/.vimrc
+command! Mutt call Mutt()
 " Custom functins for different stuff
 if filereadable(glob("~/.vim/fn.vim"))
     so ~/.vim/fn.vim
 endif
+

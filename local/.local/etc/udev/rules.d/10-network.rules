@@ -1,0 +1,1 @@
+SUBSYSTEM=="net", ACTION=="add", ATTR{kernel}=="0000:00:14.0", NAME="net1"

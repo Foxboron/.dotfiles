@@ -1,0 +1,10 @@
+publish () {
+    if [ $# -eq 1 ]
+    then
+        cp -rR $1 ~/btsync/pub/pub
+        cb "http://pub.velox.pw/pub/$1"
+    else
+        cp -rR $1 ~/btsync/pub/pub/$2
+        cb "http://pub.velox.pw/pub/$2"
+   fi
+}

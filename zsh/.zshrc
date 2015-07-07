@@ -51,6 +51,7 @@ ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg_bold[red]%} → %{$reset_color%}"
 ##ALIAS
 
 alias tmux="tmux -2"
+alias vim="nvim"
 alias lock='udiskie-umount -a && dm-tool switch-to-greeter && udiskie-mount -a'
 alias catp="pygmentize -g"
 alias vimrc="vim ~/.vimrc"
@@ -74,71 +75,9 @@ function git-fixup {
   fi
 }
 
-
-# Aliases / functions leveraging the cb() function
-# ------------------------------------------------
-# Copy contents of a file
-
-
-publish () {
-    if [ $# -eq 1 ]
-    then
-        cp -rR $1 ~/btsync/pub/pub
-        cb "http://pub.velox.pw/pub/$1"
-    else
-        cp -rR $1 ~/btsync/pub/pub/$2
-        cb "http://pub.velox.pw/pub/$2"
-   fi
-}
-
-
-pretty_git_log() {
-    git log --graph --pretty="tformat:${FORMAT}" $* |
-        # Replace (2 years ago) with (2 years)
-        sed -Ee 's/(^[^<]*) ago\)/\1)/' |
-        # Replace (2 years, 5 months) with (2 years)
-        sed -Ee 's/(^[^<]*), [[:digit:]]+ .*months?\)/\1)/' |
-        # Line columns up based on } delimiter
-        column -s '}' -t |
-        # Color merge commits specially
-        sed -Ee "s/(Merge (branch|remote-tracking branch|pull request) .*$)/$(printf $ANSI_RED)\1$(printf $ANSI_RESET)/" |
-        # Page only if we're asked to.
-        if [ -n "$GIT_NO_PAGER" ]; then
-            cat
-        else
-            # Page only if needed.
-            less --quit-if-one-screen --no-init --RAW-CONTROL-CHARS --chop-long-lines
-        fi
-}
-
-vimx () {
-    urxvt \
--foreground rgb:98/d1/ce \
--background rgb:0a/0f/14 \
--cursorColor rgb:98/d1/ce \
--color0 rgb:0a/0f/14 \
--color8 rgb:10/15/1b \
--color1 rgb:c3/30/27 \
--color9 rgb:d2/69/39 \
--color2 rgb:26/a9/8b \
--color10 rgb:08/1f/2d \
--color3 rgb:ed/b5/4b \
--color11 rgb:24/53/61 \
--color4 rgb:19/54/65 \
--color12 rgb:09/37/48 \
--color5 rgb:4e/51/65 \
--color13 rgb:88/8b/a5 \
--color6 rgb:33/85/9d \
--color14 rgb:59/9c/aa \
--color7 rgb:98/d1/ce \
--color15 rgb:d3/eb/e9 \
-        -e zsh -i -c "vim $*" 2> /dev/null &
-}
-
-
 nvim (){
     dynamic-colors switch gotham
-    /usr/bin/nvim
+    /usr/bin/nvim $*
     dynamic-colors switch default
 
 }
