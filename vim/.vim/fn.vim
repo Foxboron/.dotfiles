@@ -62,8 +62,6 @@ function! ReplFn() abort
 endfunction
 command! Repl call ReplFn()
 
-command! Vimrc :e ~/.vimrc
-
 augroup leiningen
     autocmd!
     autocmd User FireplacePreConnect call ReplFn()

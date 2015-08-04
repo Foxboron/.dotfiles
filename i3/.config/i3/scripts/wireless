@@ -1,0 +1,22 @@
+#!/bin/sh
+#wlp11s0 is my interface, yours is probably different
+wlan_state="$(cat /sys/class/net/wlp3s0/operstate)"
+
+if [ "$wlan_state" = "up" ]; then
+        echo ""
+        echo "j"
+        echo "#88b670"
+        exit 0
+fi
+if [ "$wlan_state" = "down" ]; then
+        echo ""
+        echo ""
+        echo "#F2777A"
+        exit 0
+fi
+if [ "$wlan_state" = "dormant" ]; then
+        echo ""
+        echo ""
+        echo "#F299157"
+        exit 0
+fi

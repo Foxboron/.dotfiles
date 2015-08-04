@@ -158,26 +158,43 @@ markup      = lain.util.markup
 
 -- Textclock
 clockicon = wibox.widget.imagebox(beautiful.widget_clock)
-mytextclock = awful.widget.textclock(markup("#7788af", "%A %d %B ") .. markup("#343639", ">") .. markup("#de5e1e", " %H:%M "))
+-- mytextclock = awful.widget.textclock(markup("#7788af", "%A %d %B ") .. markup("#343639", ">") .. markup("#de5e1e", " %H:%M "))
+clockicon = wibox.widget.imagebox(beautiful.widget_clock)
+--mytextclock = awful.widget.textclock(markup("#7788af", "%A %d %B ") .. markup("#343639", ">") .. markup("#de5e1e", " %H:%M "))
+mytextclock = lain.widgets.abase({
+    timeout  = 60,
+    cmd      = "date +'%A %d %B %R'",
+    settings = function() 
+        local t_output = ""
+        local o_it = string.gmatch(output, "%S+")
+
+        for i=1,3 do t_output = t_output .. " " .. o_it(i) end
+
+        widget:set_markup(markup("#7788af", t_output) .. markup("#343639", " > ") .. markup("#de5e1e", o_it(1)) .. " ")
+    end
+})
 
 -- Calendar
 lain.widgets.calendar:attach(mytextclock, { font_size = 10 })
 
 -- Weather
 weathericon = wibox.widget.imagebox(beautiful.widget_weather)
-yawn = lain.widgets.yawn(123456, {
+myweather = lain.widgets.weather({
+    city_id = 123456, -- placeholder
     settings = function()
-        widget:set_markup(markup("#eca4c4", forecast:lower() .. " @ " .. units .. "°C "))
+        descr = weather_now["weather"][1]["description"]:lower()
+        units = math.floor(weather_now["main"]["temp"])
+        widget:set_markup(markup("#eca4c4", descr .. " @ " .. units .. "°C "))
     end
 })
 
 -- / fs
 fsicon = wibox.widget.imagebox(beautiful.widget_fs)
-fswidget = lain.widgets.fs({
-    settings  = function()
-        widget:set_markup(markup("#80d9d8", fs_now.used .. "% "))
-    end
-})
+-- fswidget = lain.widgets.fs({
+--     settings  = function()
+--         widget:set_markup(markup("#80d9d8", fs_now.used .. "% "))
+--     end
+-- })
 
 --[[ Mail IMAP check
 -- commented because it needs to be set before use
@@ -394,9 +411,9 @@ for s = 1, screen.count() do
     right_layout:add(cpuicon)
     right_layout:add(cpuwidget)
     right_layout:add(fsicon)
-    right_layout:add(fswidget)
+  -- l right_layout:add(fswidget)
     right_layout:add(weathericon)
-    right_layout:add(yawn.widget)
+    right_layout:add(myweather)
     right_layout:add(tempicon)
     right_layout:add(tempwidget)
     right_layout:add(baticon)
@@ -540,7 +557,7 @@ globalkeys = awful.util.table.join(
 
     -- Widgets popups
     awful.key({ altkey,           }, "c",      function () lain.widgets.calendar:show(7) end),
-    awful.key({ altkey,           }, "h",      function () fswidget.show(7) end),
+    -- awful.key({ altkey,           }, "h",      function () fswidget.show(7) end),
     -- awful.key({ altkey,           }, "w",      function () yawn.show(7) end),
 
     -- ALSA volume control

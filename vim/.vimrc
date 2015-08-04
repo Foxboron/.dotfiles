@@ -1,3 +1,4 @@
+
 let IWantPlug=1
 let VimPlugDir=expand('~/.vim/autoload/plug.vim')
 if !filereadable(VimPlugDir)
@@ -12,7 +13,6 @@ endif
 
 set rtp+=$HOME/.vim/autoload/plug.vim
 
-"let g:rainbow#blacklist = ["#11151c","#0c1014", 232, 233, 234]
 
 call plug#begin('~/.vim/bundle')
 Plug 'bling/vim-airline'
@@ -39,8 +39,9 @@ Plug 'jceb/vim-orgmode'
 Plug 'scrooloose/syntastic'
 Plug 'chrisbra/SudoEdit.vim'
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
-Plug 'Shougo/neocomplete.vim' 
-Plug 'jaxbot/github-issues.vim'  
+Plug 'Shougo/neocomplete.vim'
+Plug 'jaxbot/github-issues.vim'
+Plug 'ervandew/supertab'
 
 call plug#end()
 
@@ -52,7 +53,7 @@ endif
 
 
 set t_Co=256
-colorscheme gotham 
+colorscheme gotham
 set bg=dark
 
 syntax enable
@@ -98,12 +99,12 @@ set smartcase
 let g:airline_theme="gotham256"
 let g:airline#extensions#whitespace#enabled = 1
 let g:airline_powerline_fonts = 1
-let g:airline_exclude_preview = 1
+"let g:airline_exclude_preview = 1
 let g:instant_markdown_autostart = 0
 let g:goldenview__enable_default_mapping = 0
 let g:org_indent = 0
 
-let g:pymode_folding = 0 
+let g:pymode_folding = 0
 let g:pymode_doc = 0
 let g:pymode_virtualenv = 1
 let g:pymode_warnings = 0
@@ -136,10 +137,13 @@ map <leader>w :e ~/.notes.org<CR>
 map <Leader>ga :Git add<CR>
 map <Leader>gc :Gcommit -a<CR>
 map <Leader>gw :Gwrite <CR>
-map <Leader>gp :Git push<CR>
-map <Leader>g :Gstatus<CR>
+map <Leader>gp :Gpush<CR>
+map <Leader>gf :Gpull<CR>
+map <Leader>gg :Gstatus<CR>
 map <Leader>gq :Gwq<CR>
-map <leader>nh G2o<Esc>i* 
+
+
+map <leader>nh G2o<Esc>i*
 
 
 " Emacs anyone?
@@ -152,11 +156,8 @@ noremap <C-A> <Home>
 noremap <C-E> <End>
 noremap <C-Q> %
 
-
-"nmap <CR> <Plug>(easymotion-repeat)
-"
-cnoremap <C-J> <Up>
-cnoremap <C-K> <Down>
+cnoremap <C-K> <Up>
+cnoremap <C-J> <Down>
 
 " Tab movements
 nnoremap th  :tabfirst<CR>
@@ -210,18 +211,6 @@ function! s:unite_settings()
 endfunction
 
 
-function! RenameFile()
-    let old_name = expand('%')
-    let new_name = input('New file name: ', expand('%'), 'file')
-    if new_name != '' && new_name != old_name
-        exec ':saveas ' . new_name
-        exec ':silent !rm ' . old_name
-        redraw!
-    endif
-endfunction
-map <leader>n :call RenameFile()<cr>
-
-
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
 
@@ -234,7 +223,6 @@ end
 
 au InsertEnter * set nornu
 au InsertLeave * set rnu
-
 au FocusLost * silent! wa
 
 
@@ -243,15 +231,5 @@ au BufReadPost *
   \   exe "normal g'\"" |
   \ endif
 
-function! Mutt()
-    vnew
-    terminal mutt
-endfunction
-
-command! S source ~/.vimrc
-command! Mutt call Mutt()
-" Custom functins for different stuff
-if filereadable(glob("~/.vim/fn.vim"))
-    so ~/.vim/fn.vim
-endif
-
+so ~/.vim/config/commands.vim
+so ~/.vim/config/fn.vim

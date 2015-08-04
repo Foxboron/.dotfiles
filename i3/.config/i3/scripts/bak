@@ -1,0 +1,375 @@
+
+# VARIABLES #
+#############
+set                     $mod Mod4
+set                     $myres 10
+set                     $gsi 20
+set                     $gso 20
+set                     $fgcolor #9e9797
+set                     $bgcolor #292727
+set                     $iacolor #4f4f48
+set                     $bordersize 0
+
+#################
+# CONFIGURATION #
+#################
+focus_follows_mouse     no
+popup_during_fullscreen smart
+workspace_layout        default
+
+##############
+# APPEARANCE #
+##############
+# Set window appearence
+client.focused          $fgcolor $fgcolor $bgcolor $fgcolor
+client.focused_inactive $iacolor $iacolor $fgcolor $iacolor
+client.unfocused        $iacolor $iacolor $fgcolor $iacolor
+
+#for_window [class="^.*"] border pixel 0
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below. ISO 10646 = Unicode
+
+# The font above is very space-efficient, that is, it looks good, sharp and
+# clear in small sizes. However, if you need a lot of unicode glyphs or
+# right-to-left text rendering, you should instead use pango for rendering and
+# chose a FreeType font, such as:
+
+#Font overlapping sucks... need to combine some of these...
+font pango: Source Code Pro, Weather Icons, Icons, FontAwesome 12
+
+# open new widows at the bottom by default
+default_orientation vertical
+
+#Auto-Start
+# gnome	
+exec --no-startup-id /usr/libexec/gnome-settings-daemon
+
+#Background
+exec --no-startup-id feh --randomize --bg-scale ~/Pictures/Wallpapers/*
+#exec --no-startup-id feh --randomize --bg-tile ~/Pictures/Wallpapers/tiles/*
+
+#Compton config
+exec --no-startup-id /usr/bin/compton -bG --config ~/.config/i3/compton.conf
+
+#Devilspie  (used with transset to provide transparency for urxvt/ranger hack)
+exec --no-startup-id /usr/bin/devilspie -a &
+
+#Dunst
+exec --no-startup-id /usr/bin/dunst &
+
+#Windows
+ Set window appearence
+
+new_window pixel 1
+#new_window normal
+#new_float pixel 2
+#hide_edge_borders  none
+#bindsym $mod+b border toggle
+
+# Go to the next urgent workspace, latest first
+bindsym $mod+u [urgent="latest"] focus
+# Cycle through bstacked windows (dwm style)
+bindsym $mod+Tab focus down
+# Focus last floating/tiling container
+bindsym $mod+Shift+Tab focus mode_toggle
+# Kill focused window
+bindsym $mod+Shift+q kill	
+
+#scratchpad
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+#Menu
+# Start dmenu (a program launcher)
+bindsym $mod+space exec --no-startup-id dmenu_run -i -b -p 'Arch Linux' -fn 'Source Code Pro:Bold:pixelsize=12' -nb '#101010' -nf '#5f5f5f' -sf '#191919' -sb '#dd9a64'
+# There also is the (new) i3-dmenu-desktop which only displays applications
+# Shipping a .desktop file. It is a wrapper around dmenu.
+#bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+x exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -b -fn 'Source Code Pro:Bold:pixelsize=12' -nb '#101010' -nf '#5f5f5f' -sf '#191919' -sb '#dd9a64' -l 10"
+
+#Focus
+# Change Focus
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+
+# Change Focus, Cursor Keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move Focused Window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+
+# Move Focused Window, Cursor Keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Focus The Parent Container
+bindsym $mod+p focus parent
+
+# Focus The Child Container
+bindsym $mod+c focus child
+
+#Tiling
+# Split In Horizontal Orientation
+bindsym $mod+h split h
+
+#Split In Vertical Orientation
+bindsym $mod+v split v
+
+#Enter Fullscreen Mode For The Focused Container
+bindsym $mod+f fullscreen
+
+#Change Container Layout (Stacked, Tabbed, Toggle Split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+#Floating Windows
+#Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+#Toggle Tiling / Floating
+bindsym $mod+Shift+space floating toggle
+
+#Change Focus Between Tiling / Floating Windows
+bindsym $mod+d focus mode_toggle
+
+#Workspaces
+#Custom Variables For Workspaces
+#set $ws1 
+#set $ws2 
+#set $ws3 
+#set $ws4 
+#set $ws5 
+#set $ws6 
+#set $ws7 
+#set $ws8 
+#set $ws9 
+#set $ws10 
+
+#Switch To Workspace
+#bindsym $mod+1 workspace 1 $ws1
+#bindsym $mod+2 workspace 2 $ws2
+#bindsym $mod+3 workspace 3 $ws3
+#bindsym $mod+4 workspace 4 $ws4
+#bindsym $mod+5 workspace 5 $ws5
+#bindsym $mod+6 workspace 6 $ws6
+#bindsym $mod+7 workspace 7 $ws7
+#bindsym $mod+8 workspace 8 $ws8
+#bindsym $mod+9 workspace 9 $ws9
+#bindsym $mod+0 workspace 10 $ws10
+
+#Move Focused Container To Workspace
+#bindsym $mod+Shift+1 move container to workspace 1 $ws1
+#bindsym $mod+Shift+2 move container to workspace 2 $ws2
+#bindsym $mod+Shift+3 move container to workspace 3 $ws3
+#bindsym $mod+Shift+4 move container to workspace 4 $ws4
+#bindsym $mod+Shift+5 move container to workspace 5 $ws5
+#bindsym $mod+Shift+6 move container to workspace 6 $ws6
+#bindsym $mod+Shift+7 move container to workspace 7 $ws7
+#bindsym $mod+Shift+8 move container to workspace 8 $ws8
+#bindsym $mod+Shift+9 move container to workspace 9 $ws9
+#bindsym $mod+Shift+0 move container to workspace 10 $ws10
+
+#Safety Commands
+#reload the configuration file
+bindsym $mod+Shift+a reload
+#restart i3 inplace (preserves your layout/session)
+bindsym $mod+Shift+r restart
+#exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'Kill i3?.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+#Resize
+#Enter Resize Mode
+bindsym $mod+r mode "resize"
+	
+#resize window (you can also use the mouse for that)
+mode "resize" {
+# These bindings trigger as soon as you enter the resize mode
+bindsym j resize shrink width 10 px or 10 ppt
+bindsym k resize grow height 10 px or 10 ppt
+bindsym l resize shrink height 10 px or 10 ppt
+ bindsym semicolon resize grow width 10 px or 10 ppt
+
+ # same bindings, but for the arrow keys
+bindsym Left resize grow width 10 px or 10 ppt
+bindsym Down resize shrink height 10 px or 10 ppt
+bindsym Up resize grow height 10 px or 10 ppt
+bindsym Right resize shrink width 10 px or 10 ppt
+
+ # back to normal: Enter or Escape
+bindsym Return mode "default"
+bindsym Escape mode "default"
+}
+
+#i3bar (using i3blocks - https://github.com/vivien/i3blocks)
+	# Start i3bar to display a workspace bar 
+	# (plus the system information i3status finds out, if available)
+	# i3bar to display a workspace bar + status script
+		bar {
+        	position top
+        	mode dock
+        	workspace_buttons yes
+	strip_workspace_numbers yes
+       	status_command i3blocks -c ~/.config/i3/i3blocks.conf
+
+ #i3bar colours
+        	colors {
+       	background #101010
+      	statusline #605c5a
+      	focused_workspace #101010 #101010 #dd9a64
+      	active_workspace #b8b1ac #101010 #101010
+     	inactive_workspace #101010 #101010 #b8b1ac
+   	urgent_workspace #2e3436 #9a878f
+   	separator #323131
+        		}
+		}
+
+#launchers
+#start a terminal /usr/bin/urxvt
+bindsym $mod+Return exec --no-startup-id urxvt
+
+#launch gmrun
+bindsym $mod+g exec --no-startup-id  gimp
+
+#mutt
+bindsym $mod+Shift+m exec  --no-startup-id urxvt -name mutt -e mutt
+
+#music player (ncmpcpp)
+bindsym $mod+m exec  --no-startup-id urxvt -name ncmpcpp -e ncmpcpp -s playlist
+
+#take screenshot
+#YYYY-MM-DD-hh-mm-ss, no same file name 
+bindsym Print exec --no-startup-id scrot '%Y-%m-%d-%T.png' -e 'mv $f ~/Pictures/Screenshots/'
+
+#editor
+bindsym $mod+t exec --no-startup-id subl3
+bindsym $mod+Shift+t exec --no-startup-id gedit
+
+#nautilus & ranger file managers
+bindsym $mod+n exec --no-startup-id nautilus
+bindsym $mod+Ctrl+n exec --no-startup-id urxvt -name ranger -e ranger   
+
+#htop 
+bindsym $mod+o exec  --no-startup-id urxvt -name htop -e htop
+
+#Steam - Silent mode
+bindsym $mod+Shift+s exec --no-startup-id /usr/bin/steam -silent %U
+
+#weechat
+bindsym $mod+Shift+i exec  --no-startup-id urxvt -name weechat -e weechat
+
+#Audio Binds (onlt setup that works with my Logitech G710+ keyboard..barely.)
+#Multimedia Keys - requires playerctl
+#increase volume
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q set Master 5%+ unmute
+#decrease volume
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q set Master 5%- unmute
+#mute volume
+bindsym XF86AudioMute exec --no-startup-id amixer -q set Master mute
+#pause / play / next / previous
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+
+#Application specific settings
+#float the following
+#for_window [class="Gimp"] floating enable
+for_window [class="Steam"] floating enable
+for_window [title="Steam"] floating disable
+for_window [class="Steam" title="Steam - Update News$"] floating enable
+for_window [class="plexhometheater"] floating enable
+for_window [class="gmrun"] floating enable
+for_window [class="Vlc"] floating enable
+for_window [class="Firefox" instance="Browser"] floating enable
+for_window [class="Firefox" instance="Dialog"] floating enable
+for_window [class="Firefox" instance="Extension"] floating enable
+for_window [class="Firefox" instance="Abp"] floating enable
+for_window [class="Firefox" instance="Febe"] floating enable
+
+#Program window assignment
+assign [class="Steam"] $ws8
+assign [class="Vlc"] $ws5
+assign [class="plexhometheater"] $ws5
+assign [class="Firefox"] $ws3
+assign [class="Chrome"] $ws3
+assign [class="Gimp"] $ws4
+assign [class="Subl3"] $ws7
+assign [class="VirtualBox"] $ws9
+assign [class="^URxvt$" instance="^ncmpcpp$"] $ws6
+assign [class="^URxvt$" instance="^mutt$"] $ws2
+assign [class="^URxvt$" instance="^htop$"] $ws1
+assign [class="^URxvt$" instance="^weechat$"] $ws9
+
+#Gaps!
+#set $mode_gaps Gaps: (o) outer, (i) inner  
+#set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)  
+#set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+
+#gaps inner 15  
+#gaps outer 2  
+#smart_gaps on
+#smart_borders no_gaps
+
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {  
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_inner" {  
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_outer" {  
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0     gaps outer all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+#Simple  power menu
+set $Locker i3lock && sleep 1
+
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id $Locker, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
+    bindsym h exec --no-startup-id $Locker && systemctl hibernate, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"  
+
+#back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+Pause mode "$mode_system"

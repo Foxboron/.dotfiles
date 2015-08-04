@@ -81,3 +81,4 @@ nvim (){
     dynamic-colors switch default
 
 }
+

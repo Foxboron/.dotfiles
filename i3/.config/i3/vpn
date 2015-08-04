@@ -1,0 +1,50 @@
+#!/bin/bash
+
+vpn_name=arbol
+
+
+
+turnoff(){
+    if [[ -n $(nmcli con show --active $vpn_name) ]]; then
+        nmcli con down id $vpn_name
+    fi
+    if [ -f /tmp/sh.pid ]; then
+        kill `cat /tmp/sh.pid`
+    fi
+
+}
+
+vpn(){ 
+    if [[ -n $(nmcli con show --active $vpn_name) ]]; then
+        nmcli con down id $vpn_name
+        echo "" > ~/.config/i3/vpn-status
+    else
+        nmcli con up id $vpn_name
+        echo "VPN: " > ~/.config/i3/vpn-status
+    fi
+}
+
+sshtun() {
+    if [ -f /tmp/sh.pid ]; then
+        kill `cat /tmp/sh.pid`
+        echo "" > ~/.config/i3/vpn-status
+    else
+        export SUDO_ASKPASS=/usr/lib/ssh/x11-ssh-askpass
+    /usr/bin/sshuttle -D --pidfile=/tmp/sh.pid -r $vpn_name 0.0.0.0/0
+        echo "SSH: " > ~/.config/i3/vpn-status
+    fi
+}
+
+
+case "$1" in
+    vpn)
+        vpn
+        ;;
+    ssh)
+        sshtun
+        ;;
+    *)
+        exit 2
+esac
+
+exit 0
