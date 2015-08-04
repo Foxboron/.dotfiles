@@ -11,6 +11,7 @@ turnoff(){
     if [ -f /tmp/sh.pid ]; then
         kill `cat /tmp/sh.pid`
     fi
+    echo "" > ~/.config/i3/vpn-status
 
 }
 
@@ -42,6 +43,9 @@ case "$1" in
         ;;
     ssh)
         sshtun
+        ;;
+    off)
+        turnoff
         ;;
     *)
         exit 2

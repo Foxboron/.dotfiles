@@ -159,7 +159,7 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-set $vpn (s) shuttle, (v) vpn
+set $vpn (s)huttle, (v)pn, (o)ff
 
 mode "$vpn"{
 
@@ -167,6 +167,7 @@ mode "$vpn"{
 
 		bindsym s exec ~/.config/i3/vpn ssh, mode "default"
 		bindsym v exec ~/.config/i3/vpn vpn, mode "default"
+		bindsym o exec ~/.config/i3/vpn off, mode "default"
         bindsym Return mode "default"
         bindsym Escape mode "default"
 		bindsym q mode "default"
