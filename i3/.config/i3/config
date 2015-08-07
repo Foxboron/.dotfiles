@@ -159,11 +159,12 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+
+
 set $vpn (s)huttle, (v)pn, (o)ff
 
 mode "$vpn"{
 
-		#exec i3-nagbar -t warning -m "VPN Connections: (s) sshuttle (v) vpn"
 
 		bindsym s exec ~/.config/i3/vpn ssh, mode "default"
 		bindsym v exec ~/.config/i3/vpn vpn, mode "default"
@@ -176,6 +177,27 @@ mode "$vpn"{
 
 bindsym $mod+c mode "$vpn"
 
+
+set $xrandr (a)uto
+
+mode "$xrandr"{
+
+
+		bindsym a exec xrandr --auto, mode "default"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+		bindsym q mode "default"
+}
+
+
+bindsym $mod+x mode "$xrandr"
+
+
+# Move between screens
+bindsym $mod+Control+h exec ~/.config/i3/screens.py LEFT
+bindsym $mod+Control+j exec ~/.config/i3/screens.py DOWN 
+bindsym $mod+Control+k exec ~/.config/i3/screens.py UP 
+bindsym $mod+Control+l exec ~/.config/i3/screens.py RIGHT 
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)

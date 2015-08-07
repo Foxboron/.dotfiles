@@ -20,7 +20,7 @@ vpn(){
         nmcli con down id $vpn_name
         echo "" > ~/.config/i3/vpn-status
     else
-        nmcli con up id $vpn_name
+        nmcli con up id $vpn_name || true
         echo "VPN: " > ~/.config/i3/vpn-status
     fi
 }
@@ -31,7 +31,7 @@ sshtun() {
         echo "" > ~/.config/i3/vpn-status
     else
         export SUDO_ASKPASS=/usr/lib/ssh/x11-ssh-askpass
-    /usr/bin/sshuttle -D --pidfile=/tmp/sh.pid -r $vpn_name 0.0.0.0/0
+        /usr/bin/sshuttle --dns -D --pidfile=/tmp/sh.pid -r $vpn_name 0.0.0.0/0 || true
         echo "SSH: " > ~/.config/i3/vpn-status
     fi
 }
