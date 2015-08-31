@@ -1,5 +1,16 @@
 #!/bin/bash
 
+#killall synergyc 2>&1 >/dev/null || true 
+
 export XAUTHORITY=/home/fox/.Xauthority
 export DISPLAY=:0.0
-/usr/bin/xrandr -display :0 --output eDP1 --auto --output HDMI1 --auto --above eDP1
+xrandr  --output eDP1 --auto --output HDMI1 --auto --primary
+xrandr  --output VGA1 --auto --left-of HDMI1 --rotate left
+
+# if [[ -n $(xrandr | grep -E "TheGibson|Auto Etherneet") ]]; then
+#     synergyc --debug NOTE 192.168.2.156
+# else
+#     killall synergyc 2>&1 >/dev/null || true 
+# fi
+feh --bg-scale ~/.config/i3/bckg/mountain.png
+i3-msg "restart"

@@ -52,7 +52,6 @@ ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg_bold[red]%} → %{$reset_color%}"
 
 alias tmux="tmux -2"
 alias vim="nvim"
-alias lock='udiskie-umount -a && dm-tool switch-to-greeter && udiskie-mount -a'
 alias catp="pygmentize -g"
 alias vimrc="vim ~/.vimrc"
 alias zshrc="vim ~/.zshrc"
