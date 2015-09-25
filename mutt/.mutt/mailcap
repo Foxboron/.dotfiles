@@ -1,0 +1,2 @@
+text/html; elinks -dump ; copiousoutput;
+application/pdf; { set -m \; /bin/mv -T %s %s.mv \; ( evince %s.mv \; /bin/rm %s.mv \; ) & } \; disown -a

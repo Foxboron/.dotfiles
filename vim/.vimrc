@@ -56,6 +56,10 @@ set t_Co=256
 colorscheme gotham
 set bg=dark
 
+set fileencoding=utf-8
+set termencoding=utf-8
+set encoding=utf-8
+
 syntax enable
 filetype plugin indent on
 
@@ -224,7 +228,6 @@ end
 au InsertEnter * set nornu
 au InsertLeave * set rnu
 au FocusLost * silent! wa
-
 
 au BufReadPost *
   \ if line("'\"") > 0 && line("'\"") <= line("$") |
