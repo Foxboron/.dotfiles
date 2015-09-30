@@ -2,7 +2,7 @@ set editor = "vim +$"
 set my_name = "Morten Linderud"
 set header_cache = "~/.cache/mutt"
 set imap_check_subscribed
-set imap_keepalive = 300
+set imap_keepalive = 100000
 unset imap_passive
 set mbox_type=Maildir
 set mailcap_path 	= ~/.mutt/mailcap
@@ -12,7 +12,7 @@ set signature = ~/.mutt/signature
 set send_charset="us-ascii:utf-8"
 
 set check_new=yes       # Check for new messages in maildir
-#set mail_check=5        # Check mail every 5 seconds
+set mail_check=5        # Check mail every 5 seconds
 set timeout=5           # Time out 5 seconds after last keypress to check for mail
 set forward_quote=no    # Don't quote forwards
 set help=no	            # Disable the help header
@@ -41,7 +41,6 @@ set collapse_unread=no
 set uncollapse_jump=yes
 set crypt_use_gpgme 
 
-
 set fast_reply=yes
 set smart_wrap=yes
 
@@ -55,8 +54,7 @@ set pager_index_lines=10
 
 macro index b '<enter-command>toggle sidebar_visible<enter><refresh>'
 macro pager b '<enter-command>toggle sidebar_visible<enter><redraw-screen>'
-# Ctrl-n, Ctrl-p to select next, previous folder.
-# Ctrl-o to open selected folder.
+
 bind index,pager \CP sidebar-prev
 bind index,pager \CN sidebar-next
 bind index,pager \CO sidebar-open
@@ -95,12 +93,10 @@ set hidden_host
 set ssl_force_tls = yes
 set ssl_starttls = yes
 set sendmail = "/usr/bin/msmtp"
-#set smtp_url=smtps://$imap_user:$imap_pass@smtp.linderud.pw:465/
 
 set pgp_use_gpg_agent = yes
 set pgp_sign_as =9FECBE16
 set pgp_timeout = 20
-#set crypt_autosign = yes
 set crypt_replyencrypt = yes
 set crypt_use_gpgme = yes
 
@@ -121,58 +117,5 @@ macro index x "<shell-escape> pass mail | sieve-connect --user \"morten@linderud
 
 folder-hook . "exec collapse-all"
 
-# general-doesn't-fit stuff
-color normal     brightwhite color232
-color error      color115 color236
-color markers    color142 color238
-color tilde      color108 color232
-color status     color144 color234
-
-# index stuff
-color indicator  color108 color236
-color tree       color109 color232
-color index      color188 color232 ~A
-color index      brightred color232 ~N
-color index      brightred color232 ~O
-color index      color174 color232 ~F
-color index      color174 color232 ~D
-
-# header stuff
-color hdrdefault color223 color232
-color header     color223 color232 "^Subject"
-
-# gpg stuff
-color body       color188 color232 "^gpg: Good signature.*"
-color body       color115 color236 "^gpg: BAD signature.*"
-color body       color174 color232 "^gpg: Can't check signature.*"
-color body       color174 color232 "^-----BEGIN PGP SIGNED MESSAGE-----"
-color body       color174 color232 "^-----BEGIN PGP SIGNATURE-----"
-color body       color174 color232 "^-----END PGP SIGNED MESSAGE-----"
-color body       color174 color232 "^-----END PGP SIGNATURE-----"
-color body       color174 color232 "^Version: GnuPG.*"
-color body       color174 color232 "^Comment: .*"
-
-# url, email and web stuff
-color body       color174 color232 "(finger|ftp|http|https|news|telnet)://[^ >]*"
-color body       color174 color232 "<URL:[^ ]*>"
-color body       color174 color232 "www\\.[-.a-z0-9]+\\.[a-z][a-z][a-z]?([-_./~a-z0-9]+)?"
-color body       color174 color232 "mailto: *[^ ]+\(\\i?subject=[^ ]+\)?"
-color body       color174 color232 "[-a-z_0-9.%$]+@[-a-z_0-9.]+\\.[-a-z][-a-z]+"
-
-# misc body stuff
-color attachment color174 color232 #Add-ons to the message
-color signature  color223 color232
-
-# quote levels
-color quoted     color108 color232
-color quoted1    color116 color232
-color quoted2    color247 color232
-color quoted3    color108 color232
-color quoted4    color116 color232
-color quoted5    color247 color232
-color quoted6    color108 color232
-color quoted7    color116 color232
-color quoted8    color247 color232
-color quoted9    color108 color232
-
+source "~/.mutt/colors"
 source "~/.mutt/gpg.rc"

@@ -35,11 +35,10 @@ Plug 'tpope/vim-surround'
 Plug 'whatyouhide/vim-gotham'
 Plug 'Raimondi/YAIFA'
 Plug 'zhaocai/GoldenView.Vim'
-Plug 'jceb/vim-orgmode'
+Plug 'jceb/vim-orgmode', {'for': 'org'}
 Plug 'scrooloose/syntastic'
 Plug 'chrisbra/SudoEdit.vim'
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
-Plug 'Shougo/neocomplete.vim'
 Plug 'jaxbot/github-issues.vim'
 Plug 'ervandew/supertab'
 
@@ -99,6 +98,7 @@ set backspace=indent,eol,start
 set autoindent
 set ignorecase
 set smartcase
+set completeopt=menu
 
 let g:airline_theme="gotham256"
 let g:airline#extensions#whitespace#enabled = 1
@@ -184,13 +184,24 @@ inoremap <C-J><C-J> <ESC>
 nnoremap <C-W>v :vsplit<CR>
 nnoremap <C-W>s :split<CR>
 
+" nmap <C-W>sw<left>  :topleft  vnew<CR>
+" nmap <C-W>sw<right> :botright vnew<CR>
+" nmap <C-W>sw<up>    :topleft  new<CR>
+" nmap <C-W>sw<down>  :botright new<CR>
+
+" " buffer
+" nmap <C-W>s<left>   :leftabove  vnew<CR>
+" nmap <C-W>s<right>  :rightbelow vnew<CR>
+" nmap <C-W>s<up>     :leftabove  new<CR>
+" nmap <C-W>s<down>   :rightbelow new<CR>
+
 nnoremap <silent> <C-f> :SwitchGoldenViewMain<CR>
 
 "Unite
 let g:unite_update_time = 1
 let g:unite_source_rec_max_cache_files = 999999
 let g:unite_prompt='» '
-let g:unite_source_rec_async_command= 'ag --nocolor --nogroup --ignore ".*/" --hidden -g ""'
+let g:unite_source_rec_async_command= 'ag --nocolor --nogroup --ignore-dir={".*/",__pycache__} --hidden -g ""'
 let g:unite_source_grep_command = 'ag'
 let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
 let g:unite_source_grep_recursive_opt = ''
@@ -233,6 +244,22 @@ au BufReadPost *
   \ if line("'\"") > 0 && line("'\"") <= line("$") |
   \   exe "normal g'\"" |
   \ endif
+
+
+function! CreateSnip()
+  15split .tmp.vim.snip  
+endfunction
+
+
+augroup vim.snip
+  autocmd!
+  autocmd FocusLost,BufLeave,WinLeave,BufWritePost *.tmp.vim.snip :source %
+  autocmd BufNewFile,BufRead *.tmp.vim.snip setlocal filetype=vim
+augroup END
+
+nmap <leader>r :call CreateSnip()<cr>
+
+silent! so .tmp.vim.snip
 
 so ~/.vim/config/commands.vim
 so ~/.vim/config/fn.vim
