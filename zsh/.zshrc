@@ -3,7 +3,7 @@ ZSH=$HOME/.oh-my-zsh
 plugins=(gitfastgit-extra
          archlinux 
          history-substring-search
-         lein mosh systemd
+         systemd
          tmux virtualenv virtualenvwrapper
          colorize command-not-found)
 

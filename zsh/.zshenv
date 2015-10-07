@@ -1,4 +1,5 @@
 DEBIAN_PREVENT_KEYBOARD_CHANGES=yes
+skip_global_compinit=1
 export PATH=$PATH:$HOME/bin
 case "$HOST" in
     hackbook) 

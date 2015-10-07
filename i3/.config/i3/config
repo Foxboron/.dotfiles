@@ -35,6 +35,7 @@ bindsym $mod+Return exec i3-sensible-terminal
 focus_follows_mouse	no
 for_window [class="^.*"] border pixel 1
 for_window [class="Firefox"] move container to workspace 1
+for_window [class="Spotify"] move container to workspace 7
 new_window 1pixel
 force_focus_wrapping yes
 hide_edge_borders both

@@ -2,7 +2,7 @@ set editor = "vim +$"
 set my_name = "Morten Linderud"
 set header_cache = "~/.cache/mutt"
 set imap_check_subscribed
-set imap_keepalive = 100000
+set imap_keepalive = 520
 unset imap_passive
 set mbox_type=Maildir
 set mailcap_path 	= ~/.mutt/mailcap
@@ -95,25 +95,37 @@ set ssl_starttls = yes
 set sendmail = "/usr/bin/msmtp"
 
 set pgp_use_gpg_agent = yes
-set pgp_sign_as =9FECBE16
+set pgp_sign_as = 9FECBE16
 set pgp_timeout = 20
 set crypt_replyencrypt = yes
 set crypt_use_gpgme = yes
 
 macro index D \
     "<save-message>+Trash<enter>" \
-    "move message to the trash"
+    "mark message as Trash"
 
 macro index S \
     "<save-message>+Spam<enter>" \
-    "mark message as spam"
+    "mark message as Spam"
 
 macro index A \
     "<save-message>+Archive<enter>" \
-    "mark message as spam"
+    "mark message as Archive"
+
+macro index I \
+    "<save-message>+Important<enter>" \
+    "mark message as Important"
 
 # Edit sieve rules
-macro index x "<shell-escape> pass mail | sieve-connect --user \"morten@linderud.pw\" --port=4190 --server imap.linderud.pw --notlsverify --remotesieve main --edit <enter>"
+macro index x \
+    "<shell-escape> pass mail | \
+    sieve-connect \
+        --user \"morten@linderud.pw\" \
+        --port=4190 \
+        --server imap.linderud.pw \
+        --notlsverify \
+        --remotesieve main \
+        --edit <enter>"
 
 folder-hook . "exec collapse-all"
 

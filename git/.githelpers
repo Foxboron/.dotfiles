@@ -64,3 +64,8 @@ pretty_git_log() {
         fi
 }
 
+
+
+feature_squash(){
+    git reset --soft HEAD~$1 && git commit
+}

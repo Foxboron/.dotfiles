@@ -1,9 +1,15 @@
 
+
 let IWantPlug=1
 let VimPlugDir=expand('~/.vim/autoload/plug.vim')
 if !filereadable(VimPlugDir)
     echo "Installing vim-plug.."
     echo ""
+
+    if !isdirectory(expand("~/.vim/.trash"))
+        mkdir(expand('~/.vim/.trash'))
+    endif
+
     silent !mkdir -p ~/.vim/autoload
     silent !mkdir -p ~/.vim/bundle
     silent !curl -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -78,9 +84,9 @@ set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
 set ttimeoutlen=50
 
 " No more annoying files!
-set backupdir=~/.vim/backup/
-set directory=~/.vim/swap/
-set undodir=~/.vim/undo/
+set backupdir=~/.vim/.trash/backup/
+set directory=~/.vim/.trash/swap/
+set undodir=~/.vim/.trash/undo/
 
 "Fix line breaks
 set wrap
@@ -99,6 +105,7 @@ set autoindent
 set ignorecase
 set smartcase
 set completeopt=menu
+set hlsearch
 
 let g:airline_theme="gotham256"
 let g:airline#extensions#whitespace#enabled = 1
@@ -123,10 +130,9 @@ let g:neocomplete#sources#syntax#min_keyword_length = 2
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
 " Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
+" inoremap <expr><C-g>     neocomplete#undo_completion()
+" inoremap <expr><C-l>     neocomplete#complete_common_string()
 
-set hlsearch
 
 map /  <Plug>(incsearch-forward)
 nnoremap <silent> q :<C-u>nohlsearch<CR>
@@ -155,8 +161,7 @@ map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
-
-noremap <C-A> <Home>
+map <C-A> <Home>
 noremap <C-E> <End>
 noremap <C-Q> %
 
@@ -183,17 +188,6 @@ inoremap <C-J><C-J> <ESC>
 
 nnoremap <C-W>v :vsplit<CR>
 nnoremap <C-W>s :split<CR>
-
-" nmap <C-W>sw<left>  :topleft  vnew<CR>
-" nmap <C-W>sw<right> :botright vnew<CR>
-" nmap <C-W>sw<up>    :topleft  new<CR>
-" nmap <C-W>sw<down>  :botright new<CR>
-
-" " buffer
-" nmap <C-W>s<left>   :leftabove  vnew<CR>
-" nmap <C-W>s<right>  :rightbelow vnew<CR>
-" nmap <C-W>s<up>     :leftabove  new<CR>
-" nmap <C-W>s<down>   :rightbelow new<CR>
 
 nnoremap <silent> <C-f> :SwitchGoldenViewMain<CR>
 
@@ -245,21 +239,12 @@ au BufReadPost *
   \   exe "normal g'\"" |
   \ endif
 
+"silent! so .tmp.vim.snip
 
-function! CreateSnip()
-  15split .tmp.vim.snip  
-endfunction
-
-
-augroup vim.snip
-  autocmd!
-  autocmd FocusLost,BufLeave,WinLeave,BufWritePost *.tmp.vim.snip :source %
-  autocmd BufNewFile,BufRead *.tmp.vim.snip setlocal filetype=vim
-augroup END
-
-nmap <leader>r :call CreateSnip()<cr>
-
-silent! so .tmp.vim.snip
-
-so ~/.vim/config/commands.vim
-so ~/.vim/config/fn.vim
+for sourcefile in split(globpath(expand('~/.vim/config'), '*.vim'), '\n')
+    if filereadable(sourcefile)
+        exe 'source' sourcefile
+    else
+        echo "Warning: " sourcefile " is unreadable"
+    endif
+endfor

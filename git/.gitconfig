@@ -1,5 +1,5 @@
 [user]
-	email = mcfoxax@gmail.com
+	email = morten@linderud.pw
 	name = Foxboron
 	signingkey = 9FECBE16
 
@@ -32,7 +32,10 @@
     la = !git l --all
 	
 	default = simple
-	d = difftool
+	d = difftoolgit rev-parse --abbrev-ref HEAD
+
+	fs = "!. ~/.githelpers && feature_squash"
+
 [core]
 	excludesfile = ~/.gitignore
 [diff]
