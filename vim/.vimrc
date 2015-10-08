@@ -61,6 +61,7 @@ set t_Co=256
 colorscheme gotham
 set bg=dark
 
+set enc=utf-8
 set fileencoding=utf-8
 set termencoding=utf-8
 set encoding=utf-8
@@ -193,18 +194,18 @@ nnoremap <silent> <C-f> :SwitchGoldenViewMain<CR>
 
 "Unite
 let g:unite_update_time = 1
-let g:unite_source_rec_max_cache_files = 999999
+let g:unite_source_rec_max_cache_files=5000
 let g:unite_prompt='» '
-let g:unite_source_rec_async_command= 'ag --nocolor --nogroup --ignore-dir={".*/",__pycache__} --hidden -g ""'
+let g:unite_source_rec_async_command= 'ag --nocolor --nogroup --ignore-dir={".*/",__pycache__,node_modules} --hidden -g ""'
 let g:unite_source_grep_command = 'ag'
 let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
 let g:unite_source_grep_recursive_opt = ''
 
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
+call unite#custom#source('file_rec/async', 'ignore_pattern', 'node_modules/\|bower_components/')
 call unite#custom#source('file,file/new,buffer,file_rec',
                             \ 'matchers', 'matcher_fuzzy')
-
 nnoremap <leader>f :<C-u>Unite -start-insert file_rec/async<cr>
 nnoremap <leader>ug :<C-u>Unite -start-insert grep:.<cr>
 
@@ -233,6 +234,13 @@ end
 au InsertEnter * set nornu
 au InsertLeave * set rnu
 au FocusLost * silent! wa
+au FilterWritePre * if &diff | exe 'nnoremap <C-p> [c' | exe 'nnoremap <C-n> ]c' | endif
+au FilterWritePre * if &diff | exe 'nnoremap <C-p> [c' | exe 'nnoremap <C-n> ]c' | endif
+
+augroup filetype_gitcommit
+    autocmd!
+    au BufEnter */COMMIT_EDITMSG nnoremap <silent> <C-W><C-Q> :update<cr>:exec "wincmd q"<cr>:exec "Gstatus"<cr>
+augroup END
 
 au BufReadPost *
   \ if line("'\"") > 0 && line("'\"") <= line("$") |
