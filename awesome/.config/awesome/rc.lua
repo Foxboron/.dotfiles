@@ -177,16 +177,16 @@ mytextclock = lain.widgets.abase({
 -- Calendar
 lain.widgets.calendar:attach(mytextclock, { font_size = 10 })
 
--- Weather
-weathericon = wibox.widget.imagebox(beautiful.widget_weather)
-myweather = lain.widgets.weather({
-    city_id = 123456, -- placeholder
-    settings = function()
-        descr = weather_now["weather"][1]["description"]:lower()
-        units = math.floor(weather_now["main"]["temp"])
-        widget:set_markup(markup("#eca4c4", descr .. " @ " .. units .. "°C "))
-    end
-})
+-- -- Weather
+-- weathericon = wibox.widget.imagebox(beautiful.widget_weather)
+-- myweather = lain.widgets.weather({
+--     city_id = 123456, -- placeholder
+--     settings = function()
+--         descr = weather_now["weather"][1]["description"]:lower()
+--         units = math.floor(weather_now["main"]["temp"])
+--         widget:set_markup(markup("#eca4c4", descr .. " @ " .. units .. "°C "))
+--     end
+-- })
 
 -- / fs
 fsicon = wibox.widget.imagebox(beautiful.widget_fs)
@@ -412,8 +412,8 @@ for s = 1, screen.count() do
     right_layout:add(cpuwidget)
     right_layout:add(fsicon)
   -- l right_layout:add(fswidget)
-    right_layout:add(weathericon)
-    right_layout:add(myweather)
+    -- right_layout:add(weathericon)
+    -- right_layout:add(myweather)
     right_layout:add(tempicon)
     right_layout:add(tempwidget)
     right_layout:add(baticon)
