@@ -162,6 +162,7 @@ map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
+map <C-c> <C-W>c
 map <C-A> <Home>
 noremap <C-E> <End>
 noremap <C-Q> %
@@ -176,9 +177,15 @@ nnoremap tk  :tabprev<CR>
 nnoremap tl  :tablast<CR>
 nnoremap tm  :tabm<Space>
 nnoremap tn  :tabnew<CR>
+nmap tf :tab sb<CR>
+map <C-t> :tab sb<CR>
+nmap te :tabedit %<CR>
+nmap tc :tabclose<CR>
 nnoremap td  :tabclose<CR>
 nnoremap bj  :bnext<CR>
 nnoremap bk  :bprev<CR>
+
+
 
 " How do i even vim?
 noremap <C-S> :update<CR>
@@ -196,14 +203,13 @@ nnoremap <silent> <C-f> :SwitchGoldenViewMain<CR>
 let g:unite_update_time = 1
 let g:unite_source_rec_max_cache_files=5000
 let g:unite_prompt='» '
-let g:unite_source_rec_async_command= 'ag --nocolor --nogroup --ignore-dir={".*/",__pycache__,node_modules} --hidden -g ""'
+let g:unite_source_rec_async_command = ['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '']
 let g:unite_source_grep_command = 'ag'
-let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
-let g:unite_source_grep_recursive_opt = ''
+" let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+" let g:unite_source_grep_recursive_opt = ''
 
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
-call unite#custom#source('file_rec/async', 'ignore_pattern', 'node_modules/\|bower_components/')
 call unite#custom#source('file,file/new,buffer,file_rec',
                             \ 'matchers', 'matcher_fuzzy')
 nnoremap <leader>f :<C-u>Unite -start-insert file_rec/async<cr>
@@ -235,11 +241,11 @@ au InsertEnter * set nornu
 au InsertLeave * set rnu
 au FocusLost * silent! wa
 au FilterWritePre * if &diff | exe 'nnoremap <C-p> [c' | exe 'nnoremap <C-n> ]c' | endif
-au FilterWritePre * if &diff | exe 'nnoremap <C-p> [c' | exe 'nnoremap <C-n> ]c' | endif
 
 augroup filetype_gitcommit
     autocmd!
     au BufEnter */COMMIT_EDITMSG nnoremap <silent> <C-W><C-Q> :update<cr>:exec "wincmd q"<cr>:exec "Gstatus"<cr>
+    au BufEnter */COMMIT_EDITMSG nnoremap <silent> <C-c> :update<cr>:exec "wincmd q"<cr>:exec "Gstatus"<cr>
 augroup END
 
 au BufReadPost *

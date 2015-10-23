@@ -1,11 +1,10 @@
 #!/bin/bash
 
-vpn_name=arbol
-
+vpn_name=$2
 
 
 turnoff(){
-    if [[ -n $(nmcli con show --active $vpn_name) ]]; then
+    if [[ -n $(nmcli con show  | grep -E "vpn.*wlp3s0") ]]; then
         nmcli con down id $vpn_name
     fi
     if [ -f /tmp/sh.pid ]; then
@@ -16,23 +15,30 @@ turnoff(){
 }
 
 vpn(){ 
-    if [[ -n $(nmcli con show --active $vpn_name) ]]; then
+    if [[ -n $(nmcli con show  | grep -E "vpn.*wlp3s0") ]]; then
         nmcli con down id $vpn_name
-        echo "" > ~/.config/i3/vpn-status
     else
         nmcli con up id $vpn_name || true
-        echo "VPN: " > ~/.config/i3/vpn-status
     fi
 }
 
 sshtun() {
     if [ -f /tmp/sh.pid ]; then
         kill `cat /tmp/sh.pid`
-        echo "" > ~/.config/i3/vpn-status
     else
         export SUDO_ASKPASS=/usr/lib/ssh/x11-ssh-askpass
         /usr/bin/sshuttle --dns -D --pidfile=/tmp/sh.pid -r $vpn_name 0.0.0.0/0 || true
-        echo "SSH: " > ~/.config/i3/vpn-status
+    fi
+}
+
+check(){
+
+    if [[ -n $(nmcli con show  | grep -E "vpn.*wlp3s0") ]]; then
+        echo "VPN: " 
+    elif [ -f /tmp/sh.pid ]; then
+        echo "SSH: " 
+    else
+        echo ""
     fi
 }
 
@@ -48,7 +54,7 @@ case "$1" in
         turnoff
         ;;
     *)
-        exit 2
+        check
 esac
 
 exit 0

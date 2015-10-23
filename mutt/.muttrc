@@ -46,7 +46,7 @@ set smart_wrap=yes
 
 #set sidebar_shortpath = yes
 set sidebar_sort=yes
-set sidebar_width = 38
+set sidebar_width = 20
 set sidebar_visible = yes
 #set sidebar_folderindent = yes
 set sidebar_delim = '|'

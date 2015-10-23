@@ -201,8 +201,8 @@ set $vpn (s)huttle, (v)pn, (o)ff
 mode "$vpn"{
 
 
-		bindsym s exec ~/.config/i3/vpn ssh, mode "default"
-		bindsym v exec ~/.config/i3/vpn vpn, mode "default"
+		bindsym s exec ~/.config/i3/vpn ssh arbol, mode "default"
+		bindsym v exec ~/.config/i3/vpn vpn arbol, mode "default"
 		bindsym o exec ~/.config/i3/vpn off, mode "default"
         bindsym Return mode "default"
         bindsym Escape mode "default"
