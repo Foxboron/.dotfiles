@@ -136,7 +136,9 @@ let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
 
 map /  <Plug>(incsearch-forward)
-nnoremap <silent> q :<C-u>nohlsearch<CR>
+nnoremap <silent> \| :<C-u>nohlsearch<CR>
+nnoremap <Space> @q
+vnoremap <Space> :'<,'>normal @q<cr>
 
 map ø :
 
@@ -231,6 +233,7 @@ highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
 
 au VimEnter * RainbowParentheses
+au VimEnter * call GoldenView#EnableAutoResize()
 
 if !has('nvim')
     au VimEnter * silent! !dynamic-colors switch gotham
