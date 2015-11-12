@@ -1,0 +1,4 @@
+exec ~/.rofi/$(ls ~/.rofi | rofi -dmenu -p "")
+
+
+
