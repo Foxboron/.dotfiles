@@ -41,7 +41,7 @@ force_focus_wrapping yes
 hide_edge_borders both
 
 exec --no-startup-id feh --bg-scale ~/.config/i3/bckg/mountain.png
-exec --no-startup-id dunst -config ~/dunstrc
+exec --no-startup-id dunst -config ~/.dunstrc
 exec --no-startup-id ~/bin/lock 
 
 
@@ -51,6 +51,8 @@ bindsym $mod+Shift+c kill
 # start dmenu (a program launcher)
 bindsym $mod+d exec dmenu_run -nb "#101010" -fn "Source Code Pro-11.1"
 bindsym $mod+p exec dmenu_extended_run
+bindsym $mod+n exec nmcli_dmenu 
+bindsym $mod+Tab exec ~/bin/rofi-run 
 bindsym $mod+Shift+Control+l exec i3lock -n -c 000000 -i /home/fox/.config/i3/bckg/mountain.png 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -83,7 +85,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+b split h
+bindsym $mod+o split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -92,12 +94,12 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
+bindsym $mod+Control+Shift+s layout stacking
 bindsym $mod+Control+Shift+w layout tabbed
 bindsym $mod+Control+Shift+e layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+Control+Shift+space floating toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
@@ -150,7 +152,6 @@ workspace 3 output eDP1
 workspace 4 output eDP1
 workspace 5 output eDP1
 workspace 6 output eDP1
-workspace 6 output VGA1 
 workspace 7 output HDMI1
 workspace 8 output HDMI1
 workspace 9 output HDMI1
@@ -216,7 +217,6 @@ bindsym $mod+c mode "$vpn"
 set $xrandr (a)uto
 
 mode "$xrandr"{
-
 
 		bindsym a exec xrandr --auto, mode "default"
         bindsym Return mode "default"

@@ -1,5 +1,3 @@
-
-
 let IWantPlug=1
 let VimPlugDir=expand('~/.vim/autoload/plug.vim')
 if !filereadable(VimPlugDir)
@@ -16,6 +14,10 @@ if !filereadable(VimPlugDir)
     let IWantPlug=0
 endif
 
+if !has('nvim')
+    au VimEnter * silent! !dynamic-colors switch gotham
+    au VimLeave * silent! !dynamic-colors switch default
+end
 
 set rtp+=$HOME/.vim/autoload/plug.vim
 
@@ -56,6 +58,11 @@ if IWantPlug == 0
   :PlugUpdate
 endif
 
+syntax enable
+filetype plugin indent on
+
+let mapleader=" "
+let maplocalleader=","
 
 set t_Co=256
 colorscheme gotham
@@ -64,13 +71,7 @@ set bg=dark
 set enc=utf-8
 set fileencoding=utf-8
 set termencoding=utf-8
-set encoding=utf-8
 
-syntax enable
-filetype plugin indent on
-
-let mapleader=" "
-let maplocalleader=","
 set nocompatible
 set mouse=a
 set number
@@ -79,7 +80,7 @@ set noshowmode
 set wildmenu
 set lazyredraw
 set laststatus=2
-set clipboard=unnamed
+set clipboard=unnamedplus
 set hidden
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
 set ttimeoutlen=50
@@ -97,9 +98,9 @@ set textwidth=0
 set wrapmargin=0
 
 set smartindent
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 set expandtab
 set backspace=indent,eol,start
 set autoindent
@@ -107,11 +108,19 @@ set ignorecase
 set smartcase
 set completeopt=menu
 set hlsearch
+set shell=/bin/zsh
+
+
+set splitbelow
+set splitright
+
+
+let g:netrw_liststyle=3
+
 
 let g:airline_theme="gotham256"
 let g:airline#extensions#whitespace#enabled = 1
 let g:airline_powerline_fonts = 1
-"let g:airline_exclude_preview = 1
 let g:instant_markdown_autostart = 0
 let g:goldenview__enable_default_mapping = 0
 let g:org_indent = 0
@@ -159,6 +168,12 @@ map <Leader>gq :Gwq<CR>
 map <leader>nh G2o<Esc>i*
 
 
+
+noremap j gj
+noremap k gk
+nnoremap gj 5j
+nnoremap gk 5k
+
 " Emacs anyone?
 map <C-j> <C-W>j
 map <C-k> <C-W>k
@@ -180,14 +195,16 @@ nnoremap tl  :tablast<CR>
 nnoremap tm  :tabm<Space>
 nnoremap tn  :tabnew<CR>
 nmap tf :tab sb<CR>
-map <C-t> :tab sb<CR>
-nmap te :tabedit %<CR>
 nmap tc :tabclose<CR>
-nnoremap td  :tabclose<CR>
 nnoremap bj  :bnext<CR>
 nnoremap bk  :bprev<CR>
 
 
+
+" Neovim terminal commands
+tnoremap <leader><Tab> <C-\><C-n>
+nnoremap ttn :tabnew<CR>:terminal<CR>
+map <C-t> :split<CR>:terminal<CR>
 
 " How do i even vim?
 noremap <C-S> :update<CR>
@@ -201,14 +218,16 @@ nnoremap <C-W>s :split<CR>
 
 nnoremap <silent> <C-f> :SwitchGoldenViewMain<CR>
 
+
+
 "Unite
 let g:unite_update_time = 1
 let g:unite_source_rec_max_cache_files=5000
 let g:unite_prompt='» '
 let g:unite_source_rec_async_command = ['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '']
 let g:unite_source_grep_command = 'ag'
-" let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
-" let g:unite_source_grep_recursive_opt = ''
+let g:unite_source_grep_default_opts = '--vimgrep --nogroup --nocolor --column'
+let g:unite_source_grep_recursive_opt = ''
 
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
@@ -229,17 +248,16 @@ function! s:unite_settings()
 endfunction
 
 
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%81v.\+/
+
+
+
+highlight OverLength ctermbg=blue ctermfg=white guibg=#592929
+match OverLength /\%81v./
+
+
 
 au VimEnter * RainbowParentheses
 au VimEnter * call GoldenView#EnableAutoResize()
-
-if !has('nvim')
-    au VimEnter * silent! !dynamic-colors switch gotham
-    au VimLeave * silent! !dynamic-colors switch default
-end
-
 au InsertEnter * set nornu
 au InsertLeave * set rnu
 au FocusLost * silent! wa
@@ -256,8 +274,11 @@ au BufReadPost *
   \   exe "normal g'\"" |
   \ endif
 
-"silent! so .tmp.vim.snip
 
+
+
+"silent! so .tmp.vim.snip
+" Source files
 for sourcefile in split(globpath(expand('~/.vim/config'), '*.vim'), '\n')
     if filereadable(sourcefile)
         exe 'source' sourcefile

@@ -2,6 +2,13 @@
 
 #killall synergyc 2>&1 >/dev/null || true 
 
+
+move-irc-window(){
+  i3-msg workspace 6; i3-msg move workspace to output VGA1
+  i3-msg workspace back_and_forth
+}
+
+
 export XAUTHORITY=/home/fox/.Xauthority
 export DISPLAY=:0.0
 xrandr  --output eDP1 --auto --output HDMI1 --auto --primary
