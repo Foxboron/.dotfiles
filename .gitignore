@@ -2,3 +2,5 @@
 *.swo
 vpn-status
 .rope*
+*autoload*
+*bundle*
