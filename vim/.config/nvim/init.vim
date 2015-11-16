@@ -5,7 +5,9 @@ if !filereadable(VimPlugDir)
     echo ""
 
     if !isdirectory(expand("~/.config/nvim/.trash"))
-        silent !mkdir -p ~/.config/nvim/.trash
+        silent !mkdir -p ~/.config/nvim/.trash/undo
+        silent !mkdir -p ~/.config/nvim/.trash/swap
+        silent !mkdir -p ~/.config/nvim/.trash/backupg
     endif
 
     silent !mkdir -p ~/.config/nvim/autoload
