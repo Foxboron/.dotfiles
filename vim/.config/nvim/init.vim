@@ -1,16 +1,16 @@
 let IWantPlug=1
-let VimPlugDir=expand('~/.vim/autoload/plug.vim')
+let VimPlugDir=expand('~/.config/nvim/autoload/plug.vim')
 if !filereadable(VimPlugDir)
     echo "Installing vim-plug.."
     echo ""
 
-    if !isdirectory(expand("~/.vim/.trash"))
-        mkdir(expand('~/.vim/.trash'))
+    if !isdirectory(expand("~/.config/nvim/.trash"))
+        silent !mkdir -p ~/.config/nvim/.trash
     endif
 
-    silent !mkdir -p ~/.vim/autoload
-    silent !mkdir -p ~/.vim/bundle
-    silent !curl -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    silent !mkdir -p ~/.config/nvim/autoload
+    silent !mkdir -p ~/.config/nvim/bundle
+    silent !curl -fLo ~/.config/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     let IWantPlug=0
 endif
 
@@ -19,10 +19,10 @@ if !has('nvim')
     au VimLeave * silent! !dynamic-colors switch default
 end
 
-set rtp+=$HOME/.vim/autoload/plug.vim
+set rtp+=$HOME/.config/nvim/autoload/plug.vim
 
 
-call plug#begin('~/.vim/bundle')
+call plug#begin('~/.config/nvim/bundle')
 Plug 'bling/vim-airline'
 Plug 'kovisoft/paredit', {'for' : ['clojure', 'hy']}
 Plug 'goldfeld/vim-seek'
@@ -86,9 +86,9 @@ set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
 set ttimeoutlen=50
 
 " No more annoying files!
-set backupdir=~/.vim/.trash/backup/
-set directory=~/.vim/.trash/swap/
-set undodir=~/.vim/.trash/undo/
+set backupdir=~/.config/nvim/.trash/backup/
+set directory=~/.config/nvim/.trash/swap/
+set undodir=~/.config/nvim/.trash/undo/
 
 "Fix line breaks
 set wrap
@@ -279,7 +279,7 @@ au BufReadPost *
 
 "silent! so .tmp.vim.snip
 " Source files
-for sourcefile in split(globpath(expand('~/.vim/config'), '*.vim'), '\n')
+for sourcefile in split(globpath(expand('~/.config/nvim/config'), '*.vim'), '\n')
     if filereadable(sourcefile)
         exe 'source' sourcefile
     else
