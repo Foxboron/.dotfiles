@@ -3,7 +3,7 @@ function! Mutt()
     terminal mutt
 endfunction
 
-command! Vimrc :e ~/.vimrc
+command! Vimrc :e ~/.config/nvim/init.vim
 command! Zshrc :e ~/.zshrc
-command! S source ~/.vimrc
+command! S source ~/.config/nvim/init.vim
 command! Mutt call Mutt()
