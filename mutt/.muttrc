@@ -1,4 +1,4 @@
-set editor = "vim +$" 
+set editor = "nvim +$" 
 set my_name = "Morten Linderud"
 set header_cache = "~/.cache/mutt"
 set imap_check_subscribed

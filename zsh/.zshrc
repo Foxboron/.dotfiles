@@ -53,7 +53,7 @@ ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg_bold[red]%} → %{$reset_color%}"
 alias tmux="tmux -2"
 alias vim="nvim"
 alias catp="pygmentize -g"
-alias vimrc="vim ~/.vimrc"
+alias vimrc="vim ~/.config/nvim/init.vim"
 alias zshrc="vim ~/.zshrc"
 alias psg="ps aux | grep "
 alias G="| grep "
@@ -75,7 +75,7 @@ function git-fixup {
 }
 
 nvim (){
-    dynamic-colors switch gotham
+    dynamic-colors switch gotham 
     /usr/bin/nvim $*
     dynamic-colors switch default
 

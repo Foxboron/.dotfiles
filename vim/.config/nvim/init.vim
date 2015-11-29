@@ -148,7 +148,7 @@ let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
 map /  <Plug>(incsearch-forward)
 nnoremap <silent> \| :<C-u>nohlsearch<CR>
-nnoremap <Space> @q
+nnoremap <Space>q @q<Esc><Esc>
 vnoremap <Space> :'<,'>normal @q<cr>
 
 map ø :
@@ -176,14 +176,15 @@ noremap k gk
 nnoremap gj 5j
 nnoremap gk 5k
 
+
 " Emacs anyone?
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 map <C-c> <C-W>c
-map <C-A> <Home>
-noremap <C-E> <End>
+noremap <C-A> ^
+noremap <C-E> $
 noremap <C-Q> %
 
 cnoremap <C-K> <Up>
