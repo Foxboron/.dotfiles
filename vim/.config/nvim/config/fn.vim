@@ -16,6 +16,17 @@ endfunction
 map <leader>n :call RenameFile()<cr>
 
 
+function! Scp()
+  let name = input('Filname: ') 
+  let f = substitute(system("mktemp"), "\n*$", '', '')
+  execute '!chmod 644 ' . f
+  execute 'w >>' f
+  execute '!scp ' . f . ' trinity:www/' . name
+  execute '!rm ' . f
+endfunction 
+map <leader>ps :call Scp()<cr>
+
+
 function! s:detect(file) abort
   if !exists('b:leiningen_root')
     let root = simplify(fnamemodify(a:file, ':p:s?[\/]$??'))

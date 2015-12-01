@@ -19,5 +19,3 @@ xrandr  --output VGA1 --auto --left-of HDMI1 --rotate left
 # else
 #     killall synergyc 2>&1 >/dev/null || true 
 # fi
-feh --bg-scale ~/.config/i3/bckg/mountain.png
-i3-msg "restart"
