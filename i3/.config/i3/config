@@ -50,7 +50,7 @@ bindsym $mod+Shift+c kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec dmenu_run -nb "#101010" -fn "Source Code Pro-11.1"
-bindsym $mod+p exec dmenu_extended_run
+# bindsym $mod+p exec dmenu_extended_run
 bindsym $mod+n exec nmcli_dmenu 
 bindsym $mod+Tab exec ~/bin/rofi-run 
 bindsym $mod+Shift+Control+l exec i3lock -n -c 000000 -i /home/fox/.config/i3/bckg/mountain.png 
@@ -152,10 +152,16 @@ workspace 3 output eDP1
 workspace 4 output eDP1
 workspace 5 output eDP1
 workspace 6 output eDP1
-workspace 7 output HDMI1
-workspace 8 output HDMI1
-workspace 9 output HDMI1
-workspace 10 output HDMI1
+# workspace 1 output HDMI2
+# workspace 2 output HDMI2
+# workspace 3 output HDMI2
+# workspace 4 output HDMI2
+# workspace 5 output HDMI2
+# workspace 6 output HDMI2
+# workspace 7 output HDMI1
+# workspace 8 output HDMI1
+# workspace 9 output HDMI1
+# workspace 10 output HDMI1
 
 bindsym $mod+Control+h exec "i3-msg focus output left"
 bindsym $mod+Control+j exec "i3-msg focus output down"
@@ -200,13 +206,11 @@ bindsym $mod+Control r mode "resize"
 set $vpn (s)huttle, (v)pn, (o)ff
 
 mode "$vpn"{
-
-
 		bindsym s exec ~/.config/i3/vpn ssh arbol, mode "default"
 		bindsym v exec ~/.config/i3/vpn vpn arbol, mode "default"
 		bindsym o exec ~/.config/i3/vpn off, mode "default"
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 		bindsym q mode "default"
 }
 
@@ -219,14 +223,23 @@ set $xrandr (a)uto
 mode "$xrandr"{
 
 		bindsym a exec xrandr --auto, mode "default"
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 		bindsym q mode "default"
 }
 
-
 bindsym $mod+x mode "$xrandr"
 
+set $media Media Player (j,k,q,space)
+
+mode "$media"{
+		bindsym space exec playerctl play-pause 
+    bindsym k exec playerctl next 
+    bindsym j exec playerctl prev 
+		bindsym q mode "default"
+}
+
+bindsym $mod+p mode "$media"
 
 
 # Start i3bar to display a workspace bar (plus the system information i3status
