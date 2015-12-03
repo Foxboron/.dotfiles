@@ -1,18 +1,25 @@
 #!/bin/sh
-wlp_state="$(cat /sys/class/net/wlp3s0/operstate)"
-eth_state="$(cat /sys/class/net/enp0s20u3/operstate)"
+
+
+wlp_state="$(cat /sys/class/net/wl*/operstate)" \
+eth_state="$(cat /sys/class/net/en*/operstate)"
+
 ssid=$(/bin/iwgetid -r)
 
+wlp_name="$(ls /sys/class/net | grep wl)"
+eth_name="$(ls /sys/class/net | grep en)"
+
+
 if [ "$eth_state" = "up" ]; then
-        echo " enp0s20u3/$ssid"
-        echo " enp0s20u3/$ssid"
+        echo " $eth_name/$ssid"
+        echo " $eth_name/$ssid"
         echo "#99CC99"
         exit 0
 fi
 
 if [ "$eth_state" = "down" ]; then
-        echo " enp0s20u3/$ssid"
-        echo " enp0s20u3/$ssid"
+        echo " $eth_name/$ssid"
+        echo " $eth_name/$ssid"
         echo "#F2777A"
         exit 0
 fi
@@ -24,15 +31,15 @@ if [ "$eth_state" = "dormant" ]; then
         exit 0
 fi
 if [ "$wlp_state" = "up" ]; then
-        echo " wlp3s0/$ssid"
-        echo " wlp3s0/$ssid"
+        echo " $wlp_name/$ssid"
+        echo " $wlp_name/$ssid"
         echo "#99CC99"
         exit 0
 fi
 
 if [ "$wlp_state" = "down" ]; then
-        echo " wlp3s0/$ssid"
-        echo " wlp3s0/$ssid"
+        echo " $wlp_name/$ssid"
+        echo " $wlp_name/$ssid"
         echo "#F2777A"
         exit 0
 fi
