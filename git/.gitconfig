@@ -32,15 +32,21 @@
     la = !git l --all
 	
 	default = simple
-	d = difftoolgit rev-parse --abbrev-ref HEAD
+	d = difftool
 
 	fs = "!. ~/.githelpers && feature_squash"
 
 [core]
 	excludesfile = ~/.gitignore
 [diff]
-	tool = vimdiff
+	tool = vimdiff 
 [difftool]
 	prompt = false
+[difftool "vimdiff"]
+	cmd = /home/fox/bin/vimdiff $LOCAL $REMOTE
 [push]
 	default = simple
+[merge]
+	tool = vimdiff 
+[mergetool]
+	path = /home/fox/bin/vimdiff

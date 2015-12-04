@@ -1,6 +1,6 @@
 DEBIAN_PREVENT_KEYBOARD_CHANGES=yes
 skip_global_compinit=1
-export PATH=$PATH:$HOME/bin
+export PATH="$HOME/bin:$PATH"
 case "$HOST" in
     hackbook) 
         export TERM="rxvt-unicode-256color";;

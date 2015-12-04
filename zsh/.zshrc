@@ -78,6 +78,5 @@ nvim (){
     dynamic-colors switch gotham 
     /usr/bin/nvim $*
     dynamic-colors switch default
-
 }
 
