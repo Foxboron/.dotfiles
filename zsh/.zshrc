@@ -74,10 +74,3 @@ function git-fixup {
   fi
 }
 
-nvim (){
-    dynamic-colors switch gotham 
-    /usr/bin/nvim $*
-    dynamic-colors switch default
-
-}
-

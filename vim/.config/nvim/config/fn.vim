@@ -15,8 +15,15 @@ function! RenameFile()
 endfunction
 map <leader>n :call RenameFile()<cr>
 
+function! Keepjumps(command)
+  let winview = winsaveview()
+  execute "keepjumps normal! " . a:command
+  call winrestview(winview)
+endfunction
 
-function! Scp()
+nnoremap <leader>= :call Keepjumps("gg=G")<CR>
+
+function! Scp(serv)
   let name = input('Filname: ') 
   let f = substitute(system("mktemp"), "\n*$", '', '')
   execute '!chmod 644 ' . f
@@ -24,7 +31,7 @@ function! Scp()
   execute '!scp ' . f . ' trinity:www/' . name
   execute '!rm ' . f
 endfunction 
-map <leader>ps :call Scp()<cr>
+map <leader>ps :call Scp("trinity:www/")<cr>
 
 
 function! s:detect(file) abort
