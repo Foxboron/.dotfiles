@@ -124,8 +124,10 @@ let g:airline_theme="gotham256"
 let g:airline#extensions#whitespace#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:instant_markdown_autostart = 0
-let g:goldenview__enable_default_mapping = 0
 let g:org_indent = 0
+
+
+let g:goldenview__enable_default_mapping = 0
 
 let g:pymode_folding = 0
 let g:pymode_doc = 0
@@ -141,9 +143,6 @@ let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#sources#syntax#min_keyword_length = 2
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
-" Plugin key-mappings.
-" inoremap <expr><C-g>     neocomplete#undo_completion()
-" inoremap <expr><C-l>     neocomplete#complete_common_string()
 
 
 map /  <Plug>(incsearch-forward)
@@ -178,11 +177,12 @@ nnoremap gk 5k
 
 
 " Emacs anyone?
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
-map <C-c> <C-W>c
+map <C-l> <Nop>
+noremap <C-j> <C-W>j
+noremap <C-k> <C-W>k
+noremap <C-h> <C-W>h
+noremap <C-l> <C-W>l
+noremap <C-c> <C-W>c
 noremap <C-A> ^
 noremap <C-E> $
 noremap <C-Q> %
@@ -218,6 +218,7 @@ inoremap <C-J><C-J> <ESC>
 
 nnoremap <C-W>v :vsplit<CR>
 nnoremap <C-W>s :split<CR>
+nnoremap <silent> <C-W><C-Q> :wqa<cr>
 
 nnoremap <silent> <C-f> :SwitchGoldenViewMain<CR>
 
@@ -260,11 +261,14 @@ match OverLength /\%81v./
 
 
 au VimEnter * RainbowParentheses
-au VimEnter * call GoldenView#EnableAutoResize()
+if !&diff 
+    au VimEnter * EnableGoldenViewAutoResize 
+endif
 au InsertEnter * set nornu
 au InsertLeave * set rnu
 au FocusLost * silent! wa
 au FilterWritePre * if &diff | exe 'nnoremap <C-p> [c' | exe 'nnoremap <C-n> ]c' | endif
+
 
 augroup filetype_gitcommit
     autocmd!

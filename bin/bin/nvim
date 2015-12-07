@@ -1,0 +1,4 @@
+#!/usr/bin/sh
+dynamic-colors switch gotham 
+/usr/bin/nvim $*
+dynamic-colors switch default

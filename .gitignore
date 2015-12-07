@@ -4,3 +4,6 @@ vpn-status
 .rope*
 *autoload*
 *bundle*
+*netrwhist*
+*.trash*
+*.bak*
