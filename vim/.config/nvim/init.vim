@@ -77,7 +77,7 @@ set termencoding=utf-8
 set nocompatible
 set mouse=a
 set number
-set so=50
+set so=10
 set noshowmode
 set wildmenu
 set lazyredraw

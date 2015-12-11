@@ -33,6 +33,7 @@
 
 	default = simple
 	d = difftool
+	edit = "!vim `git ls-files -m` -p"
 
 	fs = "!. ~/.githelpers && feature_squash"
 
