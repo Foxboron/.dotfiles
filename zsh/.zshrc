@@ -55,6 +55,7 @@ alias vim="nvim"
 alias catp="pygmentize -g"
 alias vimrc="vim ~/.config/nvim/init.vim"
 alias zshrc="vim ~/.zshrc"
+alias i3conf="vim ~/.config/i3/config"
 alias psg="ps aux | grep "
 alias G="| grep "
 alias L="| less "
@@ -73,4 +74,3 @@ function git-fixup {
     echo "Usage: gf <commit-ref> "
   fi
 }
-
