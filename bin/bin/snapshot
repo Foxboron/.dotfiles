@@ -10,7 +10,7 @@ set -e
 	
 # last=${*: -1}
 # if [ $? -eq 0 ]; then
-# 	stouch ~/$last
+# 	touch ~/$last
 # 	rm -f $backup/last | true
 # 	ln -s ~/$last $backup/last
 # fi
