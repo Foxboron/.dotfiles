@@ -160,7 +160,7 @@ bindsym $mod+x mode "$xrandr"
 set $media Media Player (j,k,q,space)
 
 mode "$media"{
-	bindsym space exec playerctl play-pause 
+	bindsym space exec playerctl play-pause, mode "default"
 	bindsym k exec playerctl next 
 	bindsym j exec playerctl previous
 	bindsym q mode "default"

@@ -13,7 +13,7 @@ if !filereadable(VimPlugDir)
     silent !mkdir -p ~/.config/nvim/autoload
     silent !mkdir -p ~/.config/nvim/bundle
     silent !curl -fLo ~/.config/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    let IWantPlug=0
+    auto VimEnter * PlugInstall
 endif
 
 if !has('nvim')
@@ -52,14 +52,10 @@ Plug 'rust-lang/rust.vim', {'for': 'rust'}
 Plug 'jaxbot/github-issues.vim'
 Plug 'ervandew/supertab'
 Plug 'mhinz/vim-startify'
+Plug 'junegunn/goyo.vim'
 
 call plug#end()
 
-if IWantPlug == 0
-  echo "Installing Bundles, please ignore key map error messages"
-  echo ""
-  :PlugUpdate
-endif
 
 syntax enable
 filetype plugin indent on
@@ -118,8 +114,6 @@ set completeopt=menu
 set hlsearch
 set shell=/bin/zsh
 
-
-set splitbelow
 set splitright
 
 
