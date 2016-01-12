@@ -13,7 +13,7 @@ if !filereadable(VimPlugDir)
     silent !mkdir -p ~/.config/nvim/autoload
     silent !mkdir -p ~/.config/nvim/bundle
     silent !curl -fLo ~/.config/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    let IWantPlug=0
+    auto VimEnter * PlugInstall
 endif
 
 if !has('nvim')
@@ -51,14 +51,11 @@ Plug 'chrisbra/SudoEdit.vim'
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
 Plug 'jaxbot/github-issues.vim'
 Plug 'ervandew/supertab'
+Plug 'mhinz/vim-startify'
+Plug 'junegunn/goyo.vim'
 
 call plug#end()
 
-if IWantPlug == 0
-  echo "Installing Bundles, please ignore key map error messages"
-  echo ""
-  :PlugUpdate
-endif
 
 syntax enable
 filetype plugin indent on
@@ -82,7 +79,7 @@ set noshowmode
 set wildmenu
 set lazyredraw
 set laststatus=2
-set clipboard=unnamedplus
+set clipboard=unnamed
 set hidden
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
 set ttimeoutlen=50
@@ -92,12 +89,17 @@ set backupdir=~/.config/nvim/.trash/backup/
 set directory=~/.config/nvim/.trash/swap/
 set undodir=~/.config/nvim/.trash/undo/
 
+
+set sessionoptions=blank,buffers,folds,curdir,globals,resize,winpos
+
 "Fix line breaks
 set wrap
 set linebreak
 set nolist
 set textwidth=0
 set wrapmargin=0
+
+set cursorline
 
 set smartindent
 set tabstop=2
@@ -112,13 +114,37 @@ set completeopt=menu
 set hlsearch
 set shell=/bin/zsh
 
-
-set splitbelow
 set splitright
 
 
 let g:netrw_liststyle=3
 
+
+
+" Startify
+let g:startify_session_dir = "~/.sessions"
+let g:startify_custom_header =
+      \ map(split(system('fortune hackers | cowsay -f tux'), '\n'), '"   ". v:val') + ['']
+
+let g:startify_list_order = [
+        \ ['   Sessions:'],
+        \ 'sessions',
+        \ ['   Bookmarks:'],
+        \ 'bookmarks',
+        \ ['   Most recently used files:'],
+        \ 'files',
+        \ ['   Most recently used files in the current directory:'],
+        \ 'dir',
+        \ ]
+
+let g:startify_bookmarks = [ 
+        \ {'f': '~/.config/nvim/init.vim'}, 
+        \ {'g': '~/.zshrc'},
+        \ {'h': '~/.config/i3/config'}
+        \]
+
+let g:startify_files_number = 5
+let g:startify_session_persistence = 1
 
 let g:airline_theme="gotham256"
 let g:airline#extensions#whitespace#enabled = 1
@@ -147,8 +173,15 @@ let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
 map /  <Plug>(incsearch-forward)
 nnoremap <silent> \| :<C-u>nohlsearch<CR>
-nnoremap <Space>q @q<Esc><Esc>
+nnoremap <Space>q @
 vnoremap <Space> :'<,'>normal @q<cr>
+
+nnoremap Y "*y
+vnoremap Y "*y
+
+nnoremap P "+p
+vnoremap P "+p
+
 
 map ø :
 

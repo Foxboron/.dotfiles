@@ -14,7 +14,7 @@ export VIRTUALENVWRAPPER_PYTHON="/usr/bin/python"
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket" 
 export LC_ALL=en_US.utf8
 export LANG=en_US.utf8
-export EDITOR="vim"
+export EDITOR="nvim"
 #PRIMUS
 export PRIMUS_SYNC=0
 export vblank_mode=0

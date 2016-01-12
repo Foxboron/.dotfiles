@@ -26,13 +26,18 @@ nnoremap <leader>= :call Keepjumps("gg=G")<CR>
 function! Scp(serv)
   let name = input('Filname: ') 
   let f = substitute(system("mktemp"), "\n*$", '', '')
-  execute '!chmod 644 ' . f
-  execute 'w >>' f
-  execute '!scp ' . f . ' trinity:www/' . name
-  execute '!rm ' . f
+  silent execute '!chmod 644 ' . f
+  silent execute 'w >>' f
+  silent execute '!scp ' . f . ' ' . serv . name
+  silent execute '!rm ' . f
 endfunction 
-map <leader>ps :call Scp("trinity:www/")<cr>
+map <leader>pw :call Scp("trinity:www/")<cr>
 
+function! ScpEdit(serv)
+  let name = input('Filname: ') 
+  silent execute ':e scp://' . serv . name
+endfunction 
+map <leader>pe :call ScpEdit("trinity/www/")<cr>
 
 function! s:detect(file) abort
   if !exists('b:leiningen_root')

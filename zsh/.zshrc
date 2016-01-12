@@ -44,33 +44,15 @@ export KEYTIMEOUT=1
 ZSH_THEME_GIT_PROMPT_PREFIX="λ %{$fg[blue]%}git %{$fg[red]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg_bold[red]%} → %{$reset_color%}"
 
-#export PYTHONPATH=/usr/lib/python3.3/site-packages
-
-
 
 ##ALIAS
 
 alias tmux="tmux -2"
 alias vim="nvim"
-alias catp="pygmentize -g"
 alias vimrc="vim ~/.config/nvim/init.vim"
 alias zshrc="vim ~/.zshrc"
+alias i3conf="vim ~/.config/i3/config"
 alias psg="ps aux | grep "
 alias G="| grep "
 alias L="| less "
-
-
-function git-fixup {
-  if [ $# -eq 1 ]
-  then
-    if [[ "$1" == HEAD* ]]
-    then
-      git add -A; git fixup $1; git ri $1~2
-    else
-      git add -A; git fixup $1; git ri $1~1
-    fi
-  else
-    echo "Usage: gf <commit-ref> "
-  fi
-}
 
