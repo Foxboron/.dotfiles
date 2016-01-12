@@ -263,7 +263,11 @@ match OverLength /\%81v./
 au VimEnter * RainbowParentheses
 if !&diff 
     au VimEnter * EnableGoldenViewAutoResize 
+else 
+    au VimResized * exe "normal \<c-w>="
+    au VimEnter * set ea
 endif
+
 au InsertEnter * set nornu
 au InsertLeave * set rnu
 au FocusLost * silent! wa
