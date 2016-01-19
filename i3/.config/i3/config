@@ -8,7 +8,11 @@ bindsym $mod+Return exec i3-sensible-terminal
 
 
 focus_follows_mouse	no
-for_window [class="^.*"] border pixel 1
+for_window [class="^.*"] border pixel 0
+smart_gaps on
+gaps inner 20
+gaps outer 5
+
 for_window [class="Firefox"] move container to workspace 1
 for_window [class="Spotify"] move container to workspace 8
 new_window 1pixel
@@ -91,7 +95,7 @@ workspace 2 output eDP1
 workspace 3 output eDP1
 workspace 4 output eDP1
 workspace 5 output eDP1
-workspace 6 output eDP1
+workspace 6 output VGA1
 # workspace 1 output HDMI2
 # workspace 2 output HDMI2
 # workspace 3 output HDMI2
@@ -132,9 +136,9 @@ bindsym $mod+Control r mode "resize"
 set $vpn (s)huttle, (v)pn, (o)ff
 
 mode "$vpn"{
-	bindsym s exec ~/.config/i3/vpn ssh arbol, mode "default"
-	bindsym v exec ~/.config/i3/vpn vpn arbol, mode "default"
-	bindsym o exec ~/.config/i3/vpn off, mode "default"
+	bindsym s exec ~/.config/i3/script/vpn ssh arbol, mode "default"
+	bindsym v exec ~/.config/i3/script/vpn vpn arbol, mode "default"
+	bindsym o exec ~/.config/i3/script/vpn off, mode "default"
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
 	bindsym q mode "default"

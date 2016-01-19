@@ -4,8 +4,13 @@ plugins=(gitfastgit-extra
          archlinux 
          history-substring-search
          systemd
-         tmux virtualenv virtualenvwrapper
-         colorize command-not-found)
+         docker
+         docker-compose
+         tmux 
+         virtualenv 
+         virtualenvwrapper
+         colorize 
+         command-not-found)
 
 
 source $ZSH/oh-my-zsh.sh
@@ -55,4 +60,5 @@ alias i3conf="vim ~/.config/i3/config"
 alias psg="ps aux | grep "
 alias G="| grep "
 alias L="| less "
+alias dc="docker-compose"
 
