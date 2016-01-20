@@ -44,15 +44,18 @@ Plug 'tpope/vim-markdown', {'for' : 'markdown'}
 Plug 'tpope/vim-surround'
 Plug 'whatyouhide/vim-gotham'
 Plug 'Raimondi/YAIFA'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 Plug 'zhaocai/GoldenView.Vim'
 Plug 'jceb/vim-orgmode', {'for': 'org'}
 Plug 'scrooloose/syntastic'
 Plug 'chrisbra/SudoEdit.vim'
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
 Plug 'jaxbot/github-issues.vim'
-Plug 'ervandew/supertab'
+"Plug 'ervandew/supertab'
 Plug 'mhinz/vim-startify'
 Plug 'junegunn/goyo.vim'
+Plug 'rstacruz/vim-closer'
+Plug 'fatih/vim-go', {'for': 'go'}
 
 call plug#end()
 
@@ -108,6 +111,7 @@ set shiftwidth=2
 set expandtab
 set backspace=indent,eol,start
 set autoindent
+set autochdir
 set ignorecase
 set smartcase
 set completeopt=menu
@@ -119,7 +123,9 @@ set splitright
 
 let g:netrw_liststyle=3
 
-
+" Python Move
+let g:pymode_rope_complete_on_dot = 0
+let g:pymode_rope_lookup_project = 0
 
 " Startify
 let g:startify_session_dir = "~/.sessions"
@@ -144,6 +150,7 @@ let g:startify_bookmarks = [
         \]
 
 let g:startify_files_number = 5
+let g:startify_change_to_vcs_root = 0
 let g:startify_session_persistence = 1
 
 let g:airline_theme="gotham256"
@@ -255,7 +262,13 @@ nnoremap <silent> <C-W><C-Q> :wqa<cr>
 
 nnoremap <silent> <C-f> :SwitchGoldenViewMain<CR>
 
+"YouCompleteMe
+"
+let g:ycm_key_list_select_completion = ['<C-n>']
+let g:ycm_key_list_previous_completion = ['<C-p>']
 
+" Open or close the complection dialog
+imap <silent><expr> <C-space>  pumvisible() ? "\<C-e>" : "\<C-X><C-O><C-P>"
 
 "Unite
 let g:unite_update_time = 1
@@ -317,6 +330,11 @@ au BufReadPost *
   \ if line("'\"") > 0 && line("'\"") <= line("$") |
   \   exe "normal g'\"" |
   \ endif
+
+
+augroup golang
+
+augroup END
 
 
 

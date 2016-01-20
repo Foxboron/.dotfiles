@@ -16,6 +16,6 @@
 "synclient TouchpadOff=$(synclient -l | grep -c 'TouchpadOff.*=.*0')"
     XF86TouchpadToggle
 
-"xrandr -display :0 --output HDMI1 --auto --above eDP1 --output eDP1 --primary"
+"xrandr -display :0 --output HDMI1 --mode 1920x1080 --above eDP1 --output eDP1 --primary"
     XF86Display
 
