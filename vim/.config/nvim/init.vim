@@ -41,6 +41,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fireplace', {'for' : ['clojure', 'hy']}
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-markdown', {'for' : 'markdown'}
+Plug 'jtratner/vim-flavored-markdown', {'for' : 'markdown'}
 Plug 'tpope/vim-surround'
 Plug 'whatyouhide/vim-gotham'
 Plug 'Raimondi/YAIFA'
@@ -56,6 +57,7 @@ Plug 'mhinz/vim-startify'
 Plug 'junegunn/goyo.vim'
 Plug 'rstacruz/vim-closer'
 Plug 'fatih/vim-go', {'for': 'go'}
+Plug 'ternjs/tern_for_vim'
 
 call plug#end()
 
@@ -111,7 +113,6 @@ set shiftwidth=2
 set expandtab
 set backspace=indent,eol,start
 set autoindent
-set autochdir
 set ignorecase
 set smartcase
 set completeopt=menu
@@ -119,6 +120,13 @@ set hlsearch
 set shell=/bin/zsh
 
 set splitright
+
+
+" Cursor
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+let &t_SI = "\<Esc>[6 q"
+let &t_SR = "\<Esc>[4 q"
+let &t_EI = "\<Esc>[2 q"
 
 
 let g:netrw_liststyle=3
@@ -250,9 +258,9 @@ nnoremap ttn :tabnew<CR>:terminal<CR>
 map <C-t> :split<CR>:terminal<CR>
 
 " How do i even vim?
-noremap <C-S> :update<CR>
-inoremap <C-S> <C-C>:update<CR>
-inoremap <C-S> <C-O>:update<CR>
+noremap <silent><C-S> :update<CR>
+inoremap <silent><C-S> <C-C>:update<CR>
+inoremap <silent><C-S> <C-O>:update<CR>
 nnoremap <leader>e :edit<Space>
 inoremap <C-J><C-J> <ESC>
 
@@ -316,6 +324,19 @@ endif
 
 au InsertEnter * set nornu
 au InsertLeave * set rnu
+
+
+function! s:goyo_enter()
+    autocmd InsertEnter * :set nonumber
+    autocmd InsertLeave * :set norelativenumber
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+
+
+
+
+
 au FocusLost * silent! wa
 au FilterWritePre * if &diff | exe 'nnoremap <C-p> [c' | exe 'nnoremap <C-n> ]c' | endif
 
@@ -336,7 +357,10 @@ augroup golang
 
 augroup END
 
-
+augroup markdown
+    au!
+    au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
+augroup END
 
 
 "silent! so .tmp.vim.snip
