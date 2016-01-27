@@ -3,7 +3,10 @@ URxvt.iso14755_52: false
 xvt.buffered          : true
 xft.dpi		      : 98
 !URxvt*font            : xft:Inconsolata\ for\ Powerline:size=10:antialias=true:hinting=true
-urxvt*font            : xft:DejaVu\ Sans\ Mono\ for\ Powerline:size=10:antialias=true:hinting=true,xft:Inconsolata\ for\ Powerline:pixelsize=20:xft:Unifont:pixelsize=12:antialias=true
+urxvt*font            : xft:DejaVu\ Sans\ Mono\ for\ Powerline:size=10:antialias=true:hinting=true,xft:Inconsolata\ for\ Powerline:pixelsize=20:xft:Unifont:pixelsize=12:antialias=true,xft:Source\ Code\ Pro:size=10:antialias=true,xft:Icons:size=10:antialias=true,xft:FontAwesome:size=10:antialias=true
+
+
+
 URxvt.title           : urxvt
 URxvt.scrollBar       : False
 URxvt.termName: rxvt-unicode-256color
