@@ -22,3 +22,4 @@ export TERMINAL=urxvt
 export LEIN_JAVA_CMD=drip
 export GOPATH="/home/fox/.go"
 export DOCKER_HOST=tcp://trinity.velox.pw:54321 DOCKER_TLS_VERIFY=1
+export GO15VENDOREXPERIMENT=1
