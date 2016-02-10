@@ -1,10 +1,10 @@
-"amixer -D pulse sset Master 5%- && pkill -RTMIN+10 i3blocks"
+"~/bin/volume dec"
     XF86AudioLowerVolume
 
-"amixer -D pulse sset Master 5%+ && pkill -RTMIN+10 i3blocks"
+"~/bin/volume inc"
     XF86AudioRaiseVolume
 
-"amixer -D pulse sset Master toggle && pkill -RTMIN+10 i3blocks"
+"~/bin/volume toggle"
     XF86AudioMute
 
 "asus-kbd-backlight down"

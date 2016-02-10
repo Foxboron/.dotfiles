@@ -157,7 +157,6 @@ mode "$xrandr"{
 	bindsym Escape mode "default"
 	bindsym q mode "default"
 }
-
 bindsym $mod+x mode "$xrandr"
 
 set $media Media Player (j,k,q,space)
@@ -168,9 +167,17 @@ mode "$media"{
 	bindsym j exec playerctl previous
 	bindsym q mode "default"
 }
-
 bindsym $mod+p mode "$media"
 
+set $volume Volume
+
+mode "$volume"{
+	bindsym space exec ~/bin/volume toggle
+	bindsym p exec ~/bin/volume inc 
+	bindsym n exec ~/bin/volume dec
+	bindsym q mode "default"
+}
+bindsym $mod+m mode "$volume"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)

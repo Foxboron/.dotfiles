@@ -258,9 +258,9 @@ nnoremap ttn :tabnew<CR>:terminal<CR>
 map <C-t> :split<CR>:terminal<CR>
 
 " How do i even vim?
-noremap <silent><C-S> :update<CR>
-inoremap <silent><C-S> <C-C>:update<CR>
-inoremap <silent><C-S> <C-O>:update<CR>
+noremap <silent><C-S> :silent update<CR>
+inoremap <silent><C-S> <C-C>:silent update<CR>
+inoremap <silent><C-S> <C-O>:silent update<CR>
 nnoremap <leader>e :edit<Space>
 inoremap <C-J><C-J> <ESC>
 
@@ -274,6 +274,7 @@ nnoremap <silent> <C-f> :SwitchGoldenViewMain<CR>
 "
 let g:ycm_key_list_select_completion = ['<C-n>']
 let g:ycm_key_list_previous_completion = ['<C-p>']
+let g:ycm_python_binary_path = '/usr/bin/python3'
 
 " Open or close the complection dialog
 imap <silent><expr> <C-space>  pumvisible() ? "\<C-e>" : "\<C-X><C-O><C-P>"
@@ -329,6 +330,7 @@ au InsertLeave * set rnu
 function! s:goyo_enter()
     autocmd InsertEnter * :set nonumber
     autocmd InsertLeave * :set norelativenumber
+    au VimResized * exe "normal \<c-w>="
 endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
