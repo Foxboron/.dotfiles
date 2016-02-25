@@ -24,3 +24,4 @@ export GOPATH="/home/fox/.go"
 export DOCKER_HOST=tcp://trinity.velox.pw:54321 DOCKER_TLS_VERIFY=1
 export GO15VENDOREXPERIMENT=1
 export FZF_DEFAULT_COMMAND='ag --hidden --follow --nogroup -g ""'
+export FZF_DEFAULT_OPTS='--color 16'

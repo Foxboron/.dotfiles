@@ -129,14 +129,17 @@ let &t_SI = "\<Esc>[6 q"
 let &t_SR = "\<Esc>[4 q"
 let &t_EI = "\<Esc>[2 q"
 
+" Search and Replace binding
 map /  <Plug>(incsearch-forward)
 nnoremap <silent> \| :<C-u>nohlsearch<CR>
 nnoremap <Space>q @
 vnoremap <Space> :'<,'>normal @q<cr>
-nmap <expr>  M  ':%s/' . @/ . '//g<LEFT><LEFT>'
+nmap <expr>  m  ':%s/' . @/ . '//g<left><left>'
+vnoremap <expr>  m  ':s/' . @/ . '//g<left><left>'
 nnoremap <silent>// :exe '/' . expand('<cword>')<cr>
 vnoremap / y/<C-R>"<CR>
-vnoremap <silent> / :<C-U>
+vnoremap / <Esc>/\%V
+vnoremap <silent> // :<C-U>
   \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
   \gvy/<C-R><C-R>=substitute(
   \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
@@ -298,7 +301,7 @@ imap <silent><expr> <C-space>  pumvisible() ? "\<C-e>" : "\<C-X><C-O><C-P>"
 " zfz.vim
 nnoremap <silent><leader>f :Files <cr>
 nnoremap <silent><leader>gf :GitFiles <cr>
-nnoremap <silent><leader>uf :Ag 
+nnoremap <silent><leader>ug :Ag 
 nnoremap <silent><leader>uw :exe 'Ag ' . expand('<cword>')<cr>
 vnoremap <leader>us :<C-U>
   \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
@@ -319,12 +322,14 @@ au InsertLeave * set rnu
 
 
 function! s:goyo_enter()
+    au!
     autocmd InsertEnter * :set nonumber
     autocmd InsertLeave * :set norelativenumber
     au VimResized * exe "normal \<c-w>="
 endfunction
 
 function! s:goyo_leave()
+    au!
     au InsertEnter * set nornu
     au InsertLeave * set rnu
 endfunction
@@ -348,6 +353,13 @@ augroup markdown
     au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
 augroup END
 
+function! s:fzf_statusline()
+
+  setlocal laststatus=2
+  setlocal statusline=fzf
+endfunction
+
+autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
 "silent! so .tmp.vim.snip
 " Source files
