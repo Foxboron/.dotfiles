@@ -64,13 +64,28 @@ pretty_git_log() {
         fi
 }
 
+# Usage:
+# Add urls with: git config --global mirror.<name> <url>
+# git mirror <original remote> <mirror url>
+# It will do a simple lookup on the git repo folder name
+# and assume it exists on the mirror remote.
+# If no args are supplied it will attempt to look for a default
 git_mirror (){
-    BASE_URL="git-trinity:fox/"
+    if (( "$#" == 2 ))
+    then
+        BASE_URL=$(git config --global --get mirror.$2)
+        REMOTE_NAME=$2
+        exit 1
+    else
+        DEFAULT_NAME=$(git config --global --get mirror.default)
+        BASE_URL=$(git config --global --get mirror.$DEFAULT_NAME)
+        REMOTE_NAME=$DEFAULT_NAME
+    fi
     BASE_NAME=$(git remote show $1 | grep -oEi "Fetch.*" | cut -d" " -f3)
     BASE_REPO=$(echo $BASE_NAME | grep -oEi "[^/][a-z1-9]*\.git")
     git remote set-url --push --add $1 $BASE_NAME
     git remote set-url --push --add $1 $BASE_URL$BASE_REPO
-    git remote add trinity $BASE_URL$BASE_REPO
+    git remote add $REMOTE_NAME $BASE_URL$BASE_REPO
 }
 
 feature_squash(){

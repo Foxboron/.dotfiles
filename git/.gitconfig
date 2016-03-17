@@ -58,3 +58,7 @@
 
 [push]
 	default = simple
+[mirror]
+	trinity = git-trinity:fox/
+	default = trinity
+	github = git@github.com:Foxboron/
