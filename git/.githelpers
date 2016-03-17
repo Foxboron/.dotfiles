@@ -64,7 +64,14 @@ pretty_git_log() {
         fi
 }
 
-
+git_mirror (){
+    BASE_URL="git-trinity:fox/"
+    BASE_NAME=$(git remote show $1 | grep -oEi "Fetch.*" | cut -d" " -f3)
+    BASE_REPO=$(echo $BASE_NAME | grep -oEi "[^/][a-z1-9]*\.git")
+    git remote set-url --push --add $1 $BASE_NAME
+    git remote set-url --push --add $1 $BASE_URL$BASE_REPO
+    git remote add trinity $BASE_URL$BASE_REPO
+}
 
 feature_squash(){
     git reset --soft HEAD~$1 && git commit

@@ -1,4 +1,3 @@
-let IWantPlug=1
 let VimPlugDir=expand('~/.config/nvim/autoload/plug.vim')
 if !filereadable(VimPlugDir)
     echo "Installing vim-plug.."
@@ -270,8 +269,18 @@ let g:airline_powerline_fonts = 1
 let g:instant_markdown_autostart = 0
 let g:org_indent = 0
 
-
 let g:goldenview__enable_default_mapping = 0
+
+"Go Mode
+let g:go_fmt_command = "goimports"
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_interfaces = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 
 " Python Mode
 let g:pymode_rope_complete_on_dot = 0
@@ -306,7 +315,19 @@ vnoremap <leader>us :<C-U>
   \escape(@", '/*$^~['), '\n', '', 'g')<CR><CR>
 
 
+function! s:goyo_enter()
+    autocmd InsertEnter * :set nonumber
+    autocmd InsertLeave * :set norelativenumber
+    au VimResized * exe "normal \<c-w>="
+endfunction
+
+
+
+augroup init.vim
+au!
+
 au VimEnter * RainbowParentheses
+
 if !&diff 
     au VimEnter * EnableGoldenViewAutoResize 
 else 
@@ -318,18 +339,14 @@ au InsertEnter * set nornu
 au InsertLeave * set rnu
 
 
-function! s:goyo_enter()
-    autocmd InsertEnter * :set nonumber
-    autocmd InsertLeave * :set norelativenumber
-    au VimResized * exe "normal \<c-w>="
-endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 
-
+au TermOpen * setlocal listchars=
 au FocusLost * silent! wa
 au FilterWritePre * if &diff | exe 'nnoremap <C-p> [c' | exe 'nnoremap <C-n> ]c' | endif
 
+command! GdiffInTab tabedit %|Gdiff
 
 augroup filetype_gitcommit
     autocmd!
@@ -342,7 +359,7 @@ augroup markdown
     au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
 augroup END
 
-
+augroup END
 "silent! so .tmp.vim.snip
 " Source files
 for sourcefile in split(globpath(expand('~/.config/nvim/config'), '*.vim'), '\n')

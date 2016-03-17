@@ -2,7 +2,8 @@
 	email = morten@linderud.pw
 	name = Foxboron
 	signingkey = 9FECBE16
-
+[gitweb]
+  owner = "Morten Linderud"
 [color]
 	ui = auto
 [branch]
@@ -14,6 +15,7 @@
 	di = diff
 	dc = diff --cached
 	aa = add --all
+	rem = remote -v
 
 	ff = merge --ff-only
 	pullff = pull --ff-only
@@ -22,7 +24,7 @@
 	c = commit -m
 	ap = add -p .
 	p = push
-	pom = p origin master
+	pom = push origin master
 
 	head = !git r -1
 	h = !git head
@@ -34,9 +36,12 @@
 
 	default = simple
 	d = difftool
-	edit = "!vim `git ls-files -m` -p"
+
+	edit = "!nvim `git ls-files -m` -p"
 
 	fs = "!. ~/.githelpers && feature_squash"
+
+	mirror ="!. ~/.githelpers && git_mirror"
 
 [core]
 	excludesfile = ~/.gitignore

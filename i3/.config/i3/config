@@ -163,8 +163,8 @@ set $media Media Player (j,k,q,space)
 
 mode "$media"{
 	bindsym space exec playerctl play-pause, mode "default"
-	bindsym k exec playerctl next 
 	bindsym j exec playerctl previous
+	bindsym k exec playerctl next 
 	bindsym q mode "default"
 }
 bindsym $mod+p mode "$media"
@@ -173,8 +173,8 @@ set $volume Volume
 
 mode "$volume"{
 	bindsym space exec ~/bin/volume toggle
-	bindsym p exec ~/bin/volume inc 
-	bindsym n exec ~/bin/volume dec
+	bindsym j exec ~/bin/volume dec
+	bindsym k exec ~/bin/volume inc 
 	bindsym q mode "default"
 }
 bindsym $mod+m mode "$volume"

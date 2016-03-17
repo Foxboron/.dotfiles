@@ -61,6 +61,7 @@ alias psg="ps aux | grep "
 alias G="| grep "
 alias L="| less "
 alias dc="docker-compose"
+alias g="grep -oEi"
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
