@@ -1,0 +1,5 @@
+touch /tmp/clipboard-edit
+xsel -o > /tmp/clipboard-edit
+nvim /tmp/clipboard-edit
+cat /tmp/clipboard-edit | xsel -i
+~/.rofi/ix

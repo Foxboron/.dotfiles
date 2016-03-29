@@ -1,0 +1,1 @@
+urxvt -e zsh -i -c mutt

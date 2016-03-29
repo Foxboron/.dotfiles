@@ -57,6 +57,7 @@ Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'ternjs/tern_for_vim', {'for': 'javascript'}
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/vim-journal'
 
 call plug#end()
 

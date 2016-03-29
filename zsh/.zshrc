@@ -62,6 +62,7 @@ alias G="| grep "
 alias L="| less "
 alias dc="docker-compose"
 alias g="grep -oEi"
+alias xselix="xsel | ix"
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

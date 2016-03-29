@@ -70,22 +70,26 @@ pretty_git_log() {
 # It will do a simple lookup on the git repo folder name
 # and assume it exists on the mirror remote.
 # If no args are supplied it will attempt to look for a default
-git_mirror (){
-    if (( "$#" == 2 ))
-    then
-        BASE_URL=$(git config --global --get mirror.$2)
-        REMOTE_NAME=$2
-        exit 1
-    else
-        DEFAULT_NAME=$(git config --global --get mirror.default)
-        BASE_URL=$(git config --global --get mirror.$DEFAULT_NAME)
-        REMOTE_NAME=$DEFAULT_NAME
-    fi
+mirror(){ 
+    REMOTE_NAME=$2
+    BASE_URL=$(git config --global --get mirror.$2)
     BASE_NAME=$(git remote show $1 | grep -oEi "Fetch.*" | cut -d" " -f3)
     BASE_REPO=$(echo $BASE_NAME | grep -oEi "[^/][a-z1-9]*\.git")
     git remote set-url --push --add $1 $BASE_NAME
     git remote set-url --push --add $1 $BASE_URL$BASE_REPO
     git remote add $REMOTE_NAME $BASE_URL$BASE_REPO
+}
+git_mirror (){
+    if (("$#" < 1))
+    then
+        echo "mirror <remote> <mirror remote>"
+    elif (( "$#" == 2 ))
+    then
+        mirror $1 $2
+    else
+        DEFAULT_NAME=$(git config --global --get mirror.default)
+        mirror $1 $DEFAULT_NAME
+    fi
 }
 
 feature_squash(){
