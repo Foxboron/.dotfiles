@@ -6,7 +6,7 @@ pasystray &
 nm-applet &
 udiskie & 
 tlp start &
-unclutter -idle 4 & 
+unclutter --timeout 4 & 
 xset -dpms; xset s off 
 synclient RightButtonAreaTop=2000
 eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)

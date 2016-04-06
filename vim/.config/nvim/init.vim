@@ -34,7 +34,6 @@ Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'klen/python-mode', {'for' : 'python'}
 Plug 'haya14busa/incsearch.vim'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fireplace', {'for' : ['clojure', 'hy']}
 Plug 'tpope/vim-fugitive'
@@ -58,6 +57,7 @@ Plug 'ternjs/tern_for_vim', {'for': 'javascript'}
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-journal'
+Plug 'lervag/vimtex'
 
 call plug#end()
 
@@ -134,8 +134,10 @@ map /  <Plug>(incsearch-forward)
 nnoremap <silent> \| :<C-u>nohlsearch<CR>
 nnoremap <Space>q @
 vnoremap <Space> :'<,'>normal @q<cr>
-nmap <expr>  m  ':%s/' . @/ . '//g<left><left>'
-vnoremap <expr>  m  ':s/' . @/ . '//g<left><left>'
+" nmap <expr>  m  ':%s/' . @/ . '//g<left><left>'
+" vnoremap <expr>  m  ':s/' . @/ . '//g<left><left>'
+nmap <expr>  m  ':%s///g<left><left>'
+vnoremap <expr>  m  ':s///g<left><left>'
 nnoremap <silent>// :exe '/' . expand('<cword>')<cr>
 vnoremap / y/<C-R>"<CR>
 vnoremap / <Esc>/\%V
@@ -145,12 +147,7 @@ vnoremap <silent> // :<C-U>
   \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
 
-nnoremap Y "*y
-vnoremap Y "*y
-
-nnoremap P "+p
-vnoremap P "+p
-
+nnoremap <leader>m :silent make\|redraw!\|cc<CR>
 
 map ø :
 
@@ -193,6 +190,9 @@ noremap j gj
 noremap k gk
 nnoremap gj 5j
 nnoremap gk 5k
+
+"Reflow paragraph
+nmap <leader>rf vapgq
 
 " Use GoldenView to have file focus
 nnoremap <silent> <C-f> :SwitchGoldenViewMain<CR>
