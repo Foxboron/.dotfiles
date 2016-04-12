@@ -17,7 +17,7 @@ set -e
 
 
 # SSH Server
-readonly SSH_SERV="trinity"
+readonly SSH_SERV="backup"
 
 # Source of the backup
 readonly SRC="/home/fox/"

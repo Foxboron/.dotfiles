@@ -25,6 +25,8 @@ URxvt.keysym.M-s: perl:keyboard-select:search
 
 
 
+
+
 !URxvt.keysym.C-S-C:   perl:clipboard:copy
 !URxvt.keysym.C-S-V:   perl:clipboard:paste
 

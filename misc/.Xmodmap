@@ -1,4 +1,8 @@
+keycode  34 = bracketleft braceleft aring Aring     
+keycode  47 = semicolon colon ae AE                 
+keycode  48 = apostrophe quotedbl ooblique Ooblique 
 keycode 160 = XF86AudioMute
 keycode 176 = XF86AudioRaiseVolume
 keycode 174 = XF86AudioLowerVolume
 keycode 108 = ISO_Level3_Shift
+
