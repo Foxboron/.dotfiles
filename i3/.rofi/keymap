@@ -6,11 +6,11 @@ keymap_layout=$(setxkbmap -query | awk '
 
 case "$keymap_layout" in
 us)
-  setxkbmap no
-    notify-send 'Set keymap: NO'
+  setxkbmap -option 'ctrl:nocaps' no
+  notify-send 'Set keymap: NO'
   ;;
 no)
-  setxkbmap -layout us -variant altgr-intl
+  setxkbmap -layout us -variant altgr-intl -option 'ctrl:nocaps'
   notify-send 'Set keymap: US International'
   ;;
 esac

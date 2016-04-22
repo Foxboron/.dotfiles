@@ -104,11 +104,23 @@ macro index D \
     "<save-message>+Trash<enter>" \
     "mark message as Trash"
 
+macro pager D \
+    "<save-message>+Trash<enter>" \
+    "mark message as Trash"
+
 macro index S \
     "<save-message>+Spam<enter>" \
     "mark message as Spam"
 
+macro pager S \
+    "<save-message>+Spam<enter>" \
+    "mark message as Spam"
+
 macro index A \
+    "<save-message>+Archive<enter>" \
+    "mark message as Archive"
+
+macro pager A \
     "<save-message>+Archive<enter>" \
     "mark message as Archive"
 

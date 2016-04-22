@@ -185,6 +185,14 @@ nnoremap <C-W>v :vsplit<CR>
 nnoremap <C-W>s :split<CR>
 nnoremap <silent> <C-W><C-Q> :wqa<cr>
 
+
+
+" Complete mode shortcuts
+inoremap ^] ^X^]
+inoremap ^F ^X^F
+inoremap ^D ^X^D
+inoremap ^L ^X^L
+
 " More natrual movement
 noremap j gj
 noremap k gk
@@ -218,7 +226,6 @@ nnoremap bk  :bprev<CR>
 " Neovim terminal commands
 tnoremap <leader><Tab> <C-\><C-n>
 nnoremap ttn :tabnew<CR>:terminal<CR>
-map <C-t> :split<CR>:terminal<CR>
 
 
 " How do i even vim?
