@@ -15,6 +15,7 @@ gaps outer 5
 
 for_window [class="Firefox"] move container to workspace 1
 for_window [class="Spotify"] move container to workspace 8
+for_window [title="ix edit"] floating enable 
 new_window 1pixel
 force_focus_wrapping yes
 hide_edge_borders both

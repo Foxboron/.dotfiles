@@ -332,8 +332,6 @@ function! s:goyo_enter()
     au VimResized * exe "normal \<c-w>="
 endfunction
 
-
-
 augroup init.vim
 au!
 
