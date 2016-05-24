@@ -96,3 +96,10 @@ git_mirror (){
 feature_squash(){
     git reset --soft HEAD~$1 && git commit
 }
+
+pull_request(){
+    echo $2
+    echo $1
+    echo $(git symbolic-ref --short -q HEAD)
+    hub pull-request -f -b $1 -h $(git symbolic-ref --short -q HEAD)
+}

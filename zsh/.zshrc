@@ -33,7 +33,6 @@ zplug "zsh-users/zsh-completions"
 zplug "plugins/gitgastgit-extra", from:oh-my-zsh
 zplug "plugins/virtualenv", from:oh-my-zsh
 zplug "plugins/virtualenvwrapper", from:oh-my-zsh
-zplug "plugins/archlinux", from:oh-my-zsh
 zplug "lib/completion", from:oh-my-zsh, ignore:oh-my-zsh.sh, nice:10
 zplug "lib/directories", from:oh-my-zsh, ignore:oh-my-zsh.sh, nice:10
 zplug "lib/git", from:oh-my-zsh, ignore:oh-my-zsh.sh, nice:10
@@ -94,6 +93,7 @@ alias g="grep -oEi"
 alias ls="ls --color=tty"
 alias xselix="xsel | ix"
 alias ..="cd .."
+alias yaourt="echo \"pacaur you idiot\""
 
 
 if ! zplug check --verbose; then

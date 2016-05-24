@@ -29,8 +29,10 @@ bindsym $mod+Shift+c kill
 
 bindsym $mod+d exec dmenu_run -nb "#101010" -fn "Source Code Pro-11.1"
 bindsym $mod+n exec nmcli_dmenu 
-bindsym $mod+Tab exec ~/bin/rofi-run 
+#bindsym $mod+Tab exec ~/bin/rofi-run 
+bindsym Shift+Tab exec ~/bin/rofi-run 
 bindsym $mod+Shift+Control+l exec i3lock -n -c 000000 -i /home/fox/.config/i3/bckg/mountain.png 
+
 
 bindsym $mod+h focus left
 bindsym $mod+j focus down
@@ -195,10 +197,6 @@ bar {
 		colors {
 			background #101010
 			statusline #605c5a
-# focused_workspace #101010 #101010 #dd9a64
-# active_workspace #F92671  #101010 #101010
-# inactive_workspace #101010 #101010 #b8b1ac
-# urgent_workspace #2e3436 #9a878f
 			separator #323131
 	}
 }
