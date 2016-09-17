@@ -10,8 +10,9 @@ setopt prompt_subst
 
 # Check if zplug is installed
 [[ -d ~/.zplug ]] || {
-  curl -fLo ~/.zplug/zplug --create-dirs https://git.io/zplug
-  source ~/.zplug/zplug && zplug update --self
+  mkdir -p ~/.config/zsh/
+  curl -fLo ~/.config/zsh/zplug/zplug --create-dirs https://git.io/zplug
+  source ~/.config/zsh/zplug/zplug && zplug update --self
 }
 
 
@@ -21,12 +22,18 @@ autoload -U compinit
 ZSH_COMPDUMP="${ZDOTDIR:-${HOME}}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
 compinit -i -d "${ZSH_COMPDUMP}"
 
+autoload -U run-help
+autoload run-help-git
+autoload run-help-svn
+autoload run-help-svk
+export HELPDIR=~/.config/zsh/zsh_help
+bindkey '^P' run-help
 
 
 # Source 
-source ~/.zplug/zplug
+source ~/.config/zsh/zplug/zplug
 #source /usr/bin/virtualenvwrapper.sh
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Zplug
 zplug "zsh-users/zsh-completions"
@@ -58,6 +65,11 @@ bindkey '^A' beginning-of-line
 bindkey '^?' backward-delete-char
 bindkey '^h' backward-delete-char
 bindkey '^w' backward-kill-word
+
+zle -N edit-command-line
+autoload -Uz edit-command-line
+bindkey -M vicmd 'v' edit-command-line
+
 
 #prompt
 

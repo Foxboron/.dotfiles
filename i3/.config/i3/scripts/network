@@ -4,7 +4,7 @@
 wlp_state="$(cat /sys/class/net/wl*/operstate)" \
 eth_state="$(cat /sys/class/net/en*/operstate)"
 
-ssid=$(/bin/iwgetid -r)
+ssid=$(nmcli c s --active | tail -n 1 | cut -d " " -f 1)
 
 wlp_name="$(ls /sys/class/net | grep wl)"
 eth_name="$(ls /sys/class/net | grep en)"

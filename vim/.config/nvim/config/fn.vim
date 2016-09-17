@@ -21,13 +21,15 @@ function! Scp(serv)
   let f = substitute(system("mktemp"), "\n*$", '', '')
   silent execute '!chmod 644 ' . f
   silent execute 'w >>' f
-  silent execute '!scp ' . f . ' ' . serv . name
+  silent execute '!scp ' . f . ' ' . a:serv . name
   silent execute '!rm ' . f
+  echo 
 endfunction 
-map <leader>pw :call Scp("trinity:www/")<cr>
+map <leader>pw :call Scp("vulpes:www/")<cr>
 
 function! ScpEdit(serv)
   let name = input('Filname: ') 
-  silent execute ':e scp://' . serv . name
+  silent execute '!rcp scp://' . a:serv . name
+  echo
 endfunction 
-map <leader>pe :call ScpEdit("trinity/www/")<cr>
+map <leader>pe :call ScpEdit("vulpes:www/")<cr>

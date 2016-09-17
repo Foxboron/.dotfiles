@@ -20,6 +20,7 @@ set indent_string="> "  # Proper quoting
 set read_inc=1000
 set beep_new=yes
 set write_inc=1000
+set followup_to=yes
 
 set charset=utf-8
 set send_charset=utf-8
@@ -44,12 +45,14 @@ set crypt_use_gpgme
 set fast_reply=yes
 set smart_wrap=yes
 
-#set sidebar_shortpath = yes
-set sidebar_sort=yes
+set sidebar_sort_method="path"
 set sidebar_width = 20
 set sidebar_visible = yes
-#set sidebar_folderindent = yes
-set sidebar_delim = '|'
+set sidebar_folder_indent = yes
+set sidebar_delim_chars = '|'
+set sidebar_folder_indent = yes
+#set sidebar_indent_string = '  '
+set sidebar_format= '%B%*  %N/%S'
 set pager_index_lines=10
 
 macro index b '<enter-command>toggle sidebar_visible<enter><refresh>'
@@ -58,6 +61,8 @@ macro pager b '<enter-command>toggle sidebar_visible<enter><redraw-screen>'
 bind index,pager \CP sidebar-prev
 bind index,pager \CN sidebar-next
 bind index,pager \CO sidebar-open
+#bind index,pager \CK sidebar-prev-new
+#bind index,pager \CJ sidebar-next-new
 
 
 bind index gg       first-entry

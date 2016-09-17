@@ -67,7 +67,7 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'chrisbra/SudoEdit.vim'
-Plug 'rstacruz/vim-closer'
+Plug 'jiangmiao/auto-pairs'
 
 call plug#end()
 
@@ -85,10 +85,6 @@ colorscheme gotham
 set bg=dark
 set ff=unix
 
-set enc=utf-8
-set fileencoding=utf-8
-set termencoding=utf-8
-
 set nocompatible
 set mouse=a
 set number
@@ -99,12 +95,12 @@ set lazyredraw
 set laststatus=2
 set clipboard=unnamed
 set hidden
-set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
 set ttimeoutlen=50
 
 " No more annoying files!
 set backupdir=~/.config/nvim/.trash/backup/
 set directory=~/.config/nvim/.trash/swap/
+set undofile
 set undodir=~/.config/nvim/.trash/undo/
 
 
@@ -120,15 +116,15 @@ set wrapmargin=0
 set cursorline
 
 set smartindent
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
 set expandtab
 set backspace=indent,eol,start
 set autoindent
 set ignorecase
 set smartcase
-set completeopt=menu,preview
+set completeopt=menu
 set hlsearch
 set shell=/bin/zsh
 set splitright
@@ -142,9 +138,10 @@ let &t_EI = "\<Esc>[2 q"
 
 " Search and Replace binding
 map /  <Plug>(incsearch-forward)
-nnoremap <silent> <Tab> :<C-u>nohlsearch<CR>
-nnoremap <silent> <C-j><C-j> :<C-u>nohlsearch<CR>
+" nnoremap <silent> <Tab> :<C-u>nohlsearch<CR>
+" nnoremap <silent> <C-j><C-j> :<C-u>nohlsearch<CR>
 nnoremap <silent> <Esc> :<C-u>nohlsearch<CR>
+nnoremap <expr>  <leader>m  ':%s///g<left><left>'
 vnoremap <expr>  m  ':s///g<left><left>'
 "vnoremap / <Esc>/\%V
 vnoremap <silent> * :<C-U>
@@ -214,9 +211,13 @@ noremap k gk
 nnoremap gj 5j
 nnoremap gk 5k
 
+
+" Reverse maps
 noremap ' `
 noremap ` '
 
+
+vnoremap . :norm.<CR>
 
 "Reflow paragraph
 nmap <leader>rf vapgq
@@ -252,6 +253,7 @@ cnoremap <C-J> <Down>
 
 " Plugins
 let g:netrw_liststyle=3
+let g:netrw_banner=0
 
 
 " Startify
@@ -299,7 +301,7 @@ let g:ycm_python_binary_path = '/usr/bin/python3'
 
 " zfz.vim
 nnoremap <silent><leader>f :Files <cr>
-nnoremap <silent><leader>gf :GitFiles <cr>
+nnoremap <silent><leader>gf :GFiles <cr>
 nnoremap <silent><leader>ug :Ag 
 nnoremap <silent> <Leader>uw :Ag <C-R><C-W><CR>
 nnoremap <silent> <Leader>cc :Tags <C-R><C-W><CR>

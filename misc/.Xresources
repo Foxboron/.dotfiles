@@ -3,8 +3,10 @@ URxvt.iso14755_52: false
 xvt.buffered          : true
 xft.dpi		      : 98
 !URxvt*font            : xft:Inconsolata\ for\ Powerline:size=10:antialias=true:hinting=true
-urxvt*font            : xft:DejaVu\ Sans\ Mono\ for\ Powerline:size=10:antialias=true:hinting=true,xft:Inconsolata\ for\ Powerline:pixelsize=20:xft:Unifont:pixelsize=12:antialias=true,xft:Source\ Code\ Pro:size=10:antialias=true,xft:Icons:size=10:antialias=true,xft:FontAwesome:size=10:antialias=true
+urxvt*font            : xft:DejaVu\ Sans\ Mono\ for\ Powerline:size=10:antialias=true:hinting=true,xft:Inconsolata\ for\ Powerline:pixelsize=20:antialias=true:hinting=true,xft:Unifont:pixelsize=12:antialias=true,xft:Source\ Code\ Pro:size=10:antialias=true,xft:Icons:size=10:antialias=true,xft:FontAwesome:size=10:antialias=true
 
+URxvt.lineSpace: 1
+URxvt.letterSpace: -1
 
 
 URxvt.title           : urxvt
@@ -21,11 +23,17 @@ URxvt.matcher.button:   1
 URxvt.keysym.C-S-u: perl:keyboard-select:activate
 
 URxvt.keysym.C-v: perl:keyboard-select:activate
-URxvt.keysym.M-s: perl:keyboard-select:search
+!URxvt.keysym.M-s: perl:keyboard-select:search
+URxvt.keysym.M-s:    perl:matcher:list
 
 
+URxvt.matcher.pattern.1: ([\\w]+\\.pdf)
+URxvt.matcher.launcher.1: evince $1
+URxvt.matcher.rend.1:          Uline fg6
 
-
+URxvt.matcher.pattern.2:       \\B(/\\S+?):(\\d+)(?=:|$)
+URxvt.matcher.launcher.2:      nvim +$2 $1
+URxvt.matcher.rend.2:          Uline fg6
 
 !URxvt.keysym.C-S-C:   perl:clipboard:copy
 !URxvt.keysym.C-S-V:   perl:clipboard:paste
@@ -36,9 +44,6 @@ URxvt.keysym.C-u: perl:url-select:select_next
 
 URxvt.url-select.launcher: /usr/bin/firefox
 URxvt.url-select.underline: true
-
-URxvt.keysym.C-Delete:  perl:matcher:last
-URxvt.keysym.M-Delete:  perl:matcher:list
 
 
 URxvt.colorUL: #4682B4

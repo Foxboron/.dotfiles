@@ -21,6 +21,7 @@ export vblank_mode=0
 export TERMINAL=urxvt
 export LEIN_JAVA_CMD=drip
 export GOPATH="/home/fox/.go"
+export WORKON_HOME="~/.cache/virtualenvs"
 #export DOCKER_HOST=tcp://trinity.velox.pw:54321 DOCKER_TLS_VERIFY=1
 export GO15VENDOREXPERIMENT=1
 export FZF_DEFAULT_COMMAND='ag --hidden --follow --nogroup -g ""'

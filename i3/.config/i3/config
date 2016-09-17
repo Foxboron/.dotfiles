@@ -59,6 +59,7 @@ bindsym $mod+o split h
 bindsym $mod+v split v
 
 bindsym $mod+f fullscreen toggle
+bindsym $mod+s sticky toggle
 
 bindsym $mod+Control+Shift+s layout stacking
 bindsym $mod+Control+Shift+w layout tabbed
@@ -169,16 +170,18 @@ mode "$media"{
 	bindsym j exec playerctl previous
 	bindsym k exec playerctl next 
 	bindsym q mode "default"
+	bindsym m mode "$volume"
 }
 bindsym $mod+p mode "$media"
 
 set $volume Volume
 
 mode "$volume"{
-	bindsym space exec ~/bin/volume toggle
+	bindsym space exec ~/bin/volume toggle, mode "default"
 	bindsym j exec ~/bin/volume dec
 	bindsym k exec ~/bin/volume inc 
 	bindsym q mode "default"
+	bindsym p mode "$media"
 }
 bindsym $mod+m mode "$volume"
 
