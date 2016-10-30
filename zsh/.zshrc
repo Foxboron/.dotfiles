@@ -94,7 +94,7 @@ PROMPT='%{$fg_bold[red]%}λ %n@%m %{$fg[green]%}%c %{$fg_bold[red]%}» $(git_pro
 ##ALIAS
 alias tmux="tmux -2"
 alias vim="nvim"
-alias vimrc="vim ~/.config/nvim/init.vim"
+alias vimrc="cd ~/.config/nvim && vim ~/.config/nvim/init.vim && cd $OLDPWD"
 alias zshrc="vim ~/.zshrc"
 alias i3conf="vim ~/.config/i3/config"
 alias psg="ps aux | grep "
