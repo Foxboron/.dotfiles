@@ -38,7 +38,9 @@ set statusline+=\[%{toupper(g:currentmode[mode()])}]
 set statusline+=\%{GitInfo()}\  
 set statusline+=\ %f
 set statusline+=%=
-"set statusline+=%{SyntasticStatuslineFlag()}             " Syntastic errors
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 set statusline+=%y
 set statusline+=[%l/%P]
 

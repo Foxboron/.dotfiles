@@ -6,6 +6,9 @@ call plug#begin('~/.config/nvim/bundle')
     Plug 'fatih/vim-go', {'for': 'go'}
 "   Vim-Wiki - For notes and stuff
     Plug 'vimwiki/vimwiki'
+"   Syntastic - Dem syntax errors yo
+    Plug 'scrooloose/syntastic'
+
 
 call plug#end()
 
@@ -13,6 +16,8 @@ call plug#end()
 "   2.1 Leader Hotkeys (SPACE)
 "       s: source vimrc
 "       r: ctags regen
+"       f: find
+"       g: grep
 "   2.2 Maps
 "      2.1 - Normal
 "           ^A: start of line
@@ -65,9 +70,8 @@ set ruler
 set cursorline
 set noshowmode
 set laststatus=2    " always show statusbar  
-set shortmess=      "We dont care for the intro message
-
-
+set ttimeoutlen=50
+set shortmess+=I    "We dont care for the intro message
 
 
 " =========
@@ -84,6 +88,7 @@ set splitright          " Splitting right feels more natrual
 set ttyfast
 set diffopt+=vertical
 set hidden              " So we can create new buffers and dont need to save them
+set noesckeys           " Remap esc!
 
 " Completion menu
 set completeopt=longest,menuone
@@ -96,14 +101,21 @@ set wildmenu            	" visual autocomplete for command menu
 set wildignorecase      " Make wildmenu ignore our case
 set wildmode=longest,full	" Show vim completion menu
 
-set noesckeys
-
 " File ignores
 set wildignore+=.git
 set wildignore+=*.pyc
+set wildignore+=node_modules
+set wildignore+=tags
 
 "cTags
-set tags=./tags;$HOME
+set tags=./.tags;$HOME
+
+" =========
+" Searching
+" =========
+set ignorecase
+set smartcase
+set incsearch
 
 
 " =========
@@ -156,8 +168,9 @@ let maplocalleader=" "
 
 " Toggle hlsearch
 map <silent><leader>s :source ~/.config/nvim/init.vim<CR>
-map <leader>r :!ctags -R .
+map <leader>r :!ctags -f .tags -R .
 map <leader>f :find 
+map <leader>g :grep! 
 
 
 " ========
@@ -169,19 +182,19 @@ inoremap <silent><C-S> <C-O>:silent update<CR>
 
 
 " Tabs
-nnoremap th  :tabfirst<CR>
-nnoremap tj  :tabprev<CR>
-nnoremap tk  :tabnext<CR>
-nnoremap tl  :tablast<CR>
-nnoremap tm  :tabm<Space>
-nnoremap tn  :tabnew<CR>
-nmap tf :tab sb<CR>
-nmap tc :tabclose<CR>
+nnoremap <leader>th  :tabfirst<CR>
+nnoremap <leader>tj  :tabprev<CR>
+nnoremap <leader>tk  :tabnext<CR>
+nnoremap <leader>tl  :tablast<CR>
+nnoremap <leader>tm  :tabm<Space>
+nnoremap <leader>tn  :tabnew<CR>
+nmap <leader>tf :tab sb<CR>
+nmap <leader>tc :tabclose<CR>
 
 " Buffers
-nnoremap bj  :bnext<CR>
-nnoremap bk  :bprev<CR>
-nnoremap bn  :enew<CR>
+nnoremap <leader>bj  :bnext<CR>
+nnoremap <leader>bk  :bprev<CR>
+nnoremap <leader>bn  :enew<CR>
 
 " Command line maps
 cnoremap <C-K> <Up>
@@ -195,3 +208,9 @@ vnoremap <silent> * :<C-U>
   \gvy/<C-R><C-R>=substitute(
   \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
+
+
+set grepformat^=%f:%l:%c:%m
+if executable('ag')
+    set grepprg=ag\ --vimgrep\ --hidden\ --ignore\ \'.git\'
+endif
