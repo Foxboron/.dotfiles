@@ -8,7 +8,6 @@ urxvt*font            : xft:DejaVu\ Sans\ Mono\ for\ Powerline:size=10:antialias
 URxvt.lineSpace: 1
 URxvt.letterSpace: -1
 
-
 URxvt.title           : urxvt
 URxvt.scrollBar       : False
 URxvt.termName: rxvt-unicode-256color
@@ -27,13 +26,6 @@ URxvt.keysym.C-v: perl:keyboard-select:activate
 URxvt.keysym.M-s:    perl:matcher:list
 
 
-URxvt.matcher.pattern.1: ([\\w]+\\.pdf)
-URxvt.matcher.launcher.1: evince $1
-URxvt.matcher.rend.1:          Uline fg6
-
-URxvt.matcher.pattern.2:       \\B(/\\S+?):(\\d+)(?=:|$)
-URxvt.matcher.launcher.2:      nvim +$2 $1
-URxvt.matcher.rend.2:          Uline fg6
 
 !URxvt.keysym.C-S-C:   perl:clipboard:copy
 !URxvt.keysym.C-S-V:   perl:clipboard:paste
