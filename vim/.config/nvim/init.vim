@@ -1,8 +1,16 @@
+call plug#begin('~/.config/nvim/bundle')
 " 1. Plugins
-"
+"   Vim-plug - Plugin manager
+    Plug 'junegunn/vim-plug'
+"   Vim-Go - for go stuff
+    Plug 'fatih/vim-go', {'for': 'go'}
+"   Vim-Wiki - For notes and stuff
+    Plug 'vimwiki/vimwiki'
+
+call plug#end()
+
 " 2. Hotkeys
 "   2.1 Leader Hotkeys (SPACE)
-"       h: toggles hilight
 "       s: source vimrc
 "       r: ctags regen
 "   2.2 Maps
@@ -10,6 +18,7 @@
 "           ^A: start of line
 "           ^E: end of line
 "           ^Q: Paranthesis match
+"           ESC: Disable hlsearch
 "      2.2 - Insert
 "           ^S: save file
 "      2.3 - Visual
@@ -29,7 +38,6 @@
 "           ^N: Anything from complete
 "       2.4 VimWiki
 "       2.4 VimWiki
-
 
 
 
@@ -85,7 +93,10 @@ set path=.                  " Include relative directory to the file
 set path+=,,                " Include current directory
 set path+=**                " Include recurisve directories
 set wildmenu            	" visual autocomplete for command menu
+set wildignorecase      " Make wildmenu ignore our case
 set wildmode=longest,full	" Show vim completion menu
+
+set noesckeys
 
 " File ignores
 set wildignore+=.git
@@ -144,7 +155,6 @@ let mapleader=" "
 let maplocalleader=" "
 
 " Toggle hlsearch
-map <silent><leader>h :set hlsearch!<CR>
 map <silent><leader>s :source ~/.config/nvim/init.vim<CR>
 map <leader>r :!ctags -R .
 map <leader>f :find 
@@ -153,6 +163,7 @@ map <leader>f :find
 " ========
 " New Maps
 " ========
+map <ESC> :set hlsearch!<CR>
 noremap <silent><C-S> :silent update<CR>
 inoremap <silent><C-S> <C-O>:silent update<CR>
 
