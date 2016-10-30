@@ -157,11 +157,6 @@ noremap <silent><C-S> :silent update<CR>
 inoremap <silent><C-S> <C-O>:silent update<CR>
 
 
-" ========
-" New Maps
-" ========
-
-
 " Tabs
 nnoremap th  :tabfirst<CR>
 nnoremap tj  :tabprev<CR>
@@ -189,55 +184,3 @@ vnoremap <silent> * :<C-U>
   \gvy/<C-R><C-R>=substitute(
   \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
-
-
-" ==========
-" Statusline 
-" ==========
-
-let g:currentmode={
-    \ 'n'  : 'Normal',
-    \ 'no' : 'N·Operator Pending',
-    \ 'v'  : 'VISUAL',
-    \ 'V'  : 'V·Line',
-    \ '^V' : 'V·Block',
-    \ 's'  : 'Select',
-    \ 'S'  : 'S·Line',
-    \ '^S' : 'S·Block',
-    \ 'i'  : 'Insert',
-    \ 'R'  : 'R',
-    \ 'Rv' : 'V·Replace',
-    \ 'c'  : 'Command',
-    \ 'cv' : 'Vim Ex',
-    \ 'ce' : 'Ex',
-    \ 'r'  : 'Prompt',
-    \ 'rm' : 'More',
-    \ 'r?' : 'Confirm',
-    \ '!'  : 'Shell',
-    \ 't'  : 'Terminal'}
-
-function! GitInfo()
-  let git = system('git rev-parse --abbrev-ref HEAD 2>/dev/null')
-  if git != ''
-    return '  '.substitute(git, "\n*$", '', '').''
-  else
-    return ''
-endfunction
-
-
-set statusline=
-set statusline+=%m
-set statusline+=[%n]
-set statusline+=\[%{toupper(g:currentmode[mode()])}]
-set statusline+=\%{GitInfo()}\  
-set statusline+=\ %f
-set statusline+=%=
-"set statusline+=%{SyntasticStatuslineFlag()}             " Syntastic errors
-set statusline+=%y
-set statusline+=[%l/%P]
-
-" Start at same location
-au BufReadPost *
-	\ if line("'\"") > 0 && line("'\"") <= line("$") |
-	\   exe "normal g`\"" |
-	\ endif
