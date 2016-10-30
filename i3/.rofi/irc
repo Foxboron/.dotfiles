@@ -1,0 +1,1 @@
+urxvt -title "irc" -e zsh -c "ssh -t vulpes \"tmux attach -d\""
