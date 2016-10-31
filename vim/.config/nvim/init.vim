@@ -18,6 +18,8 @@ call plug#end()
 "       r: ctags regen
 "       f: find
 "       g: grep
+"       e: open quickfix
+"       l: open location list
 "   2.2 Maps
 "      2.1 - Normal
 "           ^A: start of line
@@ -42,7 +44,6 @@ call plug#end()
 "           ^X^]: From ctags only 
 "           ^N: Anything from complete
 "       2.4 VimWiki
-"       2.4 VimWiki
 
 
 
@@ -52,8 +53,7 @@ call plug#end()
 syntax enable
 filetype plugin indent on
 set t_Co=256
-let base16colorspace=256
-colorscheme gotham256
+colorscheme gotham
 set bg=dark
 
 " Sane defaults
@@ -79,7 +79,6 @@ set shortmess+=I    "We dont care for the intro message
 " =========
 set nobackup            " lol
 set noswapfile          " Yolo
-set autoread            " We want all the changes!
 set magic               " Muh regex
 set mouse=a             " We don't want the mouse
 set clipboard=unnamed   " We want to access clipboard from X
