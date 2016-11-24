@@ -32,11 +32,11 @@ function! GitInfo()
 endfunction
 
 set statusline=
-set statusline+=%m
 set statusline+=[%n]
 set statusline+=\[%{toupper(g:currentmode[mode()])}]
 set statusline+=\%{GitInfo()}\  
 set statusline+=\ %f
+set statusline+=%m
 set statusline+=%=
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}

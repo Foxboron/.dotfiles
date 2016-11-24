@@ -8,9 +8,14 @@ call plug#begin('~/.config/nvim/bundle')
     Plug 'vimwiki/vimwiki'
 "   Syntastic - Dem syntax errors yo
     Plug 'scrooloose/syntastic'
+"   Because its great
+    Plug 'tpope/vim-fugitive'
 
 
 call plug#end()
+
+
+let base16colorspace=256 
 
 " 2. Hotkeys
 "   2.1 Leader Hotkeys (SPACE)
@@ -18,16 +23,21 @@ call plug#end()
 "       r: ctags regen
 "       f: find
 "       g: grep
+"       d: Git diff 
 "       e: open quickfix
 "       l: open location list
+"       w: close buffer 
+"       j: prev buffer 
+"       k: next buffer 
+"       <Tab>: Cycle tabs
 "   2.2 Maps
 "      2.1 - Normal
 "           ^A: start of line
 "           ^E: end of line
 "           ^Q: Paranthesis match
 "           ESC: Disable hlsearch
-"      2.2 - Insert
-"           ^S: save file
+"           ^J: rebound }
+"           ^K: rebound {
 "      2.3 - Visual
 "           *: Visual hlsearch 
 "      2.4 - Command Line 
@@ -42,6 +52,7 @@ call plug#end()
 "           ^X^N: Just this file
 "           ^X^F: For filenames
 "           ^X^]: From ctags only 
+"           ^X^O: Omnicomplete
 "           ^N: Anything from complete
 "       2.4 VimWiki
 
@@ -50,11 +61,13 @@ call plug#end()
 " =========
 " Theme
 " =========
+set bg=dark
+set termguicolors
+set termencoding=utf8
+set t_Co=256
 syntax enable
 filetype plugin indent on
-set t_Co=256
-colorscheme gotham
-set bg=dark
+colorscheme gotham256
 
 " Sane defaults
 set ff=unix
@@ -89,6 +102,12 @@ set diffopt+=vertical
 set hidden              " So we can create new buffers and dont need to save them
 set noesckeys           " Remap esc!
 
+"History and undo
+set history=1000
+set undofile
+set undodir=$HOME/.config/nvim/undo
+set undolevels=1000
+set undoreload=10000
 " Completion menu
 set completeopt=longest,menuone
 
@@ -100,11 +119,11 @@ set wildmenu            	" visual autocomplete for command menu
 set wildignorecase      " Make wildmenu ignore our case
 set wildmode=longest,full	" Show vim completion menu
 
-" File ignores
+" File ignores for wildmenu
 set wildignore+=.git
 set wildignore+=*.pyc
 set wildignore+=node_modules
-set wildignore+=tags
+set wildignore+=.tags
 
 "cTags
 set tags=./.tags;$HOME
@@ -117,9 +136,9 @@ set smartcase
 set incsearch
 
 
-" =========
+" ===========
 " Indentation
-" =========
+" ===========
 set smartindent " Clever indentation
 set autoindent 	" Indent automatically
 set expandtab " We want spaces!
@@ -129,9 +148,9 @@ set shiftwidth=4
 
 
 
-" =========
+" =============
 " Nvim defaults 
-" =========
+" =============
 if has('nvim')
     let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
     let &t_SI = "\<Esc>[6 q"
@@ -158,6 +177,11 @@ noremap <C-A> ^
 noremap <C-E> $
 noremap <C-Q> %
 
+"Faster up and down
+noremap <C-J> }
+noremap <C-K> {
+
+
 
 " ===============
 " Leader Mappings
@@ -170,14 +194,15 @@ map <silent><leader>s :source ~/.config/nvim/init.vim<CR>
 map <leader>r :!ctags -f .tags -R .
 map <leader>f :find 
 map <leader>g :grep! 
+map <leader>d :tabedit %<cr>:Gdiff<cr>
 
 
 " ========
 " New Maps
 " ========
-map <ESC> :set hlsearch!<CR>
+map <silent><ESC> :set hlsearch!<CR>
 noremap <silent><C-S> :silent update<CR>
-inoremap <silent><C-S> <C-O>:silent update<CR>
+nnoremap <leader><TAB> :tabnext<CR>
 
 
 " Tabs
@@ -193,9 +218,14 @@ nmap <leader>tc :tabclose<CR>
 " Buffers
 nnoremap <leader>bj  :bnext<CR>
 nnoremap <leader>bk  :bprev<CR>
+nnoremap <leader>j  :bnext<CR>
+nnoremap <leader>k  :bprev<CR>
+nnoremap <leader>c  :bd<CR>
 nnoremap <leader>bn  :enew<CR>
 
+" =================
 " Command line maps
+" =================
 cnoremap <C-K> <Up>
 cnoremap <C-J> <Down>
 cnoremap <C-A> <Home>
@@ -211,5 +241,13 @@ vnoremap <silent> * :<C-U>
 
 set grepformat^=%f:%l:%c:%m
 if executable('ag')
-    set grepprg=ag\ --vimgrep\ --hidden\ --ignore\ \'.git\'
+    " Use the ignore list from wildignore
+    let ignore_string=""
+    let strings = split(&wildignore,",")
+    for i in strings
+        let ignore_string .= " --ignore '".i."'"
+    endfor
+    let &grepprg="ag --vimgrep --hidden ".ignore_string
 endif
+
+au FilterWritePre * if &diff | source ~/.config/nvim/after/plugin/diff.vim

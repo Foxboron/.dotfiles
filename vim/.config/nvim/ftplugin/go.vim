@@ -16,5 +16,4 @@ set shiftwidth=2
 set expandtab
 
 
-
 map <silent><leader>m :GoRun<Cr>
