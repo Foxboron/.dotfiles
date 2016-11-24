@@ -1,9 +1,16 @@
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
-syndaemon -t -k -i 2 -d &
 xbindkeys
-setxkbmap -option 'ctrl:nocaps' no
+setxkbmap -layout us -variant altgr-intl -option 'ctrl:nocaps'
 pulseaudio --start &
 pasystray &
 nm-applet &
+udiskie & 
+tlp start &
+unclutter --timeout 4 & 
+xset -dpms; xset s off 
+synclient RightButtonAreaTop=2000
+eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
+eval $(ssh-agent)
+compton -b
+export GPG_AGENT_INFO SSH_AUTH_SOCK
 exec i3
-eval $(/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh)

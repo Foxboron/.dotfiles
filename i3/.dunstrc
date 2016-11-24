@@ -1,54 +1,48 @@
 [global]
-    font = Cousine 10
-
-    format = "%a: %s %b"
+    font = "Droid Sans 8"
+    allow_markup = yes
+    format = "<b>%s</b>\n%b"
     sort = yes
     indicate_hidden = yes
-    alignment = left
+    alignment = center
     bounce_freq = 0
-    show_age_threshold = 60;
-
+    show_age_threshold = 60
     word_wrap = yes
-
-    geometry = "0x0+0+0"
+    ignore_newline = no
+    geometry = "200x5-30+20"
     transparency = 0
-
-    idle_threshold = 20
-
+    idle_threshold = 120
     monitor = 0
-    follow = none
-
+    follow = mouse
     sticky_history = yes
     line_height = 0
+    separator_height = 2
+    padding = 8
+    horizontal_padding = 8
+    separator_color = frame
+    startup_notification = false
 
-    separator_height = 2;
-
-    separator_color = auto
-
-    padding = 1
-    horizontal_padding = 9
-
+[frame]
+    width = 1
+    color = "#464B50"
 
 [shortcuts]
     close = ctrl+space
-    history = mod4+grave
+    close_all = ctrl+shift+space
+    history = ctrl+grave
+    context = ctrl+shift+period
 
 [urgency_low]
-    background = "#404040"
-    foreground = "#CCCCCC"
-    timeout = 10
+    background = "#323537"
+    foreground = "#8F9D6A"
+    timeout = 5 
 
 [urgency_normal]
-    background = "#859900"
-    foreground = "#DDDDDD"
-    timeout = 10
+    background = "#323537"
+    foreground = "#AFC4DB"
+    timeout = 5 
 
 [urgency_critical]
-    background = "#dc322f"
-    foreground = "#DDDDDD"
+    background = "#323537"
+    foreground = "#CF6A4C"
     timeout = 0
-
-[ignore]
-    appname = "Spotify"
-    summary = "*"
-    format = ""

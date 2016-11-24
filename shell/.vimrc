@@ -1,4 +1,4 @@
-call plug#begin('~/.config/nvim/bundle')
+call plug#begin('~/.vim/bundle')
 " 1. Plugins
 "   Vim-plug - Plugin manager
     Plug 'junegunn/vim-plug'
@@ -250,4 +250,4 @@ if executable('ag')
     let &grepprg="ag --vimgrep --hidden ".ignore_string
 endif
 
-au FilterWritePre * if &diff | source ~/.config/nvim/after/plugin/diff.vim
+au FilterWritePre * if &diff | source ~/.vim/after/plugin/diff.vim
