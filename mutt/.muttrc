@@ -34,6 +34,7 @@ set hidden_host
 set envelope_from	
 set index_format="%Z %{%a %d %b %Y} %3M %-15.15L │%s"
 set sort=threads
+set sort_aux=last-date-received
 
 set quit=no
 set move=no
@@ -71,7 +72,7 @@ bind index R        group-reply
 bind index u        sync-mailbox
 bind pager u        sync-mailbox
 bind index <space>  collapse-thread
-bind index _        collapse-all
+bind index -        collapse-all
 
 bind index   \t          next-unread
 bind index  ,\t      previous-unread

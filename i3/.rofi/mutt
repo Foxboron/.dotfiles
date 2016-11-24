@@ -1,1 +1,1 @@
-urxvt -e zsh -i -c mutt
+termite --exec=mutt
