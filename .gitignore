@@ -9,3 +9,4 @@ vpn-status
 *.bak*
 *spell
 **undo
+*.netrwhist

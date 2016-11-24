@@ -1,5 +1,0 @@
-#!/bin/sh
-echo "LOL"
-dynamic-colors switch gotham 
-vim -d "$@"
-dynamic-colors switch default
