@@ -8,3 +8,4 @@ vpn-status
 *.trash*
 *.bak*
 *spell
+**undo
