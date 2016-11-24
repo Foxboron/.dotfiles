@@ -1,0 +1,3 @@
+#!/bin/bash
+readonly DIR=`basename $PWD`
+rsync -HPavzs *.JPG "pics:./usortert/albums/$DIR"
