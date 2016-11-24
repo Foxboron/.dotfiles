@@ -93,9 +93,8 @@ PROMPT='%{$fg_bold[red]%}λ %n@%m %{$fg[green]%}%c %{$fg_bold[red]%}» $(git_pro
 
 ##ALIAS
 alias tmux="tmux -2"
-alias vim="nvim"
-alias vimrc="cd ~/.config/nvim && vim ~/.config/nvim/init.vim && cd $OLDPWD"
-alias zshrc="vim ~/.zshrc"
+#alias vim="nvim"
+alias zshrc="vim ~/.zshrc && source ~/.zshrc"
 alias i3conf="vim ~/.config/i3/config"
 alias psg="ps aux | grep "
 alias G="| grep "
@@ -107,6 +106,12 @@ alias xselix="xsel | ix"
 alias ..="cd .."
 alias yaourt="echo \"pacaur you idiot\""
 
+function vimrc(){
+    readonly CURRENTPATH=`pwd`
+    cd ~/.config/nvim
+    vim ~/.config/nvim/init.vim
+    cd $CURRENTPATH
+}
 
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "

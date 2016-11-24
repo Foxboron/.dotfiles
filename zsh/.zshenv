@@ -1,14 +1,7 @@
 DEBIAN_PREVENT_KEYBOARD_CHANGES=yes
 #skip_global_compinit=1
-export PATH="$HOME/bin:$PATH"
-case "$HOST" in
-    hackbook) 
-        export TERM="rxvt-unicode-256color";;
-    debian)
-        export TERM="screen-256color";;
-    *)
-        export TERM="rxvt-unicode-256color";;
-esac
+export PATH="$HOME/bin:$HOME/.go/bin:$PATH"
+export TERM="xterm-256color"
 
 export VIRTUALENVWRAPPER_PYTHON="/usr/bin/python"
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket" 
@@ -29,3 +22,4 @@ export FZF_DEFAULT_OPTS='--color 16'
 export HISTSIZE=1000000
 export SAVEHIST=1000000
 export HISTFILE=~/.zsh_history
+. /etc/profile.d/vte.sh
