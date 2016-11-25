@@ -20,7 +20,7 @@ new_window 1pixel
 force_focus_wrapping no
 hide_edge_borders both
 
-exec --no-startup-id feh --bg-scale ~/.config/i3/bckg/mountain.png
+exec --no-startup-id feh --bg-scale ~/.config/i3/wallpaper.png
 exec --no-startup-id dunst -config ~/.dunstrc
 exec --no-startup-id ~/bin/lock 
 exec --no-startup-id redshift 
@@ -32,7 +32,7 @@ bindsym $mod+n exec nmcli_dmenu
 #bindsym $mod+Tab exec ~/bin/rofi-run 
 bindsym Shift+Tab exec ~/bin/rofi-run 
 
-set $Locker i3lock -n -c 000000 -i /home/fox/.config/i3/bckg/mountain.png && sleep 1
+set $Locker i3lock -n -c 000000 -i /home/fox/.config/i3/wallpaper.png && sleep 1
 
 bindsym $mod+Shift+Control+l exec $Locker
 

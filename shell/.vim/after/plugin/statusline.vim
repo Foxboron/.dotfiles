@@ -34,7 +34,7 @@ endfunction
 set statusline=
 set statusline+=[%n]
 set statusline+=\[%{toupper(g:currentmode[mode()])}]
-set statusline+=\%{GitInfo()}\  
+"set statusline+=\%{GitInfo()}\  
 set statusline+=\ %f
 set statusline+=%m
 set statusline+=%=
