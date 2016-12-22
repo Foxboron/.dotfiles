@@ -1,46 +1,34 @@
 #!/bin/sh
 
+# Colors
+# Up
+# echo "#99CC99"
+# Dormant
+# echo "#F99157"
+# Down
+# echo "#F2777A"
 
-wlp_state="$(cat /sys/class/net/wl*/operstate)" \
-eth_state="$(cat /sys/class/net/en*/operstate)"
+connected(){
+    nmcli d s | grep $1 | awk '{print $--NF}'
+}
 
-ssid=$(nmcli c s --active | tail -n 1 | cut -d " " -f 1)
+get_connection(){
+    nmcli d s | grep $1 | awk '{print $NF}'
+}
 
-wlp_name="$(ls /sys/class/net | grep wl)"
-eth_name="$(ls /sys/class/net | grep en)"
 
-
-if [ "$eth_state" = "up" ]; then
-        echo " $eth_name/$ssid"
-        echo " $eth_name/$ssid"
+for device in enlp5s0 wlp3s0; do
+    status=$(connected $device)
+    conn=$(get_connection $device)
+    if [[ $status == "connected" ]]; then
+        echo " $device/$conn"
+        echo " $device/$conn"
         echo "#99CC99"
-        exit 0
-fi
-
-if [ "$eth_state" = "down" ]; then
-        echo " $eth_name/$ssid"
-        echo " $eth_name/$ssid"
+        break
+    elif [[ $status == "disconnected" ]]; then
+        echo " $device/"
+        echo " $device/"
         echo "#F2777A"
-        exit 0
-fi
-
-if [ "$eth_state" = "dormant" ]; then
-        echo ""
-        echo ""
-        echo "#F99157"
-        exit 0
-fi
-if [ "$wlp_state" = "up" ]; then
-        echo " $wlp_name/$ssid"
-        echo " $wlp_name/$ssid"
-        echo "#99CC99"
-        exit 0
-fi
-
-if [ "$wlp_state" = "down" ]; then
-        echo " $wlp_name/$ssid"
-        echo " $wlp_name/$ssid"
-        echo "#F2777A"
-        exit 0
-fi
-
+        break
+    fi
+done

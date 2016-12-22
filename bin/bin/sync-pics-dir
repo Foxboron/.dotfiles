@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+for D in *
+do
+    [ -d "${D}" ] && ( cd $d && sync-pics pics )
+done

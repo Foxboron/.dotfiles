@@ -1,3 +1,12 @@
 #!/bin/bash
-readonly DIR=`basename $PWD`
-rsync -HPavzs *.JPG "pics:./usortert/albums/$DIR"
+ROOT=`pwd`
+readonly DIR=`echo $ROOT | awk -F"/" '{print $NF}'`
+readonly YEAR=`echo $ROOT | awk -F"/" '{print $--NF}'`
+if [ $# -eq 0 ]
+  then
+      NN=usortert
+  else
+      NN=$1
+fi
+echo $NN
+rsync -HPavzs *.JPG "pics:./$NN/albums/$DIR $YEAR"

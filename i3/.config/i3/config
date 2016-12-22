@@ -27,7 +27,8 @@ exec --no-startup-id redshift
 
 bindsym $mod+Shift+c kill
 
-bindsym $mod+d exec dmenu_run -nb "#101010" -fn "Source Code Pro-11.1"
+#bindsym $mod+d exec dmenu_run -nb "#101010" -fn "Source Code Pro-11.1"
+bindsym $mod+d exec rofi -show run 
 bindsym $mod+n exec nmcli_dmenu 
 #bindsym $mod+Tab exec ~/bin/rofi-run 
 bindsym Shift+Tab exec ~/bin/rofi-run 
