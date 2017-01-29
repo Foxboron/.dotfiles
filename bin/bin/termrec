@@ -1,4 +1,3 @@
-FILENAME=`cat /dev/urandom | tr -cd 'a-f0-9' | head -c 32`.json
+FILENAME="/tmp/asciinema-$(cat /dev/urandom | tr -cd 'a-f0-9' | head -c 32).json"
 asciinema rec $FILENAME
 pbpst -Stf $FILENAME | xsel -i
-rm $FILENAME

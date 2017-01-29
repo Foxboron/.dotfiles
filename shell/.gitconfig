@@ -2,8 +2,12 @@
 	email = morten@linderud.pw
 	name = Morten Linderud
 	signingkey = 9FECBE16
-[gitweb]
-  owner = "Morten Linderud"
+[imap]
+    folder = "Drafts"
+    host = imaps://imap.linderud.pw
+    port = 993
+    sslverify = false
+    user = "morten@linderud.pw"
 [color]
 	ui = auto
 [branch]
@@ -25,9 +29,8 @@
 	noff = merge --no-ff
 	fa = fetch --all
 
-	c = commit -m
-	cs = commit -s -S -m
-	csa = commit -a -s -S -m
+	c = commit -s -S -m
+	ca = commit -a -s -S -m
 
 	ba = branch -a
 
@@ -43,7 +46,7 @@
 	head = !git r -1
 	h = !git head
 
-	edit = "!nvim `git ls-files -m` -p"
+	edit = "!vim `git ls-files -m` -p"
 
 	fs = "!. ~/.githelpers && feature_squash"
 	pre = "!. ~/.githelpers && pull_request"
@@ -69,3 +72,5 @@
 	trinity = git-trinity:fox/
 	default = trinity
 	github = git@github.com:Foxboron/
+[commit]
+	gpgsign = true

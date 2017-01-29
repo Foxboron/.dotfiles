@@ -99,5 +99,5 @@ URxvt*color15: #F8F8F2
 rofi.fuzzy: true
 rofi.case-sensitive: fale
 rofi.hide-scrollbar: true
-rofi.color-normal: #101010, #888888, #000000, #285577, #ffffff
+rofi.color-normal: #000000, #888888, #000000, #285577, #ffffff
 rofi.color-window: #000000, #101010

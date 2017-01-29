@@ -59,7 +59,7 @@ set pgp_encrypt_sign_command="pgpewrap gpg %?p?--passphrase-fd 0? --batch --quie
 set pgp_import_command="gpg --no-verbose --import %f"
 
 # export a key from the public key ring
-set pgp_export_command="gpg --no-verbose --export --armor %r"
+set pgp_export_command="gpg --no-verbose --export %r"
 
 # verify a key
 set pgp_verify_key_command="gpg --verbose --batch --fingerprint --check-sigs %r"
@@ -69,16 +69,6 @@ set pgp_list_pubring_command="gpg --no-verbose --batch --quiet --with-colons --w
 
 # read in the secret key ring
 set pgp_list_secring_command="gpg --no-verbose --batch --quiet --with-colons --with-fingerprint --with-fingerprint --list-secret-keys %r"
-
-# fetch keys
-# set pgp_getkeys_command="pkspxycwrap %r"
-
-# pattern for good signature - may need to be adapted to locale!
-
-# set pgp_good_sign="^gpgv?: Good signature from "
-
-# OK, here's a version which uses gnupg's message catalog:
-# set pgp_good_sign="`gettext -d gnupg -s 'Good signature from "' | tr -d '"'`"
 
 # This version uses --status-fd messages
 set pgp_good_sign="^\\[GNUPG:\\] GOODSIG"

@@ -11,7 +11,7 @@ export EDITOR="vim"
 #PRIMUS
 export PRIMUS_SYNC=0
 export vblank_mode=0
-export TERMINAL=urxvt
+export TERMINAL=termite
 export LEIN_JAVA_CMD=drip
 export GOPATH="/home/fox/.go"
 export WORKON_HOME="~/.cache/virtualenvs"

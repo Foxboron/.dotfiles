@@ -24,7 +24,7 @@ function! SetListMaps(pfx)
     let g:windowNext = "lnext"
     let g:windowPrev = "lprevious"
   endif
-  if a:pfx == 'l'
+  if a:pfx == ''
     let g:windowNext = ""
     let g:windowPrev = ""
   endif
@@ -54,4 +54,5 @@ function! ToggleList(bufname, pfx)
 endfunction
 
 nmap <silent> <leader>l :call ToggleList("Location List", 'l')<CR>
-nmap <silent> <leader>e :call ToggleList("Quickfix List", 'c')<CR>
+nmap <silent> <leader>q :call ToggleList("Quickfix List", 'c')<CR>
+map <silent><leader>e :SyntasticSetLoclist<CR>:call ToggleList("Location List", 'l')<CR>

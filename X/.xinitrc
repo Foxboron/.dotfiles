@@ -1,9 +1,6 @@
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 xbindkeys
 setxkbmap -layout us -variant altgr-intl -option 'ctrl:nocaps'
-pulseaudio --start &
-pasystray &
-nm-applet &
 udiskie & 
 tlp start &
 unclutter --timeout 4 & 

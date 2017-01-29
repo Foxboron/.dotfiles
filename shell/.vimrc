@@ -2,25 +2,53 @@ call plug#begin('~/.vim/bundle')
 " 1. Plugins
 "   Vim-plug - Plugin manager
     Plug 'junegunn/vim-plug'
+
 "   Vim-Go - for go stuff
     Plug 'fatih/vim-go', {'for': 'go'}
+
 "   Vim-Wiki - For notes and stuff
     Plug 'vimwiki/vimwiki'
+
 "   Syntastic - Dem syntax errors yo
     Plug 'scrooloose/syntastic'
+
 "   Because its great
-   Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-fugitive'
+
 "   Commenting
     Plug 'tpope/vim-commentary'
+
+"   Latex sanity
+    Plug 'lervag/vimtex'
+
+"   Keeping sessions
+    Plug 'tpope/vim-obsession'
+
+"   Trying out snippets
+    Plug 'sirver/ultisnips'
+    " We dont really want expand trigger over tab.
+    " CBA to add a shitton of vimscript for tab completion
+    let g:UltiSnipsExpandTrigger="<C-j>"
+    let g:UltiSnipsListSnippets = "<c-l>"
+
+"   Lets try completion
+    Plug 'Shougo/neocomplete.vim'
+    let g:acp_enableAtStartup = 0
+    let g:neocomplete#enable_at_startup = 1
+    let g:neocomplete#enable_smart_case = 1
+    let g:neocomplete#sources#syntax#min_keyword_length = 1
+
+
 
 call plug#end()
 
 " 2. Hotkeys
 "   2.1 Leader Hotkeys (SPACE)
-"       s: source vimrc
 "       r: ctags regen
+"       s: search ctags
 "       f: find
 "       g: grep
+"       t: find tag 
 "       d: Git diff 
 "       e: open quickfix
 "       l: open location list
@@ -105,7 +133,9 @@ set diffopt+=vertical
 set hidden              " So we can create new buffers and dont need to save them
 set noesckeys           " Remap esc!
 
-
+set wrap
+set wrapmargin=80
+set textwidth=120
 "History and undo
 set history=1000
 set undofile
@@ -180,6 +210,8 @@ noremap <C-Q> %
 "Faster up and down
 noremap <C-J> }
 noremap <C-K> {
+vnoremap <C-J> }
+vnoremap <C-K> {
 
 
 
@@ -190,12 +222,14 @@ let mapleader=" "
 let maplocalleader=" "
 
 " Toggle hlsearch
-map <silent><leader>s :source ~/.vimrc<CR>
-map <leader>r :!ctags -f .tags -R .
+"map <silent><leader>s :source ~/.vimrc<CR>
+map <leader>r :!ctags -f .tags -R .<CR>
 map <leader>f :find 
 map <leader>g :Ag 
+map <leader>s :ltag /
+map <leader>e :call ToggleList("Location List", 'l')<CR>
 map <leader>d :tabedit %<cr>:Gdiff<cr>
-
+map <leader>m :make<cr>
 
 " ========
 " New Maps
@@ -234,6 +268,7 @@ cnoremap <C-K> <Up>
 cnoremap <C-J> <Down>
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
+cmap W w !sudo tee % >/dev/null
 
 " This monster lets us use star with a visual selection
 vnoremap <silent> * :<C-U>
@@ -252,7 +287,7 @@ if executable('ag')
         let ignore_string .= " --ignore '".i."'"
     endfor
     let &grepprg="ag --vimgrep --hidden ".ignore_string
-    command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!|call SetListMaps('c')
+    command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!|call SetListMaps('c')
 endif
-
 au FilterWritePre * if &diff | source ~/.vim/after/script/diff.vim
+

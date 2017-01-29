@@ -99,13 +99,14 @@ alias i3conf="vim ~/.config/i3/config"
 alias psg="ps aux | grep "
 alias G="| grep "
 alias L="| less "
-alias dc="docker-compose"
 alias g="grep -oEi"
 alias ls="ls --color=tty"
 alias xselix="xsel | ix"
 alias ..="cd .."
 alias yaourt="echo \"pacaur you idiot\""
 
+# I really like having my files with find.
+# There should be a better way to do this :/
 function vimrc(){
     readonly CURRENTPATH=`pwd`
     cd ~/.vim
@@ -121,3 +122,22 @@ if ! zplug check --verbose; then
         echo
     fi
 fi
+
+# Source https://github.com/jelly/Dotfiles/blob/master/.zshrc#L307
+# Start the gpg-agent if not already running
+if ! pgrep -x -u "${USER}" gpg-agent >/dev/null 2>&1; then
+  gpg-connect-agent /bye >/dev/null 2>&1
+fi
+
+# Set SSH to use gpg-agent
+unset SSH_AGENT_PID
+if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
+  export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
+fi
+
+# Set GPG TTY
+GPG_TTY=$(tty)
+export GPG_TTY
+
+# Refresh gpg-agent tty in case user switches into an X session
+gpg-connect-agent updatestartuptty /bye >/dev/null

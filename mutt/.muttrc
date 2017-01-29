@@ -1,4 +1,4 @@
-set editor = "nvim +$" 
+set editor = "vim +$" 
 set my_name = "Morten Linderud"
 set header_cache = "~/.cache/mutt"
 set imap_check_subscribed
@@ -69,15 +69,14 @@ bind index,pager \CO sidebar-open
 bind index gg       first-entry
 bind index G        last-entry
 bind index R        group-reply
-bind index u        sync-mailbox
-bind pager u        sync-mailbox
 bind index <space>  collapse-thread
 bind index -        collapse-all
 
-bind index   \t          next-unread
-bind index  ,\t      previous-unread
-bind pager   \t          next-unread
-bind pager  ,\t      previous-unread
+bind index,pager   \t          next-unread
+bind index,pager  ,\t      previous-unread
+bind index,pager u        sync-mailbox
+# bind pager   \t          next-unread
+# bind pager  ,\t      previous-unread
 
 
 
@@ -85,7 +84,7 @@ alternates ^mcfoxax@gmail.com$ ^morten.linderud@student.uib.no$
 
 # imap
 set imap_user="morten@linderud.pw"
-set imap_pass=`pass mail`
+set imap_pass=`pass service/mail`
 set folder=imaps://imap.linderud.pw/
 set spoolfile=+INBOX
 set record=+Sent
@@ -104,7 +103,6 @@ set pgp_use_gpg_agent = yes
 set pgp_sign_as = 9FECBE16
 set pgp_timeout = 20
 set crypt_replyencrypt = yes
-set crypt_use_gpgme = yes
 
 macro index D \
     "<save-message>+Trash<enter>" \
@@ -136,7 +134,7 @@ macro index I \
 
 # Edit sieve rules
 macro index x \
-    "<shell-escape> pass mail | \
+    "<shell-escape> pass service/mail | \
     sieve-connect \
         --user \"morten@linderud.pw\" \
         --port=4190 \
@@ -145,7 +143,11 @@ macro index x \
         --remotesieve main \
         --edit <enter>"
 
+macro pager,index ,g "<pipe-message>~/.mutt/open_ml_url.py<return>" "Open GMAME link"
+
+
 folder-hook . "exec collapse-all"
 
 source "~/.mutt/colors"
+source "~/.mutt/ignores"
 source "~/.mutt/gpg.rc"

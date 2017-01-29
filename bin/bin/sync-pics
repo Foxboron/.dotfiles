@@ -9,4 +9,5 @@ if [ $# -eq 0 ]
       NN=$1
 fi
 echo $NN
-rsync -HPavzs *.JPG "pics:./$NN/albums/$DIR $YEAR"
+# rsync -hpavzs *.jpg "pics:./$nn/albums/$dir $year"
+rsync -hpavzs *.JPG "pics:./albums/$DIR $YEAR"
