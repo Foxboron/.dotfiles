@@ -40,9 +40,9 @@ zplug "zsh-users/zsh-completions"
 zplug "plugins/gitgastgit-extra", from:oh-my-zsh
 zplug "plugins/virtualenv", from:oh-my-zsh
 zplug "plugins/virtualenvwrapper", from:oh-my-zsh
-zplug "lib/completion", from:oh-my-zsh, ignore:oh-my-zsh.sh, defer:10
-zplug "lib/directories", from:oh-my-zsh, ignore:oh-my-zsh.sh, defer:10
-zplug "lib/git", from:oh-my-zsh, ignore:oh-my-zsh.sh, defer:10
+zplug "lib/completion", from:oh-my-zsh, ignore:oh-my-zsh.sh, defer:1
+zplug "lib/directories", from:oh-my-zsh, ignore:oh-my-zsh.sh, defer:1
+zplug "lib/git", from:oh-my-zsh, ignore:oh-my-zsh.sh, defer:1
 zplug "zsh-users/zsh-history-substring-search"
 zplug load
 
