@@ -1,7 +1,6 @@
 set $mod Mod4
 
-font pango: Source Code Pro, Icons, FontAwesome 9
-
+font pango: Dejavu Sans Mono, Icons 9
 floating_modifier $mod
 
 bindsym $mod+Return exec termite

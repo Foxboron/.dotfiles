@@ -26,10 +26,13 @@ call plug#begin('~/.vim/bundle')
 
 "   Trying out snippets
     Plug 'sirver/ultisnips'
+    Plug 'honza/vim-snippets'
     " We dont really want expand trigger over tab.
     " CBA to add a shitton of vimscript for tab completion
-    let g:UltiSnipsExpandTrigger="<C-j>"
-    let g:UltiSnipsListSnippets = "<c-l>"
+    let g:UltiSnipsExpandTrigger="<c-j>"
+    let g:UltiSnipsJumpForwardTrigger="<c-j>"
+    let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+    let g:UltiSnipsListSnippets="<c-l>"
 
 "   Lets try completion
     Plug 'Shougo/neocomplete.vim'
@@ -290,4 +293,6 @@ if executable('ag')
     command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!|call SetListMaps('c')
 endif
 au FilterWritePre * if &diff | source ~/.vim/after/script/diff.vim
+
+command! Source :source ~/.vimrc
 

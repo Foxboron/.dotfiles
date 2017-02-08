@@ -4,7 +4,8 @@ let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 
 inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
+"inoremap <expr><C-l>     neocomplete#complete_common_string()
+
 
 " Recommended key-mappings.
 " <CR>: close popup and save indent.

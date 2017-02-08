@@ -1,1 +1,1 @@
-termite --title="irc" --exec="mosh -p 51000 vulpes -- tmux attach -d"
+termite --title="irc" --exec="mosh velox -- tmux attach -d"
