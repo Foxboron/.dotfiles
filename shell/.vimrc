@@ -10,7 +10,8 @@ call plug#begin('~/.vim/bundle')
     Plug 'vimwiki/vimwiki'
 
 "   Syntastic - Dem syntax errors yo
-    Plug 'scrooloose/syntastic'
+    " Plug 'scrooloose/syntastic'
+    Plug 'w0rp/ale'
 
 "   Because its great
     Plug 'tpope/vim-fugitive'

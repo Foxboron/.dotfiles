@@ -84,6 +84,7 @@ alternates ^mcfoxax@gmail.com$ ^morten.linderud@student.uib.no$
 
 # imap
 set imap_user="morten@linderud.pw"
+set ssl_verify_host=no
 set imap_pass=`pass service/mail`
 set folder=imaps://imap.linderud.pw/
 set spoolfile=+INBOX

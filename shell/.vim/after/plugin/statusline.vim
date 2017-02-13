@@ -57,7 +57,9 @@ set statusline+=\ %f
 set statusline+=%m
 set statusline+=%=
 set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
+let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+set statusline+=%{ALEGetStatusLine()}
+" set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 set statusline+=%y
 set statusline+=[(%l/%c)/%p]
