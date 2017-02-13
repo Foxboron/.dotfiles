@@ -1,0 +1,12 @@
+[Unit]
+Description=Unclutter remove mouse
+Requires=xorg.target
+After=xorg.target
+Before=i3.service
+
+[Service]
+Environment=DISPLAY=:0
+ExecStart=/usr/bin/unclutter -idle 4
+
+[Install]
+WantedBy=fox.target

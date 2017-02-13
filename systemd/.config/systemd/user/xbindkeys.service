@@ -1,0 +1,13 @@
+[Unit]
+Description=Set X Bind Keys
+Requires=xorg.target
+After=xorg.target
+Before=i3.service
+
+[Service]
+Type=oneshot
+Environment=DISPLAY=:0
+ExecStart=/usr/bin/xbindkeys
+
+[Install]
+WantedBy=fox.target

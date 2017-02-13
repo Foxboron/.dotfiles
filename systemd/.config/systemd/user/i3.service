@@ -1,0 +1,14 @@
+[Unit]
+Description=i3 Window Manager
+Requires=xorg.target
+Requires=xinitrc.target
+After=xorg.target
+Before=xinitrc.target
+
+[Service]
+ExecStart=/usr/bin/i3
+Environment=DISPLAY=:0
+Restart=always
+
+[Install]
+WantedBy=fox.target

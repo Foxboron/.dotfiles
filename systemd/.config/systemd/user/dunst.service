@@ -1,0 +1,10 @@
+[Unit]
+Description=Start dunst
+After=dbus.service
+
+[Service]
+Environment=DISPLAY=:0
+ExecStart=/usr/bin/dunst -config /home/fox/.dunstrc
+
+[Install]
+WantedBy=fox.target

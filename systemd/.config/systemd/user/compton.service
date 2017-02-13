@@ -1,0 +1,12 @@
+[Unit]
+Description=Compton service
+Requires=xorg.target
+After=xorg.target
+Before=i3.service
+
+[Service]
+Environment=DISPLAY=:0
+ExecStart=/usr/bin/compton
+
+[Install]
+WantedBy=fox.target
