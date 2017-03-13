@@ -35,6 +35,13 @@ call plug#begin('~/.vim/bundle')
     let g:UltiSnipsJumpBackwardTrigger="<c-k>"
     let g:UltiSnipsListSnippets="<c-l>"
 
+
+    Plug 'ctrlpvim/ctrlp.vim'
+
+    Plug 'vim-airline/vim-airline'
+    Plug 'whatyouhide/vim-gotham'
+    let g:airline_theme='gotham'
+
 "   Lets try completion
     Plug 'Shougo/neocomplete.vim'
     let g:acp_enableAtStartup = 0
@@ -228,9 +235,9 @@ let maplocalleader=" "
 " Toggle hlsearch
 "map <silent><leader>s :source ~/.vimrc<CR>
 map <leader>r :!ctags -f .tags -R .<CR>
-map <leader>f :find 
+map <leader>f :CtrlP<CR>
 map <leader>g :Ag 
-map <leader>s :ltag /
+map <leader>s :CtrlPTag<CR>
 map <leader>e :call ToggleList("Location List", 'l')<CR>
 map <leader>d :tabedit %<cr>:Gdiff<cr>
 map <leader>m :make<cr>

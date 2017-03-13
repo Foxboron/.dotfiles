@@ -44,16 +44,15 @@ set uncollapse_jump=yes
 set crypt_use_gpgme 
 
 set fast_reply=yes
-set smart_wrap=yes
+#set smart_wrap=yes
 
 set sidebar_sort_method="path"
-set sidebar_width = 20
+set sidebar_width = 30
 set sidebar_visible = yes
 set sidebar_folder_indent = yes
-set sidebar_delim_chars = '|'
-set sidebar_folder_indent = yes
-#set sidebar_indent_string = '  '
-set sidebar_format= '%B%*  %N/%S'
+set sidebar_format= '%B%*  %N'
+#set sidebar_short_path = yes
+set mail_check_stats = yes
 set pager_index_lines=10
 
 macro index b '<enter-command>toggle sidebar_visible<enter><refresh>'
@@ -62,21 +61,17 @@ macro pager b '<enter-command>toggle sidebar_visible<enter><redraw-screen>'
 bind index,pager \CP sidebar-prev
 bind index,pager \CN sidebar-next
 bind index,pager \CO sidebar-open
-#bind index,pager \CK sidebar-prev-new
-#bind index,pager \CJ sidebar-next-new
 
 
 bind index gg       first-entry
 bind index G        last-entry
-bind index R        group-reply
+bind index,pager R  group-reply
 bind index <space>  collapse-thread
 bind index -        collapse-all
 
 bind index,pager   \t          next-unread
 bind index,pager  ,\t      previous-unread
 bind index,pager u        sync-mailbox
-# bind pager   \t          next-unread
-# bind pager  ,\t      previous-unread
 
 
 
@@ -86,7 +81,7 @@ alternates ^mcfoxax@gmail.com$ ^morten.linderud@student.uib.no$
 set imap_user="morten@linderud.pw"
 set ssl_verify_host=no
 set imap_pass=`pass service/mail`
-set folder=imaps://imap.linderud.pw/
+set folder="imaps://imap.linderud.pw/"
 set spoolfile=+INBOX
 set record=+Sent
 set postponed=+Drafts
@@ -105,36 +100,24 @@ set pgp_sign_as = 9FECBE16
 set pgp_timeout = 20
 set crypt_replyencrypt = yes
 
-macro index D \
+macro index,pager D \
     "<save-message>+Trash<enter>" \
     "mark message as Trash"
 
-macro pager D \
-    "<save-message>+Trash<enter>" \
-    "mark message as Trash"
-
-macro index S \
+macro index,pager S \
     "<save-message>+Spam<enter>" \
     "mark message as Spam"
 
-macro pager S \
-    "<save-message>+Spam<enter>" \
-    "mark message as Spam"
-
-macro index A \
+macro index,pager A \
     "<save-message>+Archive<enter>" \
     "mark message as Archive"
 
-macro pager A \
-    "<save-message>+Archive<enter>" \
-    "mark message as Archive"
-
-macro index I \
+macro index,pager I \
     "<save-message>+Important<enter>" \
     "mark message as Important"
 
 # Edit sieve rules
-macro index x \
+macro index,pager x \
     "<shell-escape> pass service/mail | \
     sieve-connect \
         --user \"morten@linderud.pw\" \
