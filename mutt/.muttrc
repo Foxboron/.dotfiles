@@ -128,6 +128,7 @@ macro index,pager x \
         --edit <enter>"
 
 macro pager,index ,g "<pipe-message>~/.mutt/open_ml_url.py<return>" "Open GMAME link"
+macro pager,index ,s "<pipe-message>~/.mutt/security_tracker.py<return>" "Open security.archlinux.org link"
 
 
 folder-hook . "exec collapse-all"
