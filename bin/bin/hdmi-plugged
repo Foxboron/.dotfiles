@@ -16,8 +16,8 @@ export DISPLAY=:0.0
 # Force HDMI
 xrandr --addmode HDMI1 1920x1080
 
-xrandr  --output eDP1 --auto --output HDMI1 --mode 1920x1080 --primary
-xrandr  --output VGA1 --auto --left-of HDMI1 --rotate left
+xrandr  --output eDP-1 --auto --output HDMI-1 --mode 1920x1080 --primary
+xrandr  --output VGA-1 --auto --left-of HDMI-1 --rotate left
 move-irc-window > /dev/null 2>&1
 
 # if [[ -n $(xrandr | grep -E "TheGibson|Auto Etherneet") ]]; then
