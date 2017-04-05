@@ -26,7 +26,7 @@ get_devices(){
     done
 }
 
-
+hackbook(){
 for device in $(get_devices); do
     status=$(connected "$device")
     conn=$(get_connection "$device")
@@ -42,3 +42,20 @@ for device in $(get_devices); do
         break
     fi
 done
+}
+
+theia(){
+    CONN=$(netctl-auto list | grep "*" | tr -d "* ")
+    if [[ $CONN ]]; then
+        echo " $CONN"
+        echo " $CONN"
+        echo "#99CC99"
+    fi
+}
+
+
+if [[ $(hostname) == "hackbook" ]]; then
+    hackbook
+else
+    theia
+fi

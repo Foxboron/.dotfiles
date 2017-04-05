@@ -4,7 +4,7 @@ export DISPLAY=:0.0
 
 touch /tmp/clipboard-edit
 xsel -o > /tmp/clipboard-edit
-urxvt -title "ix edit" -e zsh -c "nvim /tmp/clipboard-edit"
+termite --title="ix edit" --exec="vim /tmp/clipboard-edit"
 cat /tmp/clipboard-edit | xsel -i
 
 xsel | ~/bin/ix | xsel -i
