@@ -1,6 +1,6 @@
 [options]
-font = DejaVu Sans Mono 10
-# font = Monospace 10
+font = DejaVu Sans Mono 9.9
+# font = Noto Mono 9.9
 browser = chromium
 cursor_blink = off
 scroll_on_keystroke = off
