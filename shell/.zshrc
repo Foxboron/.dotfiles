@@ -107,10 +107,7 @@ alias yaourt="echo \"pacaur you idiot\""
 # I really like having my files with find.
 # There should be a better way to do this :/
 function vimrc(){
-    readonly CURRENTPATH=`pwd`
-    cd ~/.vim
-    vim ~/.vimrc
-    cd $CURRENTPATH
+    vim ~/.vimrc -c "cd ~/.vim"
 }
 
 if ! zplug check --verbose; then

@@ -13,4 +13,4 @@ fi
 # echo $DIR
 # echo $YEAR
 # echo $ROOT
-rsync -hpavzs *.{JPG,jpg} "pics:./albums/$DIR $YEAR"
+rsync -hpavzs *.{JPG,jpg} "pics:./albums/$YEAR/$DIR"

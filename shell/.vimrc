@@ -15,6 +15,8 @@ call plug#begin('~/.vim/bundle')
 
 "   Because its great
     Plug 'tpope/vim-fugitive'
+    Plug 'gregsexton/gitv'
+    Plug 'airblade/vim-gitgutter'
 
 "   Commenting
     Plug 'tpope/vim-commentary'
@@ -37,17 +39,20 @@ call plug#begin('~/.vim/bundle')
 
 
     Plug 'ctrlpvim/ctrlp.vim'
+    let g:ctrlp_map = '<leader>p'
 
     Plug 'vim-airline/vim-airline'
     Plug 'whatyouhide/vim-gotham'
     let g:airline_theme='gotham'
 
+    Plug 'maralla/completor.vim' 
+    let g:completor_gocode_binary = '/home/fox/.go/bin/gocode'
 "   Lets try completion
-    Plug 'Shougo/neocomplete.vim'
-    let g:acp_enableAtStartup = 0
-    let g:neocomplete#enable_at_startup = 1
-    let g:neocomplete#enable_smart_case = 1
-    let g:neocomplete#sources#syntax#min_keyword_length = 1
+    " Plug 'Shougo/neocomplete.vim'
+    " let g:acp_enableAtStartup = 0
+    " let g:neocomplete#enable_at_startup = 1
+    " let g:neocomplete#enable_smart_case = 1
+    " let g:neocomplete#sources#syntax#min_keyword_length = 1
 
 
 
@@ -241,6 +246,7 @@ map <leader>s :CtrlPTag<CR>
 map <leader>e :call ToggleList("Location List", 'l')<CR>
 map <leader>d :tabedit %<cr>:Gdiff<cr>
 map <leader>m :make<cr>
+map <leader>v :Gitv<cr>
 
 " ========
 " New Maps
@@ -248,6 +254,8 @@ map <leader>m :make<cr>
 map <silent><ESC> :set hlsearch!<CR>
 noremap <silent><C-S> :silent update<CR>
 nnoremap <leader><TAB> :tabnext<CR>
+nnoremap <C-n> :cn<CR>
+nnoremap <C-p> :cp<CR>
 
 " Ref: toggle.vim
 nnoremap <silent> <leader>/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
@@ -300,7 +308,7 @@ if executable('ag')
     let &grepprg="ag --vimgrep --hidden ".ignore_string
     command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!|call SetListMaps('c')
 endif
-au FilterWritePre * if &diff | source ~/.vim/after/script/diff.vim
+au FilterWritePre * if &diff | source ~/.vim/after/scripts/diff.vim
 
 command! Source :source ~/.vimrc
 
