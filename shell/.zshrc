@@ -136,15 +136,15 @@ fi
 
 # Set SSH to use gpg-agent
 # unset SSH_AGENT_PID
-if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
-  export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
-  export DIRMNGR_INFO="/run/user/1000/gnupg/S.dirmngr"
-  export GPG_AGENT_INFO="/run/user/1000/gnupg/S.gpg-agent"
-fi
+# if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
+#   export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
+#   export DIRMNGR_INFO="/run/user/1000/gnupg/S.dirmngr"
+#   export GPG_AGENT_INFO="/run/user/1000/gnupg/S.gpg-agent"
+# fi
 
 # Set GPG TTY
 # GPG_TTY=$(tty)
 # export GPG_TTY
 
-# # Refresh gpg-agent tty in case user switches into an X session
+# Refresh gpg-agent tty in case user switches into an X session
 # gpg-connect-agent --dirmngr updatestartuptty /bye >/dev/null
