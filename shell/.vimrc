@@ -13,8 +13,10 @@ call plug#begin('~/.vim/bundle')
     " Plug 'scrooloose/syntastic'
     Plug 'w0rp/ale'
 
+" # GIT STUFF
 "   Because its great
     Plug 'tpope/vim-fugitive'
+" Lets see if this replaces fugitive
     Plug 'gregsexton/gitv'
     Plug 'airblade/vim-gitgutter'
 
@@ -23,9 +25,6 @@ call plug#begin('~/.vim/bundle')
 
 "   Latex sanity
     Plug 'lervag/vimtex'
-
-"   Keeping sessions
-    Plug 'tpope/vim-obsession'
 
 "   Trying out snippets
     Plug 'sirver/ultisnips'
@@ -38,6 +37,7 @@ call plug#begin('~/.vim/bundle')
     let g:UltiSnipsListSnippets="<c-l>"
 
 
+" ctrlP is honestly just a nice package that doesnt need configs
     Plug 'ctrlpvim/ctrlp.vim'
     let g:ctrlp_map = '<leader>p'
 
@@ -241,6 +241,7 @@ let maplocalleader=" "
 "map <silent><leader>s :source ~/.vimrc<CR>
 map <leader>r :!ctags -f .tags -R .<CR>
 map <leader>f :CtrlP<CR>
+map <leader>v :Gitv<cr>
 map <leader>g :Ag 
 map <leader>s :CtrlPTag<CR>
 map <leader>e :call ToggleList("Location List", 'l')<CR>
@@ -287,7 +288,7 @@ cnoremap <C-K> <Up>
 cnoremap <C-J> <Down>
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
-cmap W w !sudo tee % >/dev/null
+cmap W!! w !sudo tee % >/dev/null
 
 " This monster lets us use star with a visual selection
 vnoremap <silent> * :<C-U>

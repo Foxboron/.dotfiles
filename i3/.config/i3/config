@@ -38,7 +38,8 @@ set $Locker i3lock -n -c 000000 -i /home/fox/.config/i3/wallpaper.png && sleep 1
 bindsym $mod+Shift+Control+l exec $Locker
 
 bindsym $mod+Shift+minus move scratchpad
-bindsym $mod+minus scratchpad show
+# bindsym $mod+minus scratchpad show
+bindsym $mod+space scratchpad show
 
 bindsym $mod+h focus left
 bindsym $mod+j focus down
@@ -73,7 +74,7 @@ bindsym $mod+Control+Shift+e layout toggle split
 
 bindsym $mod+Control+Shift+space floating toggle
 
-bindsym $mod+space focus mode_toggle
+# bindsym $mod+space focus mode_toggle
 
 bindsym $mod+a focus parent
 

@@ -16,6 +16,8 @@ setopt prompt_subst
 }
 
 
+
+fpath=(~/.local/share/zsh/completion $fpath)
 autoload -U promptinit && promptinit
 autoload -U colors && colors
 autoload -U compinit

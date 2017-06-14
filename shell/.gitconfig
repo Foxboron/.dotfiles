@@ -2,6 +2,8 @@
 	email = morten@linderud.pw
 	name = Morten Linderud
 	signingkey = 9FECBE16
+[commit]
+	gpgsign = true
 [imap]
     folder = "Drafts"
     host = imaps://imap.linderud.pw
@@ -12,7 +14,6 @@
 	ui = auto
 [branch]
 	autosetuprebase = always
-
 [alias]
 	s = status
 	co = checkout
@@ -65,12 +66,9 @@
 	tool = vimdiff 
 [mergetool]
 	prompt = false
-
 [push]
 	default = current
 [mirror]
 	trinity = git-trinity:fox/
 	default = trinity
 	github = git@github.com:Foxboron/
-[commit]
-	gpgsign = true
