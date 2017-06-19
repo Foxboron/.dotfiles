@@ -102,7 +102,14 @@ alias g="grep -oEi"
 alias ls="ls --color=tty"
 alias xselix="xsel | ix"
 alias ..="cd .."
-alias yaourt="echo \"pacaur you idiot\""
+
+# Cower alias
+alias cower='cower --color=auto'
+alias cs='cower -s'
+alias cu='cower -u *'
+alias cc='cower -d'
+alias cud='cower -u * -df'
+
 
 # I really like having my files with find.
 # There should be a better way to do this :/

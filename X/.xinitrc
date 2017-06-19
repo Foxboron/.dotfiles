@@ -3,7 +3,7 @@ xbindkeys
 setxkbmap -layout us -variant altgr-intl -option 'ctrl:nocaps'
 udiskie & 
 tlp start &
-unclutter --timeout 4 & 
+unclutter -idle 4 & 
 xset -dpms; xset s off 
 synclient RightButtonAreaTop=2000
 eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
