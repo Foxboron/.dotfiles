@@ -1,6 +1,5 @@
 [options]
 font = monospace 9
-browser = qutebrowser
 cursor_blink = off
 scroll_on_keystroke = off
 scroll_on_output = off
