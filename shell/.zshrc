@@ -105,13 +105,25 @@ alias ls="ls --color=tty"
 alias xselix="xsel | ix"
 alias ..="cd .."
 
-# Cower alias
-alias cower='cower --color=auto'
-alias cs='cower -s'
-alias cu='cower -u *'
-alias cc='cower -d'
-alias cud='cower -u * -df'
+# Git alias
+alias c="git c"
 
+# Cower alias
+alias auracle='auracle --color=auto'
+alias as='auracle search'
+alias asy='auracle sync'
+alias au='auracle download'
+alias aud='auracle download -r *'
+alias ab='auracle buildorder *'
+
+# pacman alias
+alias pacman='pacman --color auto'
+alias pacupg='sudo pacman -Syu'
+
+ss(){
+    pacman -Ss $1
+    as $1
+}
 
 # I really like having my files with find.
 # There should be a better way to do this :/
