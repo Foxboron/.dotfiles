@@ -54,6 +54,8 @@
 
 	mirror ="!. ~/.githelpers && git_mirror"
 
+    difftex = difftool -y -t latex
+
 [core]
 	excludesfile = ~/.gitignore
 [diff]
@@ -62,6 +64,8 @@
 	prompt = false
 [difftool "vimdiff"]
 	cmd = vim -d $BASE $LOCAL 
+[difftool.latex]
+	cmd = latexdiff-git "$LOCAL" "$REMOTE"
 [merge]
 	tool = vimdiff 
 [mergetool]
