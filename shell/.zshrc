@@ -1,3 +1,4 @@
+fpath=(~/.config/zsh/compl $fpath)
 setopt INC_APPEND_HISTORY
 setopt HIST_IGNORE_DUPS
 setopt EXTENDED_HISTORY 
