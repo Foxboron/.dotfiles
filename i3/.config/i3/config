@@ -14,8 +14,26 @@ gaps outer 5
 
 for_window [class="Firefox"] move container to workspace 1
 for_window [class="Chromium"] move container to workspace 1
+for_window [class="qutebrowser"] move container to workspace 1
 for_window [class="Spotify"] move container to workspace 8
 for_window [title="ix edit"] floating enable 
+
+for_window [title="irc-rofi"] move container to workspace 6
+for_window [title="mutt-rofi"] move container to workspace 7
+
+
+
+for_window [class="imv"] floating enable
+
+for_window [title="open-float"] floating enable 
+for_window [class="Pinentry"] floating enable 
+
+# Notes
+for_window [title="fox-notes"] floating enable 
+for_window [title="fox-notes"] resize set 550 600
+for_window [title="fox-notes"] move absolute position center
+for_window [title="fox-notes"] move to scratchpad
+
 new_window 1pixel
 force_focus_wrapping no
 hide_edge_borders both
@@ -27,10 +45,7 @@ exec --no-startup-id redshift
 
 bindsym $mod+Shift+c kill
 
-#bindsym $mod+d exec dmenu_run -nb "#101010" -fn "Source Code Pro-11.1"
 bindsym $mod+d exec rofi -show run 
-bindsym $mod+n exec nmcli_dmenu 
-#bindsym $mod+Tab exec ~/bin/rofi-run 
 bindsym Shift+Tab exec ~/bin/rofi-run 
 
 set $Locker i3lock -n -c 000000 -i /home/fox/.config/i3/wallpaper.png && sleep 1
@@ -74,9 +89,10 @@ bindsym $mod+Control+Shift+e layout toggle split
 
 bindsym $mod+Control+Shift+space floating toggle
 
-# bindsym $mod+space focus mode_toggle
 
 bindsym $mod+a focus parent
+bindsym $mod+u focus parent
+bindsym $mod+n focus child
 
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
@@ -123,8 +139,8 @@ bindsym $mod+Control+j exec "i3-msg focus output down"
 bindsym $mod+Control+k exec "i3-msg focus output up"
 bindsym $mod+Control+l exec "i3-msg focus output right"
 
-bindsym $mod+Control+Shift+r restart
 
+bindsym $mod+Control+Shift+r restart
 mode "resize" {
 	bindsym h resize shrink width 10 px or 10 ppt
 	bindsym j resize grow height 10 px or 10 ppt
@@ -139,39 +155,10 @@ mode "resize" {
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
 }
-
 bindsym $mod+Control r mode "resize"
 
 
-
-set $vpn (s)huttle, (v)pn, (o)ff
-
-mode "$vpn"{
-	bindsym s exec ~/.config/i3/scripts/vpn ssh arbol, mode "default"
-	bindsym v exec ~/.config/i3/scripts/vpn vpn arbol, mode "default"
-	bindsym o exec ~/.config/i3/scripts/vpn off, mode "default"
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
-	bindsym q mode "default"
-}
-
-
-bindsym $mod+c mode "$vpn"
-
-
-set $xrandr (a)uto
-
-mode "$xrandr"{
-
-	bindsym a exec xrandr --auto, mode "default"
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
-	bindsym q mode "default"
-}
-bindsym $mod+x mode "$xrandr"
-
 set $media Media Player (j,k,q,space)
-
 mode "$media"{
 	bindsym space exec playerctl play-pause, mode "default"
 	bindsym j exec playerctl previous
@@ -182,7 +169,6 @@ mode "$media"{
 bindsym $mod+p mode "$media"
 
 set $volume Volume
-
 mode "$volume"{
 	bindsym space exec ~/bin/volume toggle, mode "default"
 	bindsym j exec ~/bin/volume dec
@@ -192,23 +178,6 @@ mode "$volume"{
 }
 bindsym $mod+m mode "$volume"
 
-
-set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
-mode "$mode_system" {
-    bindsym l exec --no-startup-id $Locker, mode "default"
-    bindsym e exec --no-startup-id i3-msg exit, mode "default"
-    bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
-    bindsym h exec --no-startup-id $Locker && systemctl hibernate, mode "default"
-    bindsym r exec --no-startup-id systemctl reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"  
-
-    # back to normal: Enter or Escape
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-    bindsym  q mode "default"
-}
-
-bindsym $mod+Pause mode "$mode_system"
 
 bar {
 	tray_output primary
