@@ -1,1 +1,1 @@
-termite --title="irc" --exec="mosh velox -- tmux attach -d"
+termite --title="irc-rofi" --exec="mosh velox -- tmux attach -d"

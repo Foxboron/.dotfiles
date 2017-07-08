@@ -1,4 +1,7 @@
-exec ~/.rofi/$(ls ~/.rofi | rofi -dmenu -p "")
+export XAUTHORITY=/home/fox/.Xauthority
+export DISPLAY=:0.0
+
+exec "~/.rofi/$(ls ~/.rofi | rofi -dmenu -p "")"
 
 
 
