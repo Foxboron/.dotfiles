@@ -100,7 +100,7 @@ alias zshrc="vim ~/.zshrc && source ~/.zshrc"
 alias i3conf="vim ~/.config/i3/config"
 alias psg="ps aux | grep "
 alias G="| grep "
-alias L="| less "
+alias L="| less"
 alias g="grep -oEi"
 alias ls="ls --color=tty"
 alias xselix="xsel | ix"
@@ -126,6 +126,10 @@ ss(){
     as $1
 }
 
+export PAGER=/usr/bin/vimpager
+alias less=$PAGER
+alias zless=$PAGER
+
 # I really like having my files with find.
 # There should be a better way to do this :/
 function vimrc(){
@@ -144,7 +148,7 @@ fi
 # Source https://github.com/jelly/Dotfiles/blob/master/.zshrc#L307
 # Start the gpg-agent if not already running
 # if ! pgrep -x -u "${USER}" gpg-agent >/dev/null 2>&1; then
-#   gpg-connect-agent --dirmngr /bye >/dev/null 2>&1
+#     gpg-connect-agent --dirmngr /bye >/dev/null 2>&1
 # fi
 
 # Set SSH to use gpg-agent

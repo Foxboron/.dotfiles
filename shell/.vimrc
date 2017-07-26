@@ -39,6 +39,9 @@ call plug#begin('~/.vim/bundle')
     Plug 'whatyouhide/vim-gotham'
     Plug 'maralla/completor.vim' 
 
+" vimpager
+    Plug 'rkitover/vimpager'
+
 call plug#end()
 " }}}1
 " {{{1 Description
@@ -350,6 +353,7 @@ let g:completor_python_binary = '/usr/bin/python'
 "}}}
 "{{{2 plugin: airline
 let g:airline_theme='gotham'
+let g:airline#extensions#tabline#enabled = 1
 "}}}
 "{{{2 plugin: ctrlp
 let g:ctrlp_map = '<leader>p'

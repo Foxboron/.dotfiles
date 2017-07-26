@@ -13,7 +13,7 @@ open() {
     case "$1" in
         *youtube.com*|*youtu.be*|*vidzi.tv*|*.webm*|*.mp4*|*.avi)  mpv "$1" --fs --title="open-float";;
         #*.png|*.jpeg|*.gif*|*.jpg) feh -B black --title open-float -. "$1";;  # feh -. = opens to fit window.
-        *.png|*.jpeg|*.gif*|*.jpg) open_imv "$1";;  # feh -. = opens to fit window.
+        *.png|*.jpeg|*.gif*|*.jpg) open_imv "$1" || qutebrowser "$1";;  # feh -. = opens to fit window.
         *) qutebrowser "$1";  # For everything else.;
     esac
 }

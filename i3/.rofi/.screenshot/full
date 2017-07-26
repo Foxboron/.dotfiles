@@ -1,10 +1,9 @@
 export XAUTHORITY=/home/fox/.Xauthority
 export DISPLAY=:0.0
-FILENAME=`date +%Y-%m-%d`-`cat /dev/urandom | tr -cd 'a-f0-9' | head -c 32`.png
+FILENAME=~/Documents/Screenshots/Selection-`date +%Y-%m-%d`-`cat /dev/urandom | tr -cd 'a-f0-9' | head -c 32`.png
 
-scrot $FILENAME -u -e 'scp $f vulpes:./www/scrn'
+scrot $FILENAME
 
-echo "https://velox.pw/~fox/scrn/"$FILENAME | xsel -i
-
+pbpst -Sf $FILENAME | xsel -i
 
 rm $FILENAME

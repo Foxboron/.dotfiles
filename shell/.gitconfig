@@ -57,7 +57,9 @@
     difftex = difftool -y -t latex
 
 [core]
-	excludesfile = ~/.gitignore
+	excludesfile = ~/.config/git/ignore
+[init]
+    template = ~/.config/git/templates
 [diff]
 	tool = vimdiff
 [difftool]
