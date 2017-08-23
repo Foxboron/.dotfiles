@@ -1,4 +1,33 @@
-fpath=(~/.config/zsh/compl $fpath)
+# {{{ 1 zplug
+#{{{2 Init
+[[ -d ~/.zplug ]] || {
+  mkdir -p ~/.config/zsh/
+  curl -fLo ~/.config/zsh/zplug/zplug --create-dirs https://git.io/zplug
+  source ~/.config/zsh/zplug/zplug && zplug update --self
+}
+source ~/.config/zsh/zplug/init.zsh
+# }}}
+ zplug "zsh-users/zsh-completions"
+ # zplug "plugins/gitgastgit-extra", from:oh-my-zsh
+ # zplug "plugins/virtualenv", from:oh-my-zsh
+# zplug "plugins/virtualenvwrapper", from:oh-my-zsh
+# zplug "lib/completion", from:oh-my-zsh, ignore:oh-my-zsh.sh, defer:1
+# zplug "lib/directories", from:oh-my-zsh, ignore:oh-my-zsh.sh, defer:1
+# zplug "lib/git", from:oh-my-zsh, ignore:oh-my-zsh.sh, defer:1
+ zplug "zsh-users/zsh-history-substring-search"
+zplug load
+# zplug install{{{
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    else
+        echo
+    fi
+fi
+# }}}
+# }}}
+# {{{ setopts
 setopt INC_APPEND_HISTORY
 setopt HIST_IGNORE_DUPS
 setopt EXTENDED_HISTORY 
@@ -8,17 +37,8 @@ setopt appendhistory
 setopt autocd 
 setopt extendedglob 
 setopt prompt_subst
-
-# Check if zplug is installed
-[[ -d ~/.zplug ]] || {
-  mkdir -p ~/.config/zsh/
-  curl -fLo ~/.config/zsh/zplug/zplug --create-dirs https://git.io/zplug
-  source ~/.config/zsh/zplug/zplug && zplug update --self
-}
-
-
-
-fpath=(~/.local/share/zsh/completion $fpath)
+# }}}
+# autoload{{{
 autoload -U promptinit && promptinit
 autoload -U colors && colors
 autoload -U compinit
@@ -29,31 +49,17 @@ autoload -U run-help
 autoload run-help-git
 autoload run-help-svn
 autoload run-help-svk
+# }}}
+# Export{{{
 export HELPDIR=~/.config/zsh/zsh_help
-bindkey '^P' run-help
-
-
-# Source 
-source ~/.config/zsh/zplug/init.zsh
-#source /usr/bin/virtualenvwrapper.sh
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# Zplug
-zplug "zsh-users/zsh-completions"
-zplug "plugins/gitgastgit-extra", from:oh-my-zsh
-zplug "plugins/virtualenv", from:oh-my-zsh
-zplug "plugins/virtualenvwrapper", from:oh-my-zsh
-zplug "lib/completion", from:oh-my-zsh, ignore:oh-my-zsh.sh, defer:1
-zplug "lib/directories", from:oh-my-zsh, ignore:oh-my-zsh.sh, defer:1
-zplug "lib/git", from:oh-my-zsh, ignore:oh-my-zsh.sh, defer:1
-zplug "zsh-users/zsh-history-substring-search"
-zplug load
-
-
+export KEYTIMEOUT=1                     # For vim status line
+export PAGER=/usr/bin/vimpager
+# }}}
+# {{{ stty
 stty ixany 
 stty ixoff -ixon
-
-#VIM Mode
+# }}}
+#{{{ Bindkey
 bindkey -v
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
@@ -67,14 +73,13 @@ bindkey '^A' beginning-of-line
 bindkey '^?' backward-delete-char
 bindkey '^h' backward-delete-char
 bindkey '^w' backward-kill-word
+bindkey '^P' run-help
 
 zle -N edit-command-line
 autoload -Uz edit-command-line
 bindkey -M vicmd 'v' edit-command-line
-
-
-#prompt
-
+# }}}
+# Prompt{{{
 function zle-line-init zle-keymap-select {
     VIM_PROMPT="%{$fg_bold[red]%} [% %{$fg_bold[green]%}NORMAL%{$fg_bold[red]%}]%  %{$reset_color%}"
     RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}$EPS1"
@@ -82,7 +87,6 @@ function zle-line-init zle-keymap-select {
 }
 zle -N zle-line-init
 zle -N zle-keymap-select
-export KEYTIMEOUT=1
 
 
 ZSH_THEME_GIT_PROMPT_PREFIX="λ %{$fg[blue]%}git %{$fg[red]%}"
@@ -91,25 +95,28 @@ ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}*%{$fg[green]%}"
 ZSH_THEME_GIT_PROMPT_CLEAN=""
 
 PROMPT='%{$fg_bold[red]%}λ %n@%m %{$fg[green]%}%c %{$fg_bold[red]%}» $(git_prompt_info)%{$reset_color%}'
-
-
-##ALIAS
+# }}}
+#Alias{{{
 alias tmux="tmux -2"
 alias tmuxconf="vim ~/.tmux.conf"
 alias zshrc="vim ~/.zshrc && source ~/.zshrc"
 alias i3conf="vim ~/.config/i3/config"
 alias psg="ps aux | grep "
-alias G="| grep "
-alias L="| less"
 alias g="grep -oEi"
 alias ls="ls --color=tty"
 alias xselix="xsel | ix"
 alias ..="cd .."
+alias ls="exa"
+alias l='ls -lF'
+alias la='ls -laF'
 
-# Git alias
-alias c="git c"
+alias -g G='| grep'
+alias -g L='| less'
+alias -g T='| tail'
 
-# Cower alias
+# alias less=$PAGER
+# alias zless=$PAGER
+
 alias auracle='auracle --color=auto'
 alias as='auracle search'
 alias asy='auracle sync'
@@ -120,48 +127,19 @@ alias ab='auracle buildorder *'
 # pacman alias
 alias pacman='pacman --color auto'
 alias pacupg='sudo pacman -Syu'
-
+# }}}
+# {{{ Functions
+function vimrc(){
+    vim ~/.vimrc -c "cd ~/.vim"
+}
 ss(){
     pacman -Ss $1
     as $1
 }
-
-# I really like having my files with find.
-# There should be a better way to do this :/
-function vimrc(){
-    vim ~/.vimrc -c "cd ~/.vim"
-}
-
-borg(){
-    BORG_PASSPHRASE=`pass backup/theia` /usr/bin/borg "$@"
-}
-
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    else
-        echo
-    fi
-fi
-
-# Source https://github.com/jelly/Dotfiles/blob/master/.zshrc#L307
-# Start the gpg-agent if not already running
-# if ! pgrep -x -u "${USER}" gpg-agent >/dev/null 2>&1; then
-#     gpg-connect-agent --dirmngr /bye >/dev/null 2>&1
-# fi
-
-# Set SSH to use gpg-agent
-# unset SSH_AGENT_PID
-# if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
-#   export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
-#   export DIRMNGR_INFO="/run/user/1000/gnupg/S.dirmngr"
-#   export GPG_AGENT_INFO="/run/user/1000/gnupg/S.gpg-agent"
-# fi
-
-# Set GPG TTY
-# GPG_TTY=$(tty)
-# export GPG_TTY
-
-# Refresh gpg-agent tty in case user switches into an X session
-# gpg-connect-agent --dirmngr updatestartuptty /bye >/dev/null
+# }}}
+# zstyle{{{
+zstyle ':completion:*' menu select
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
+# }}}
+# vim: fdm=marker

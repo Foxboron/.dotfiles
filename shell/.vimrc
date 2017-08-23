@@ -152,7 +152,7 @@ endif
 set undolevels=1000
 set undoreload=10000
 " Completion menu
-set completeopt=longest,menuone
+set completeopt=menuone
 
 "Wildmenu
 set path=.                  " Include relative directory to the file
@@ -321,6 +321,7 @@ augroup vimrc_autocommands
         \ endif
 
 augroup END
+
 "}}}1
 " {{{1 Grep
 set grepformat^=%f:%l:%c:%m
