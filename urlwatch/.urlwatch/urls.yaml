@@ -1,0 +1,24 @@
+---
+url: https://github.com/protegeproject/protege/tags
+filter: github
+---
+url: https://github.com/gephi/gephi/tags 
+filter: github
+---
+url: https://github.com/cryptomator/cryptomator/tags 
+filter: github
+---
+url: https://github.com/metacloud/molecule/tags 
+filter: github
+---
+url: https://github.com/FortAwesome/Font-AWesome/tags 
+filter: github
+---
+url: https://git.sesse.net/?p=cubemap
+filter: element-by-class:tags,html2text
+---
+url: https://git.sesse.net/?p=bmusb
+filter: element-by-class:tags,html2text
+---
+url: https://git.sesse.net/?p=nageru
+filter: element-by-class:tags,html2text
