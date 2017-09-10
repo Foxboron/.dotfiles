@@ -126,14 +126,14 @@ ss(){
     as $1
 }
 
-export PAGER=/usr/bin/vimpager
-alias less=$PAGER
-alias zless=$PAGER
-
 # I really like having my files with find.
 # There should be a better way to do this :/
 function vimrc(){
     vim ~/.vimrc -c "cd ~/.vim"
+}
+
+borg(){
+    BORG_PASSPHRASE=`pass backup/theia` /usr/bin/borg "$@"
 }
 
 if ! zplug check --verbose; then
