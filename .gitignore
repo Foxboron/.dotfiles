@@ -11,3 +11,5 @@ vpn-status
 *spell
 **undo
 *.netrwhist
+*__pycache__
+*cache.db
