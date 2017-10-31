@@ -152,7 +152,7 @@ endif
 set undolevels=1000
 set undoreload=10000
 " Completion menu
-set completeopt=longest,menuone
+set completeopt=menuone
 
 "Wildmenu
 set path=.                  " Include relative directory to the file
@@ -241,7 +241,7 @@ nnoremap <silent> zj :silent! normal! zc<cr>zjzvzz
 nnoremap <silent> zk :silent! normal! zc<cr>zkzvzz[z"}}}
 "{{{2 Leader mapping
 let mapleader=" "
-let maplocalleader=" "
+let maplocalleader=","
 
 " Toggle hlsearch
 "map <silent><leader>s :source ~/.vimrc<CR>
@@ -260,6 +260,7 @@ map <leader>v :Gitv<cr>
 nnoremap <leader>bj  :bnext<CR>
 nnoremap <leader>bk  :bprev<CR>
 nnoremap <leader>j  :bnext<CR>
+nnoremap <TAB>  :bnext<CR>
 nnoremap <leader>k  :bprev<CR>
 nnoremap <leader>c  :bd<CR>
 nnoremap <leader>bn  :enew<CR>
@@ -321,6 +322,7 @@ augroup vimrc_autocommands
         \ endif
 
 augroup END
+
 "}}}1
 " {{{1 Grep
 set grepformat^=%f:%l:%c:%m
@@ -366,6 +368,13 @@ let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 let g:UltiSnipsListSnippets="<c-l>"
 "}}}
-
+" vim-go
+let g:go_info_mode = 'guru'
+noremap <localleader>l :GoLint<cr>
+noremap <localleader>v :GoVet<cr>
+noremap <localleader>b :GoBuild<cr>
+noremap <localleader>i :GoInfo<cr>
+noremap <localleader>r :GoRun<cr>
+noremap <localleader>n :GoRename<cr>
 "}}}
 " vim: fdm=marker

@@ -12,8 +12,6 @@
     user = "morten@linderud.pw"
 [color]
 	ui = auto
-[branch]
-	autosetuprebase = always
 [alias]
 	s = status
 	co = checkout

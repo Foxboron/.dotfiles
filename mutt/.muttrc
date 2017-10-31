@@ -41,7 +41,6 @@ set move=no
 set confirmappend=no
 set collapse_unread=no
 set uncollapse_jump=yes
-set crypt_use_gpgme 
 
 set fast_reply=yes
 #set smart_wrap=yes
@@ -86,19 +85,20 @@ set spoolfile=+INBOX
 set record=+Sent
 set postponed=+Drafts
 
-set realname = 'Morten Linderud'
-set from = morten@linderud.pw
+# set realname = 'Morten Linderud'
+# set from = morten@linderud.pw
+# set sendmail = "/usr/bin/msmtp"
 set use_from = yes
 set envelope_from
 set hidden_host
 set ssl_force_tls = yes
 set ssl_starttls = yes
-set sendmail = "/usr/bin/msmtp"
 
 set pgp_use_gpg_agent = yes
 set pgp_sign_as = 9FECBE16
 set pgp_timeout = 20
 set crypt_replyencrypt = yes
+set crypt_use_gpgme 
 
 macro index,pager D \
     "<save-message>+Trash<enter>" \
@@ -132,6 +132,9 @@ macro pager,index ,s "<pipe-message>~/.mutt/security_tracker.py<return>" "Open s
 
 
 folder-hook . "exec collapse-all"
+reply-hook . source ~/.mutt/account.linderud 
+# reply-hook "~C morten@linderud.pw" source ~/.mutt/account.linderud 
+reply-hook "~C @archlinux.org" "source ~/.mutt/account.archlinux"
 
 source "~/.mutt/colors"
 source "~/.mutt/ignores"

@@ -1,5 +1,5 @@
 [options]
-font = monospace 9
+font = monospace 10
 cursor_blink = off
 scroll_on_keystroke = off
 scroll_on_output = off
