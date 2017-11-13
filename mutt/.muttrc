@@ -8,6 +8,12 @@ set mbox_type=Maildir
 set mailcap_path 	= ~/.mutt/mailcap
 set signature = ~/.mutt/signature
 
+# Default
+set ssl_verify_host=no
+set realname = 'Morten Linderud'
+set from = morten@linderud.pw
+set sendmail  = "/usr/bin/msmtp -a linderud"
+
 
 set send_charset="us-ascii:utf-8"
 
@@ -32,7 +38,7 @@ set reverse_name
 set reverse_realname
 set hidden_host
 set envelope_from	
-set index_format="%Z %{%a %d %b %Y} %3M %-15.15L │%s"
+set pager_format="$from: -%Z- %C/%m: %-20.20n   %s%*  -- (%P)"
 set sort=threads
 set sort_aux=last-date-received
 
@@ -71,10 +77,6 @@ bind index -        collapse-all
 bind index,pager   \t          next-unread
 bind index,pager  ,\t      previous-unread
 bind index,pager u        sync-mailbox
-
-
-
-alternates ^mcfoxax@gmail.com$ ^morten.linderud@student.uib.no$
 
 # imap
 set imap_user="morten@linderud.pw"
@@ -130,11 +132,12 @@ macro index,pager x \
 macro pager,index ,g "<pipe-message>~/.mutt/open_ml_url.py<return>" "Open GMAME link"
 macro pager,index ,s "<pipe-message>~/.mutt/security_tracker.py<return>" "Open security.archlinux.org link"
 
-
 folder-hook . "exec collapse-all"
-reply-hook . source ~/.mutt/account.linderud 
-# reply-hook "~C morten@linderud.pw" source ~/.mutt/account.linderud 
-reply-hook "~C @archlinux.org" "source ~/.mutt/account.archlinux"
+message-hook . "source ~/.mutt/account.linderud"
+message-hook "~C morten@linderud.pw" "source ~/.mutt/account.linderud"
+message-hook "~C @archlinux.org" "source ~/.mutt/account.archlinux"
+macro pager,index ,a ":source ~/.mutt/account.archlinux\n"
+macro pager,index ,l ":source ~/.mutt/account.linderud\n"
 
 source "~/.mutt/colors"
 source "~/.mutt/ignores"
