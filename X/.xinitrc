@@ -1,6 +1,6 @@
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 xbindkeys
-setxkbmap -layout us -variant altgr-intl -option 'ctrl:nocaps'
+#setxkbmap -layout us -variant altgr-intl -option 'ctrl:nocaps'
 udiskie & 
 unclutter -idle 4 & 
 xset -dpms; xset s off 

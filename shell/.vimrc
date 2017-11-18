@@ -8,7 +8,8 @@ call plug#begin('~/.vim/bundle')
     Plug 'fatih/vim-go', {'for': 'go'}
 
 "   Vim-Wiki - For notes and stuff
-    Plug 'vimwiki/vimwiki'
+    Plug 'vimwiki/vimwiki', {'on' : 'VimwikiIndex', 'for': 'wiki' }
+    Plug 'tbabej/taskwiki', {'on': 'VimwikiIndex', 'for': 'wiki'}
 
 "   Syntastic - Dem syntax errors yo
     " Plug 'scrooloose/syntastic'
@@ -25,7 +26,7 @@ call plug#begin('~/.vim/bundle')
     Plug 'tpope/vim-commentary'
 
 "   Latex sanity
-    Plug 'lervag/vimtex'
+    Plug 'lervag/vimtex', {'for': 'tex'}
 
     Plug '907th/vim-auto-save', { 'for': 'tex' }
 
@@ -41,6 +42,9 @@ call plug#begin('~/.vim/bundle')
 
 " vimpager
     Plug 'rkitover/vimpager'
+
+" goyo for editing
+    Plug 'junegunn/goyo.vim'
 
 call plug#end()
 " }}}1
@@ -114,12 +118,13 @@ set shell=/bin/zsh
 " Visual 
 " =========
 set number
+set relativenumber  " start with relative numbers
 set ruler
 set cursorline
 set noshowmode
 set laststatus=2    " always show statusbar  
 set ttimeoutlen=50
-set shortmess+=I    "We dont care for the intro message
+set shortmess=Iat    "We dont care for the intro message
 
 
 " =========
@@ -214,6 +219,7 @@ inoremap # X<BS>#
 " Dont move on *
 nnoremap * *<c-o>
 
+inoremap <silent> <C-S> <C-O>:update<CR>
 map ø :
 map ; :
 
@@ -311,17 +317,42 @@ command! Source :source ~/.vimrc
 "{{{1 Autocommand
 augroup vimrc_autocommands
   autocmd!
-  autocmd WinEnter,FocusGained * setlocal cursorline
-  autocmd WinLeave,FocusLost   * setlocal nocursorline
-  autocmd InsertEnter * :set number
-  autocmd InsertLeave * :set relativenumber
-  autocmd FilterWritePre * if &diff | source ~/.vim/after/scripts/diff.vim
+  autocmd WinEnter,FocusGained  * setlocal cursorline
+  autocmd WinLeave,FocusLost    * setlocal nocursorline
+  " autocmd BufEnter              * setlocal number 
+  autocmd InsertEnter           * setlocal norelativenumber
+  autocmd InsertLeave           * setlocal relativenumber
+  autocmd FilterWritePre        * if &diff | source ~/.vim/after/scripts/diff.vim
   autocmd BufReadPost *
         \ if line("'\"") > 0 && line("'\"") <= line('$') |
         \   execute 'normal! g`"' |
         \ endif
 
 augroup END
+
+augroup vimwiki_template
+    autocmd BufEnter    *   setlocal nowrap
+    autocmd BufNewFile */diary/*.wiki r~/Notes/.template
+augroup END
+
+" Because numbers can fuck off
+function! s:goyo_enter()
+    augroup goyo_enter
+        autocmd BufEnter    *   setlocal tw=80
+        autocmd InsertEnter *   setlocal nonumber
+        autocmd InsertLeave *   setlocal norelativenumber
+    augroup END
+endfunction
+
+function! s:goyo_leave()
+  augroup goyo_enter
+    autocmd!
+  augroup END
+  augroup! goyo_enter 
+endfunction
+
+autocmd User GoyoEnter nested call <SID>goyo_enter()
+autocmd User GoyoLeave nested call <SID>goyo_leave()
 
 "}}}1
 " {{{1 Grep
@@ -342,7 +373,6 @@ endif
 "{{{2 internal: matchit
 packadd! matchit
 "}}}
-
 "{{{2 plugin: vimtex
 let g:vimtex_compiler_callback_hooks = ['CleanFiles']
 function! CleanFiles(status)
@@ -355,7 +385,7 @@ let g:completor_python_binary = '/usr/bin/python'
 "}}}
 "{{{2 plugin: airline
 let g:airline_theme='gotham'
-let g:airline#extensions#tabline#enabled = 1
+let g:airline_extensions = ['branch', 'tabline', 'ale', 'ctrlp']
 "}}}
 "{{{2 plugin: ctrlp
 let g:ctrlp_map = '<leader>p'
@@ -368,7 +398,7 @@ let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 let g:UltiSnipsListSnippets="<c-l>"
 "}}}
-" vim-go
+"{{{2 plugin: vim-go
 let g:go_info_mode = 'guru'
 noremap <localleader>l :GoLint<cr>
 noremap <localleader>v :GoVet<cr>
@@ -376,5 +406,23 @@ noremap <localleader>b :GoBuild<cr>
 noremap <localleader>i :GoInfo<cr>
 noremap <localleader>r :GoRun<cr>
 noremap <localleader>n :GoRename<cr>
+"}}}
+"{{{2 plugin: vimwiki
+let g:vimwiki_hl_headers = 1
+let g:vimwiki_hl_cb_checked = 1
+let g:vimwiki_listsyms = '✗○◐●✓'
+let g:vimwiki_folding = ''
+let main_wiki = {}
+let main_wiki.path = '~/Notes'
+let main_wiki.path_html = '~/.cache/vimwiki/html'
+let main_wiki.automatic_nested_syntaxes = 1
+let main_wiki.list_margin = 0
+let g:vimwiki_list = [main_wiki]
+hi VimwikiBold term=bold cterm=bold gui=bold ctermfg=178 guifg=#dfaf00
+hi VimwikiItalic term=italic cterm=italic gui=italic ctermfg=178 guifg=#dfaf00
+"}}}
+"{{{2 plugin: taskwiki
+let g:taskwiki_disable_concealcursor = 'yes'
+"}}}
 "}}}
 " vim: fdm=marker

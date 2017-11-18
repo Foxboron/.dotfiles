@@ -35,52 +35,6 @@ from urlwatch import reporters
 
 from bs4 import BeautifulSoup
 
-#class CustomLoginJob(jobs.UrlJob):
-#    """Custom login for my webpage"""
-#
-#    __kind__ = 'custom-login'
-#    __required__ = ('username', 'password')
-#
-#    def retrieve(self, job_state):
-#        return 'Would log in to {} with {} and {}\n'.format(self.url, self.username, self.password)
-
-
-#class CaseFilter(filters.FilterBase):
-#    """Custom filter for changing case, needs to be selected manually"""
-#
-#    __kind__ = 'case'
-#
-#    def filter(self, data, subfilter=None):
-#        # The subfilter is specified using a colon, for example the "case"
-#        # filter here can be specified as "case:upper" and "case:lower"
-#
-#        if subfilter is None:
-#            subfilter = 'upper'
-#
-#        if subfilter == 'upper':
-#            return data.upper()
-#        elif subfilter == 'lower':
-#            return data.lower()
-#        else:
-#            raise ValueError('Unknown case subfilter: %r' % (subfilter,))
-
-
-#class IndentFilter(filters.FilterBase):
-#    """Custom filter for indenting, needs to be selected manually"""
-#
-#    __kind__ = 'indent'
-#
-#    def filter(self, data, subfilter=None):
-#        # The subfilter here is a number of characters to indent
-#
-#        if subfilter is None:
-#            indent = 8
-#        else:
-#            indent = int(subfilter)
-#
-#        return '\n'.join((' '*indent) + line for line in data.splitlines())
-
-
 class GitHubFilter(filters.FilterBase):
     __kind__ = 'github'
 
@@ -117,38 +71,59 @@ class PyPIFilter(filters.FilterBase):
             return data
 
 
-class CustomMatchUrlFilter(filters.AutoMatchFilter):
-    # The AutoMatchFilter will apply automatically to all filters
-    # that have the given properties set
-    MATCH = {'url': 'http://example.org/'}
+class GitwebFilter(filters.FilterBase):
+    __kind__ = 'gitweb'
 
-    def filter(self, data):
-        return data.replace('foo', 'bar')
+    def filter(self, data, subfilter=None):
+        soup = BeautifulSoup(data, "html5lib")
 
-class CustomRegexMatchUrlFilter(filters.RegexMatchFilter):
-    # Similar to AutoMatchFilter
-    MATCH = {'url': re.compile('http://example.org/.*')}
+        tags = soup.select('a[class="list name"]')
+        if tags:
+            return '\n'.join([tag.text for tag in tags])
+        return data
 
-    def filter(self, data):
-        return data.replace('foo', 'bar')
+class CGitFilter(filters.FilterBase):
+    __kind__ = 'cgit'
 
+    def filter(self, data, subfilter=None):
+        soup = BeautifulSoup(data, "html5lib")
+        tags = soup.find_all('a', href=re.compile('/st/tag/'))
+        if tags:
+            return '\n'.join([tag.text for tag in tags])
+        return data
 
-class CustomTextFileReporter(reporters.TextReporter):
+class BitbucketFilter(filters.FilterBase):
+    __kind__ = 'bitbucket'
+
+    def filter(self, data, subfilter=None):
+        soup = BeautifulSoup(data, "html5lib")
+        tags = soup.select('td[class="name"]')
+        if tags:
+            return '\n'.join([tag.text for tag in tags])
+        return data
+
+class AliothFilter(filters.FilterBase):
+    __kind__ = 'alioth'
+
+    def filter(self, data, subfilter=None):
+        soup = BeautifulSoup(data, "html5lib")
+        tags = soup.select('tr[class="align-center"] > td')
+        if tags:
+            return tags[1].text
+        return data
+
+class PlainTextReporter(reporters.TextReporter):
     """Custom reporter that writes the text-only report to a file"""
 
-    __kind__ = 'custom_file'
+    __kind__ = 'plain'
 
     def submit(self):
-        with open(self.config['filename'], 'w') as fp:
-            fp.write('\n'.join(super().submit()))
-
-
-class CustomHtmlFileReporter(reporters.HtmlReporter):
-    """Custom reporter that writes the HTML report to a file"""
-
-    __kind__ = 'custom_html'
-
-    def submit(self):
-        with open(self.config['filename'], 'w') as fp:
-            fp.write('\n'.join(super().submit()))
-
+        for job_state in self.report.get_filtered_job_states(self.job_states):
+            # print(job_state.job.pretty_name())
+            ver = job_state.new_data.split()[0]
+            if job_state.new_data.split()[0] == "tip":
+                ver = job_state.new_data.split()[1]
+            d = {"pkgname": job_state.job.pretty_name(),
+                 "version": ver,
+                 "url": job_state.job.get_location()}
+            print("{pkgname} - {version} - {url}".format(**d))

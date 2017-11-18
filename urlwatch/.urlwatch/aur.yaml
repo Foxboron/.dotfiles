@@ -1,0 +1,20 @@
+---
+name: cryptomator
+url: https://github.com/cryptomator/cryptomator/tags 
+filter: github
+---
+name: molecule
+url: https://github.com/metacloud/molecule/tags 
+filter: github
+---
+name: cubemap
+url: https://git.sesse.net/?p=cubemap
+filter: gitweb
+---
+name: bmusb
+url: https://git.sesse.net/?p=bmusb
+filter: gitweb
+---
+name: nageru
+url: https://git.sesse.net/?p=nageru
+filter: gitweb

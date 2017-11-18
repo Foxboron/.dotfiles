@@ -1,1 +1,2 @@
-termite --title="fox-notes" --exec="vim -c VimwikiIndex"
+#!/bin/bash
+termite --title="fox-notes" --exec="vim --servername notes +VimwikiIndex +Goyo 81" &

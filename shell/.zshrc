@@ -53,7 +53,7 @@ autoload run-help-svk
 # Export{{{
 export HELPDIR=~/.config/zsh/zsh_help
 export KEYTIMEOUT=1                     # For vim status line
-export PAGER=/usr/bin/vimpager
+# export PAGER=/usr/bin/vimpager
 # }}}
 # {{{ stty
 stty ixany 

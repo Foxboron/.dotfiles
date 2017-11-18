@@ -1,0 +1,72 @@
+---
+name: protege
+url: https://github.com/protegeproject/protege/tags
+filter: github
+---
+name: ttf-fontawesome
+url: https://github.com/FortAwesome/Font-AWesome/tags 
+filter: github
+---
+name: gephi
+url: https://github.com/gephi/gephi/tags 
+filter: github
+---
+name: python-send2trash
+url: https://github.com/hsoft/send2trash/tags
+filter: github
+---
+name: python-rope
+url: https://github.com/python-rope/rope/tags
+filter: github
+---
+name: python-pycountry
+url: https://bitbucket.org/flyingcircus/pycountry/downloads/?tab=tags
+filter: bitbucket
+---
+name: python-pew
+url: https://github.com/berdario/pew/tags
+filter: github
+---
+name: python2-functools32
+url: https://github.com/MiCHiLU/python-functools32/tags
+filter: github
+---
+name: python-autobahn
+url: https://github.com/crossbario/autobahn-python/tags
+filter: github
+---
+name: pass-otp 
+url: https://github.com/tadfisher/pass-otp/tags
+filter: github
+---
+name: minicom 
+url: https://alioth.debian.org/projects/minicom/
+filter: alioth
+---
+name: go-md2man
+url: https://github.com/cpuguy83/go-md2man/tags
+filter: github
+---
+name: rofi 
+url: https://github.com/DaveDavenport/rofi/tags
+filter: github
+---
+name: python-xapp
+url: https://github.com/linuxmint/python-xapp/tags
+filter: github
+---
+name: python-pyaes
+url: https://github.com/ricmoo/pyaes/tags
+filter: github
+---
+name: python-pipenv
+url: https://github.com/kennethreitz/pipenv/tags
+filter: github
+---
+name: python-jsonrpclib-pelix
+url: https://github.com/tcalmant/jsonrpclib/tags  
+filter: github
+---
+name: python-hidapi
+url: https://github.com/trezor/cython-hidapi/tags
+filter: github
