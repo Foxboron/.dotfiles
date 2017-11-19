@@ -331,8 +331,16 @@ augroup vimrc_autocommands
 augroup END
 
 augroup vimwiki_template
+function! InitTemplate()
+    let f = system("date \"+%Y-%m-%d\" | tr -d '\n' | xargs -d '\n' -0 printf '= %s ='")
+    let l = append(0, f)
+    let f2 = system("cat ~/Notes/diary/$(date '+%Y-%m-%d' --date='yesterday').wiki | grep -E '^=.*=$' | tail -n+2 | xargs -d '\n' printf '%s\n\n'")
+    put =f2
+    normal gg
+endfunction
+
     autocmd BufEnter    *   setlocal nowrap
-    autocmd BufNewFile */diary/*.wiki r~/Notes/.template
+    autocmd BufNewFile */diary/*.wiki call InitTemplate()
 augroup END
 
 " Because numbers can fuck off
