@@ -70,3 +70,39 @@ filter: github
 name: python-hidapi
 url: https://github.com/trezor/cython-hidapi/tags
 filter: github
+---
+name: python-babel
+url: https://github.com/python-babel/babel/tags
+filter: github
+---
+name: python-xlib
+url: https://github.com/python-xlib/python-xlib/tags 
+filter: github
+---
+name: python-sqlparse
+url: https://github.com/andialbrecht/sqlparse/tags
+filter: github
+---
+name: python-sqlobject
+url: https://github.com/sqlobject/sqlobject/tags
+filter: github
+---
+name: python-pyserial
+url: https://github.com/pyserial/pyserial/tags
+filter: github
+---
+name: python-psycopg2
+url: https://github.com/psycopg/psycopg2/tags
+filter: github
+---
+name: python-ldap
+url: https://github.com/python-ldap/python-ldap/tags
+filter: github
+---
+name: gopass 
+url: https://github.com/justwatchcom/gopass
+filter: github
+
+# Need gitlab filter
+# https://gitlab.com/m2crypto/m2crypto/tags
+

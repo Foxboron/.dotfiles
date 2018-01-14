@@ -107,6 +107,10 @@ macro index,pager D \
     "<save-message>+Trash<enter>" \
     "mark message as Trash"
 
+macro index,pager d \
+    "<save-message>+Trash<enter>" \
+    "mark message as Trash"
+
 macro index,pager S \
     "<save-message>+Spam<enter>" \
     "mark message as Spam"

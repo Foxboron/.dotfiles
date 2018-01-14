@@ -38,7 +38,7 @@ new_window 1pixel
 force_focus_wrapping no
 hide_edge_borders both
 
-exec --no-startup-id feh --bg-scale ~/.config/i3/wallpaper.png
+exec --no-startup-id feh --bg-scale ~/.config/i3/bckg/mountain.png
 exec --no-startup-id dunst -config ~/.dunstrc
 exec --no-startup-id ~/bin/lock 
 exec --no-startup-id redshift 

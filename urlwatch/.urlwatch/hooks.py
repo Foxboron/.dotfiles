@@ -119,7 +119,14 @@ class PlainTextReporter(reporters.TextReporter):
 
     def submit(self):
         for job_state in self.report.get_filtered_job_states(self.job_states):
-            # print(job_state.job.pretty_name())
+            if job_state.verb == 'error':
+               continue
+            if job_state.verb == 'new':
+                continue
+            if job_state.verb == 'unchanged':
+                continue
+            if job_state.old_data in (None, job_state.new_data):
+                continue 
             ver = job_state.new_data.split()[0]
             if job_state.new_data.split()[0] == "tip":
                 ver = job_state.new_data.split()[1]

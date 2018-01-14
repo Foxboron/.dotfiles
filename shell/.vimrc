@@ -24,6 +24,7 @@ call plug#begin('~/.vim/bundle')
 
 "   Commenting
     Plug 'tpope/vim-commentary'
+    Plug 'tpope/vim-surround'
 
 "   Latex sanity
     Plug 'lervag/vimtex', {'for': 'tex'}
@@ -157,7 +158,7 @@ endif
 set undolevels=1000
 set undoreload=10000
 " Completion menu
-set completeopt=menuone
+set completeopt=menuone,noselect
 
 "Wildmenu
 set path=.                  " Include relative directory to the file
@@ -334,7 +335,7 @@ augroup vimwiki_template
 function! InitTemplate()
     let f = system("date \"+%Y-%m-%d\" | tr -d '\n' | xargs -d '\n' -0 printf '= %s ='")
     let l = append(0, f)
-    let f2 = system("cat ~/Notes/diary/$(date '+%Y-%m-%d' --date='yesterday').wiki | grep -E '^=.*=$' | tail -n+2 | xargs -d '\n' printf '%s\n\n'")
+    let f2 = system("cat ~/Notes/diary/$(exa -soldest /home/fox/Notes/diary | grep `date +%Y` | head -1) | grep -E '^=.*=$' | tail -n+2 | xargs -d '\n' printf '%s\n\n'")
     put =f2
     normal gg
 endfunction

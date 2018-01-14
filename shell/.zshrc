@@ -7,15 +7,19 @@
 }
 source ~/.config/zsh/zplug/init.zsh
 # }}}
- zplug "zsh-users/zsh-completions"
- # zplug "plugins/gitgastgit-extra", from:oh-my-zsh
- # zplug "plugins/virtualenv", from:oh-my-zsh
-# zplug "plugins/virtualenvwrapper", from:oh-my-zsh
-# zplug "lib/completion", from:oh-my-zsh, ignore:oh-my-zsh.sh, defer:1
-# zplug "lib/directories", from:oh-my-zsh, ignore:oh-my-zsh.sh, defer:1
-# zplug "lib/git", from:oh-my-zsh, ignore:oh-my-zsh.sh, defer:1
- zplug "zsh-users/zsh-history-substring-search"
-zplug load
+
+source ~/.config/zsh/zsh-completions/zsh-completions.plugin.zsh
+source ~/.config/zsh/zsh-history-substring-search/zsh-history-substring-search.plugin.zsh
+
+ # zplug "zsh-users/zsh-completions"
+ # # zplug "plugins/gitgastgit-extra", from:oh-my-zsh
+ # # zplug "plugins/virtualenv", from:oh-my-zsh
+# # zplug "plugins/virtualenvwrapper", from:oh-my-zsh
+# # zplug "lib/completion", from:oh-my-zsh, ignore:oh-my-zsh.sh, defer:1
+# # zplug "lib/directories", from:oh-my-zsh, ignore:oh-my-zsh.sh, defer:1
+# # zplug "lib/git", from:oh-my-zsh, ignore:oh-my-zsh.sh, defer:1
+ # zplug "zsh-users/zsh-history-substring-search"
+# zplug load
 # zplug install{{{
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
@@ -127,6 +131,11 @@ alias ab='auracle buildorder *'
 # pacman alias
 alias pacman='pacman --color auto'
 alias pacupg='sudo pacman -Syu'
+alias pacupg-linux='sudo pacman -Syu linux linux-headers'
+
+#Misc arch aliases
+alias build="aurbuild -cs -d aur"
+alias nspawn="sudo systemd-nspawn -D / -x"
 # }}}
 # {{{ Functions
 function vimrc(){

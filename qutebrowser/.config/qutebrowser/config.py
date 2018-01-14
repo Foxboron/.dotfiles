@@ -3,6 +3,9 @@
 #   qute://help/configuring.html
 #   qute://help/settings.html
 
+c.tabs.background = True
+c.spellcheck.languages = ['nb-NO', 'en-US']
+
 config.unbind('u')
 config.unbind('d')
 config.unbind('@')
@@ -14,5 +17,22 @@ config.bind('K', 'tab-next')
 config.bind('F', 'hint all tab-bg')
 config.bind('d', 'scroll-page 0 0.5')
 config.bind('u', 'scroll-page 0 -0.5')
+
+
+c.url.searchengines = {
+    "DEFAULT": "https://duckduckgo.com/?q={}",
+    "aur"    : "https://aur.archlinux.org/packages/?K={}",
+    "g"      : "https://encrypted.google.com/search?hl=fr&q={}",
+    "gt"     : "https://translate.google.com/{}",
+    "gm"     : "https://www.google.com/maps?q={}",
+    "w"    : "https://en.wikipedia.org/wiki/{}",
+    "aw"     : "https://wiki.archlinux.org/?search={}",
+    "yt"     : "https://www.youtube.com/results?search_query={}",
+    "gh"     : "https://github.com/search?q={}",
+    "imdb"   : "http://www.imdb.com/find?s=all&q={}"
+}
+
+
+
 # Uncomment this to still load settings configured via autoconfig.yml
 # config.load_autoconfig()
