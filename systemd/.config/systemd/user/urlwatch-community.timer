@@ -1,0 +1,10 @@
+[Unit]
+Description=Check urlwatch
+
+[Timer]
+Persistent=true
+OnBootSec=30s
+OnCalendar=hourly
+
+[Install]
+WantedBy=timers.target
