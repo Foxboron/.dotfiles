@@ -100,7 +100,67 @@ url: https://github.com/python-ldap/python-ldap/tags
 filter: github
 ---
 name: gopass 
-url: https://github.com/justwatchcom/gopass
+url: https://github.com/justwatchcom/gopass/tags
+filter: github
+---
+name: hexedit 
+url: https://github.com/pixel/hexedit/tags
+filter: github
+---
+name: i3-gaps
+url: https://github.com/Airblader/i3/tags
+filter: github
+---
+name: python-shutilwhich
+url: https://github.com/mbr/shutilwhich/tags
+filter: github
+---
+name: python-wheel
+url: https://github.com/pypa/wheel/tags
+filter: github
+---
+name: jgmenu 
+url: https://github.com/johanmalm/jgmenu/tags
+filter: github
+---
+name: neofetch 
+url: https://github.com/dylanaraps/neofetch/tags
+filter: github
+---
+name: dep 
+url: https://github.com/golang/dep/tags
+filter: github
+---
+name: jp2a
+url: https://github.com/cslarsen/jp2a/tags
+filter: github
+---
+name: python-docker
+url: https://github.com/docker/docker-py/tags
+filter: github
+---
+name: delve 
+url: https://github.com/derekparker/delve/tags
+filter: github
+---
+name: python-docker-pycreds
+url: https://github.com/shin-/docker-pycreds/tags
+filter: github
+---
+name: docker-compose
+url: https://github.com/docker/compose/tags
+filter: github
+---
+name: python-dockerpty
+url: https://github.com/d11wtq/dockerpty/tags
+filter: github
+---
+name: contianerd 
+url: https://github.com/containerd/containerd/tags
+filter: github
+---
+name: restic
+url: https://github.com/restic/restic/tags
 filter: github
 
 # Need gitlab filter
