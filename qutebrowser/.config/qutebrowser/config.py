@@ -32,6 +32,18 @@ c.url.searchengines = {
     "imdb"   : "http://www.imdb.com/find?s=all&q={}"
 }
 
+c.fonts.completion.category = "bold 10pt monospace"
+c.fonts.completion.entry = "8pt monospace"
+c.fonts.debug_console = "8pt monospace"
+c.fonts.downloads = "8pt monospace"
+c.fonts.hints = "bold 8pt monospace"
+c.fonts.keyhint = "8pt monospace"
+c.fonts.messages.error = "8pt monospace"
+c.fonts.messages.info = "8pt monospace"
+c.fonts.messages.warning = "8pt monospace"
+c.fonts.prompts = "8pt monospace"
+c.fonts.statusbar = "8pt monospace"
+c.fonts.tabs = "8pt monospace"
 
 
 # Uncomment this to still load settings configured via autoconfig.yml
