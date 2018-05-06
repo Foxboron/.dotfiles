@@ -28,6 +28,8 @@ call plug#begin('~/.vim/bundle')
 
 "   Latex sanity
     Plug 'lervag/vimtex', {'for': 'tex'}
+    let g:latex_view_general_viewer = 'zathura'
+    let g:vimtex_view_method = "zathura"
 
     Plug '907th/vim-auto-save', { 'for': 'tex' }
 
