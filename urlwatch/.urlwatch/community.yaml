@@ -3,7 +3,7 @@ name: protege
 url: https://github.com/protegeproject/protege/tags
 filter: github
 ---
-name: ttf-fontawesome
+name: font-awesome
 url: https://github.com/FortAwesome/Font-AWesome/tags 
 filter: github
 ---
@@ -144,7 +144,7 @@ url: https://github.com/derekparker/delve/tags
 filter: github
 ---
 name: python-docker-pycreds
-url: https://github.com/shin-/docker-pycreds/tags
+url: https://github.com/shin/docker-pycreds/tags
 filter: github
 ---
 name: docker-compose
@@ -161,6 +161,18 @@ filter: github
 ---
 name: restic
 url: https://github.com/restic/restic/tags
+filter: github
+---
+name: influxdb 
+url: https://github.com/influxdata/influxdb/tags
+filter: github
+---
+name: mypy 
+url: https://github.com/python/mypy/tags
+filter: github
+---
+name: python-typed-ast
+url: https://github.com/python/typed_ast/tags
 filter: github
 
 # Need gitlab filter
