@@ -64,19 +64,19 @@ stty ixany
 stty ixoff -ixon
 # }}}
 #{{{ Bindkey
-bindkey -v
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
+bindkey -e
+# bindkey -M vicmd 'k' history-substring-search-up
+# bindkey -M vicmd 'j' history-substring-search-down
 bindkey '^K' history-substring-search-up
 bindkey '^J' history-substring-search-down
 
-bindkey -M vicmd '^E' end-of-line
-bindkey -M vicmd '^A' beginning-of-line
-bindkey '^E' end-of-line
-bindkey '^A' beginning-of-line
-bindkey '^?' backward-delete-char
-bindkey '^h' backward-delete-char
-bindkey '^w' backward-kill-word
+# bindkey -M vicmd '^E' end-of-line
+# bindkey -M vicmd '^A' beginning-of-line
+# bindkey '^E' end-of-line
+# bindkey '^A' beginning-of-line
+# bindkey '^?' backward-delete-char
+# bindkey '^h' backward-delete-char
+# bindkey '^w' backward-kill-word
 bindkey '^P' run-help
 
 zle -N edit-command-line
@@ -91,14 +91,9 @@ function zle-line-init zle-keymap-select {
 }
 zle -N zle-line-init
 zle -N zle-keymap-select
+ZSH_THEME_GIT_PROMPT_DIRTY="*"
 
-
-ZSH_THEME_GIT_PROMPT_PREFIX="λ %{$fg[blue]%}git %{$fg[red]%}"
-ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg_bold[red]%} → %{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}*%{$fg[green]%}"
-ZSH_THEME_GIT_PROMPT_CLEAN=""
-
-PROMPT='%{$fg_bold[red]%}λ %n@%m %{$fg[green]%}%c %{$fg_bold[red]%}» $(git_prompt_info)%{$reset_color%}'
+PROMPT='%{$fg_bold[red]%}λ %{$fg[green]%}%c %{$fg_bold[red]%}$(git_prompt_info)» %{$reset_color%}'
 # }}}
 #Alias{{{
 alias tmux="tmux -2"
@@ -158,4 +153,8 @@ zstyle ':completion:*' list-colors ''
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
 zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
 # }}}
+# misc commands{{{
+    gpg-connect-agent updatestartuptty /bye >/dev/null
+# }}}
+
 # vim: fdm=marker

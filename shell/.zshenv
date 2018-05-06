@@ -7,6 +7,7 @@ export TERMINAL=termite
 export BROWSER=/home/fox/bin/open.sh
 export GOPATH="/home/fox/.go"
 export HISTSIZE=1000000
+export GPG_TTY=$(tty)
 export SAVEHIST=1000000
 export HISTFILE=~/.zsh_history
 . /etc/profile.d/vte.sh
