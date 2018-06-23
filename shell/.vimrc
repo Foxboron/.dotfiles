@@ -11,40 +11,37 @@ call plug#begin('~/.vim/bundle')
     Plug 'vimwiki/vimwiki', {'on' : 'VimwikiIndex', 'for': 'wiki' }
     Plug 'tbabej/taskwiki', {'on': 'VimwikiIndex', 'for': 'wiki'}
 
-"   Syntastic - Dem syntax errors yo
-    " Plug 'scrooloose/syntastic'
+" Comletion and linting
     Plug 'w0rp/ale'
+    Plug 'maralla/completor.vim' 
 
 " # GIT STUFF
 "   Because its great
     Plug 'tpope/vim-fugitive'
-" Lets see if this replaces fugitive
-    Plug 'gregsexton/gitv', { 'on' : 'Gitv' }
-    Plug 'airblade/vim-gitgutter'
+    Plug 'tpope/vim-unimpaired'
+
 
 "   Commenting
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-surround'
 
+
 "   Latex sanity
     Plug 'lervag/vimtex', {'for': 'tex'}
     let g:latex_view_general_viewer = 'zathura'
     let g:vimtex_view_method = "zathura"
-
     Plug '907th/vim-auto-save', { 'for': 'tex' }
 
 "   Trying out snippets
     Plug 'sirver/ultisnips'
     Plug 'honza/vim-snippets'
 
-" ctrlP is honestly just a nice package that doesnt need configs
-    Plug 'ctrlpvim/ctrlp.vim'
+    Plug 'junegunn/fzf.vim'
+
+" Style
     Plug 'vim-airline/vim-airline'
     Plug 'whatyouhide/vim-gotham'
-    Plug 'maralla/completor.vim' 
-
-" vimpager
-    Plug 'rkitover/vimpager'
+    Plug 'airblade/vim-gitgutter'
 
 " goyo for editing
     Plug 'junegunn/goyo.vim'
@@ -55,7 +52,6 @@ call plug#end()
 
 " 2. Hotkeys
 "   2.1 Leader Hotkeys (SPACE)
-"       r: ctags regen
 "       s: search ctags
 "       f: find
 "       g: grep
@@ -177,7 +173,7 @@ set wildignore+=node_modules
 set wildignore+=.tags
 
 "cTags
-set tags=./.tags;$HOME
+" set tags=./.tags;$HOME
 
 " =========
 " Searching
@@ -185,7 +181,6 @@ set tags=./.tags;$HOME
 set ignorecase
 set smartcase
 set incsearch
-
 
 " ===========
 " Indentation
@@ -222,7 +217,6 @@ inoremap # X<BS>#
 " Dont move on *
 nnoremap * *<c-o>
 
-inoremap <silent> <C-S> <C-O>:update<CR>
 map ø :
 map ; :
 
@@ -238,10 +232,10 @@ noremap <C-E> $
 noremap <C-Q> %
 
 "Faster up and down
-noremap <C-J> }
-noremap <C-K> {
-vnoremap <C-J> }
-vnoremap <C-K> {
+noremap <silent> <C-J> :<C-u>execute "keepjumps norm! " . v:count1 . "}"<CR>
+noremap <silent> <C-K> :<C-u>execute "keepjumps norm! " . v:count1 . "{"<CR>
+vnoremap <silent> <C-J> :<C-u>execute "keepjumps norm! " . v:count1 . "}"<CR>
+vnoremap <silent> <C-K> :<C-u>execute "keepjumps norm! " . v:count1 . "{"<CR>
 
 " Folds
 nnoremap          zf zMzvzz
@@ -252,24 +246,16 @@ nnoremap <silent> zk :silent! normal! zc<cr>zkzvzz[z"}}}
 let mapleader=" "
 let maplocalleader=","
 
-" Toggle hlsearch
-"map <silent><leader>s :source ~/.vimrc<CR>
-map <leader>r :!ctags -f .tags -R .<CR>
-map <leader>f :CtrlP<CR>
-map <leader>v :Gitv<cr>
+map <silent><leader>s :source ~/.vimrc<CR>
 map <leader>g :Ag 
-map <leader>s :CtrlPTag<CR>
-map <leader>e :call ToggleList("Location List", 'l')<CR>
 map <leader>d :tabedit %<cr>:Gdiff<cr>
 map <leader>m :make<cr>
-map <leader>v :Gitv<cr>
 
 
 " Buffers
 nnoremap <leader>bj  :bnext<CR>
 nnoremap <leader>bk  :bprev<CR>
 nnoremap <leader>j  :bnext<CR>
-nnoremap <TAB>  :bnext<CR>
 nnoremap <leader>k  :bprev<CR>
 nnoremap <leader>c  :bd<CR>
 nnoremap <leader>bn  :enew<CR>
@@ -290,6 +276,7 @@ nmap <leader>tc :tabclose<CR>
 " ========
 map <silent><ESC> :set hlsearch!<CR>
 noremap <silent><C-S> :silent update<CR>
+inoremap <silent> <C-S> <C-O>:update<CR>
 nnoremap <leader><TAB> :tabnext<CR>
 nnoremap <C-n> :cn<CR>
 nnoremap <C-p> :cp<CR>
@@ -366,20 +353,6 @@ autocmd User GoyoEnter nested call <SID>goyo_enter()
 autocmd User GoyoLeave nested call <SID>goyo_leave()
 
 "}}}1
-" {{{1 Grep
-set grepformat^=%f:%l:%c:%m
-if executable('ag')
-    " Use the ignore list from wildignore
-    let ignore_string=""
-    let strings = split(&wildignore,",")
-    for i in strings
-        let ignore_string .= " --ignore '".i."'"
-    endfor
-    let &grepprg="ag --vimgrep --hidden ".ignore_string
-    command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!|call SetListMaps('c')
-endif
-
-" }}}2
 "{{{1 Plugins
 "{{{2 internal: matchit
 packadd! matchit
@@ -396,10 +369,32 @@ let g:completor_python_binary = '/usr/bin/python'
 "}}}
 "{{{2 plugin: airline
 let g:airline_theme='gotham'
-let g:airline_extensions = ['branch', 'tabline', 'ale', 'ctrlp']
+let g:airline_extensions = ['branch', 'tabline', 'ale']
 "}}}
-"{{{2 plugin: ctrlp
-let g:ctrlp_map = '<leader>p'
+"{{{2 plugin: fzf 
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+let g:fzf_tags_command = 'ctags -R'
+ map <leader>f :FZF<CR>
+ map <leader>s :Tags<CR>
+ map <leader>v :BCommits<CR>
+
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
 "}}}
 "{{{2 plugin: ultisnips
 " We dont really want expand trigger over tab.

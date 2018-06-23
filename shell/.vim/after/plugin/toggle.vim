@@ -54,5 +54,4 @@ function! ToggleList(bufname, pfx)
 endfunction
 
 nmap <silent> <leader>l :call ToggleList("Location List", 'l')<CR>
-nmap <silent> <leader>q :call ToggleList("Quickfix List", 'c')<CR>
-map <silent><leader>e :SyntasticSetLoclist<CR>:call ToggleList("Location List", 'l')<CR>
+nmap <silent> <leader>e :call ToggleList("Quickfix List", 'c')<CR>

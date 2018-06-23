@@ -127,6 +127,10 @@ name: neofetch
 url: https://github.com/dylanaraps/neofetch/tags
 filter: github
 ---
+name: python-pywal
+url: https://github.com/dylanaraps/pywal/tags
+filter: github
+---
 name: dep 
 url: https://github.com/golang/dep/tags
 filter: github
@@ -144,7 +148,7 @@ url: https://github.com/derekparker/delve/tags
 filter: github
 ---
 name: python-docker-pycreds
-url: https://github.com/shin/docker-pycreds/tags
+url: https://github.com/shin-/dockerpy-creds/tags
 filter: github
 ---
 name: docker-compose
@@ -174,7 +178,54 @@ filter: github
 name: python-typed-ast
 url: https://github.com/python/typed_ast/tags
 filter: github
+---
+name: kakoune
+url: https://github.com/mawww/kakoune/tags
+filter: github
+---
+name: hy 
+url: https://github.com/hylang/hy/tags
+filter: github
+---
+name: python-json-rpc
+url: https://github.com/pavlov99/json-rpc/tags
+filter: github
+---
+name: python-pydocstyle
+url: https://github.com/PyCQA/pydocstyle/tags
+filter: github
+---
+name: python-language-server
+url: https://github.com/palantir/python-language-server/tags
+filter: github
+---
+name: udiskie 
+url: https://github.com/coldfix/udiskie/tags
+filter: github
+---
+name: python-keyutils 
+url: https://github.com/sassoftware/python-keyutils/tags
+filter: github
+---
+name: pdfjs
+url: https://github.com/mozilla/pdf.js/tags
+filter: github
+---
+name: qutebrowser
+url: https://github.com/qutebrowser/qutebrowser/tags
+filter: github
+---
+name: fzf 
+url: https://github.com/junegunn/fzf/tags
+filter: github
+---
+name: lostfiles
+url: https://github.com/graysky2/lostfiles/tags
+filter: github
+---
+name: git-lfs
+url: https://github.com/git-lfs/git-lfs/tags
+filter: github
 
 # Need gitlab filter
 # https://gitlab.com/m2crypto/m2crypto/tags
-

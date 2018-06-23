@@ -109,6 +109,8 @@ alias ls="exa"
 alias l='ls -lF'
 alias la='ls -laF'
 
+alias mksrcinfo='makepkg --printsrcinfo > .SRCINFO'
+
 alias -g G='| grep'
 alias -g L='| less'
 alias -g T='| tail'
