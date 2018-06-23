@@ -36,10 +36,9 @@ auto_view text/html
 
 set reverse_name
 set reverse_realname
-set hidden_host
-set envelope_from	
 set pager_format="$from: -%Z- %C/%m: %-20.20n   %s%*  -- (%P)"
 set index_format="%Z %{%a %d %b %Y} %3M %-15.15L │%s"
+set status_format="$from: %f (%s/%S)"
 set sort=threads
 set sort_aux=last-date-received
 
@@ -102,6 +101,12 @@ set pgp_sign_as = 9FECBE16
 set pgp_timeout = 20
 set crypt_replyencrypt = yes
 set crypt_use_gpgme 
+
+# Alias
+set alias_file= ~/.mutt/aliases
+set sort_alias= alias
+set reverse_alias=yes
+source $alias_file
 
 macro index,pager D \
     "<save-message>+Trash<enter>" \
