@@ -17,6 +17,7 @@ config.bind('K', 'tab-next')
 config.bind('F', 'hint all tab-bg')
 config.bind('d', 'scroll-page 0 0.5')
 config.bind('u', 'scroll-page 0 -0.5')
+config.bind('W', 'set-cmd-text -s :buffer ', mode='normal')
 
 
 c.url.searchengines = {
