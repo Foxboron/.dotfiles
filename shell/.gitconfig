@@ -33,7 +33,7 @@
 
 	ba = branch -a
 
-	ap = add -p .
+	ap = add -p
 	p = push
 	pom = push origin master
 
