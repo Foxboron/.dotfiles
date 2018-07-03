@@ -3,7 +3,7 @@
 	name = Morten Linderud
 	signingkey = 9FECBE16
 [commit]
-	gpgsign = true
+    gpgsign = true
 [imap]
     folder = "Drafts"
     host = imaps://imap.linderud.pw
@@ -37,9 +37,9 @@
 	p = push
 	pom = push origin master
 
-	l = "!. ~/.githelpers && pretty_git_log"
+	l = "!. ~/.config/git/helpers && pretty_git_log"
 	la = !git l --all
-	hp = "!. ~/.githelpers && show_git_head"
+	hp = "!. ~/.config/git/helpers && show_git_head"
 	r = !GIT_NO_PAGER=1 git l -30
 	ra = !git r --all
 	head = !git r -1
@@ -47,17 +47,17 @@
 
 	edit = "!vim `git ls-files -m` -p"
 
-	fs = "!. ~/.githelpers && feature_squash"
-	pre = "!. ~/.githelpers && pull_request"
+	fs = "!. ~/.config/git/helpers && feature_squash"
+	pre = "!. ~/.config/git/helpers && pull_request"
 
-	mirror ="!. ~/.githelpers && git_mirror"
+	mirror ="!. ~/.config/git/helpers && git_mirror"
 
     difftex = difftool -y -t latex
 
 [core]
 	excludesfile = ~/.config/git/ignore
 [init]
-    template = ~/.config/git/templates
+	template = ~/.config/git/templates
 [diff]
 	tool = vimdiff
 [difftool]

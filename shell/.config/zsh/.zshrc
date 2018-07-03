@@ -1,35 +1,6 @@
-# {{{ 1 zplug
-#{{{2 Init
-[[ -d ~/.zplug ]] || {
-  mkdir -p ~/.config/zsh/
-  curl -fLo ~/.config/zsh/zplug/zplug --create-dirs https://git.io/zplug
-  source ~/.config/zsh/zplug/zplug && zplug update --self
-}
-source ~/.config/zsh/zplug/init.zsh
-# }}}
-
-source ~/.config/zsh/zsh-completions/zsh-completions.plugin.zsh
-source ~/.config/zsh/zsh-history-substring-search/zsh-history-substring-search.plugin.zsh
-
- # zplug "zsh-users/zsh-completions"
- # # zplug "plugins/gitgastgit-extra", from:oh-my-zsh
- # # zplug "plugins/virtualenv", from:oh-my-zsh
-# # zplug "plugins/virtualenvwrapper", from:oh-my-zsh
-# # zplug "lib/completion", from:oh-my-zsh, ignore:oh-my-zsh.sh, defer:1
-# # zplug "lib/directories", from:oh-my-zsh, ignore:oh-my-zsh.sh, defer:1
-# # zplug "lib/git", from:oh-my-zsh, ignore:oh-my-zsh.sh, defer:1
- # zplug "zsh-users/zsh-history-substring-search"
-# zplug load
-# zplug install{{{
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    else
-        echo
-    fi
-fi
-# }}}
+# {{{ 1 plugins
+source ~/.config/zsh/zsh.d/zsh-completions/zsh-completions.plugin.zsh
+source ~/.config/zsh/zsh.d/zsh-history-substring-search/zsh-history-substring-search.plugin.zsh
 # }}}
 # {{{ setopts
 setopt INC_APPEND_HISTORY
@@ -131,7 +102,10 @@ alias pacupg='sudo pacman -Syu'
 alias pacupg-linux='sudo pacman -Syu linux linux-headers'
 
 #Misc arch aliases
-alias build="aurbuild -cs -d aur"
+# alias build="aurbuild -cs -d aur"
+build(){
+    aurbuild -cs -d aur
+}
 alias nspawn="sudo systemd-nspawn -D / -x"
 # }}}
 # {{{ Functions
@@ -141,6 +115,10 @@ function vimrc(){
 ss(){
     pacman -Ss $1
     as $1
+}
+function git_prompt_info() {
+  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+  echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$ZSH_THEME_GIT_PROMPT_SUFFIX"
 }
 # }}}
 # zstyle{{{

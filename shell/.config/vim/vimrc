@@ -1,11 +1,19 @@
+set undodir=~/.cache/vim/undo
+set directory=~/.cache/vim/swap
+set backupdir=~/.cache/vim/backup
+set viminfo+='1000,n~/.cache/vim/viminfo
+set runtimepath=~/.config/vim,$VIMRUNTIME,~/.config/vim/after
+
 " {{{1 Plugin
-call plug#begin('~/.vim/bundle')
+call plug#begin('~/.config/vim/bundle')
 " 1. Plugins
 "   Vim-plug - Plugin manager
     Plug 'junegunn/vim-plug'
 
 "   Vim-Go - for go stuff
     Plug 'fatih/vim-go', {'for': 'go'}
+
+    Plug 'posva/vim-vue', {'for': 'vue'}
 
 "   Vim-Wiki - For notes and stuff
     Plug 'vimwiki/vimwiki', {'on' : 'VimwikiIndex', 'for': 'wiki' }
@@ -14,7 +22,10 @@ call plug#begin('~/.vim/bundle')
 " Comletion and linting
     Plug 'w0rp/ale'
     Plug 'maralla/completor.vim' 
-
+    Plug 'autozimu/LanguageClient-neovim', {
+        \ 'branch': 'next',
+        \ 'do': 'bash install.sh',
+        \ }
 " # GIT STUFF
 "   Because its great
     Plug 'tpope/vim-fugitive'
@@ -147,11 +158,6 @@ set textwidth=120
 "History and undo
 set history=1000
 set undofile
-
-set undodir=$HOME/.vim/undo
-if !isdirectory(&undodir)
-  call mkdir(&undodir)
-endif
 
 set undolevels=1000
 set undoreload=10000
@@ -395,6 +401,7 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
+
 "}}}
 "{{{2 plugin: ultisnips
 " We dont really want expand trigger over tab.
@@ -429,6 +436,12 @@ hi VimwikiItalic term=italic cterm=italic gui=italic ctermfg=178 guifg=#dfaf00
 "}}}
 "{{{2 plugin: taskwiki
 let g:taskwiki_disable_concealcursor = 'yes'
+"}}}
+"{{{2 plugin: languageserver 
+let g:LanguageClient_serverCommands = {
+    \ 'python': ['pyls'],
+    \ 'go': ['go-langserver'],
+    \ }
 "}}}
 "}}}
 " vim: fdm=marker
