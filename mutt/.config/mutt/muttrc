@@ -5,8 +5,8 @@ set imap_check_subscribed
 set imap_keepalive = 520
 unset imap_passive
 set mbox_type=Maildir
-set mailcap_path 	= ~/.mutt/mailcap
-set signature = ~/.mutt/signature
+set mailcap_path = ~/.config/mutt/mailcap
+set signature = ~/.config/mutt/signature
 
 # Default
 set ssl_verify_host=no
@@ -103,10 +103,9 @@ set crypt_replyencrypt = yes
 set crypt_use_gpgme 
 
 # Alias
-set alias_file= ~/.mutt/aliases
+set alias_file= ~/.config/mutt/muttrc.d/aliases
 set sort_alias= alias
 set reverse_alias=yes
-source $alias_file
 
 macro index,pager D \
     "<save-message>+Trash<enter>" \
@@ -139,19 +138,20 @@ macro index,pager x \
         --remotesieve main \
         --edit <enter>"
 
-macro pager,index ,g "<pipe-message>~/.mutt/open_ml_url.py<return>" "Open GMAME link"
-macro pager,index ,s "<pipe-message>~/.mutt/security_tracker.py<return>" "Open security.archlinux.org link"
+macro pager,index ,g "<pipe-message>~/.config/mutt/scripts/open_ml_url.py<return>" "Open GMAME link"
+macro pager,index ,s "<pipe-message>~/.config/mutt/scripts/security_tracker.py<return>" "Open security.archlinux.org link"
 
 folder-hook . "exec collapse-all"
-message-hook . "source ~/.mutt/account.linderud"
-message-hook "~C morten@linderud.pw" "source ~/.mutt/account.linderud"
-message-hook "~C @archlinux.org" "source ~/.mutt/account.archlinux"
-message-hook "~C @uib.no" "source ~/.mutt/account.uib"
-message-hook "~C @student.uib.no" "source ~/.mutt/account.uib"
-macro pager,index ,a ":source ~/.mutt/account.archlinux\n"
-macro pager,index ,l ":source ~/.mutt/account.linderud\n"
-macro pager,index ,u ":source ~/.mutt/account.uib\n"
+message-hook . "source ~/.config/mutt/account.d/linderud"
+message-hook "~C morten@linderud.pw" "source ~/.config/mutt/account.d/linderud"
+message-hook "~C @archlinux.org" "source ~/.config/mutt/account.d/archlinux"
+message-hook "~C @uib.no" "source ~/.config/mutt/account.d/uib"
+message-hook "~C @student.uib.no" "source ~/.config/mutt/account.d/uib"
+macro pager,index ,a ":source ~/.config/mutt/account.d/archlinux\n"
+macro pager,index ,l ":source ~/.config/mutt/account.d/linderud\n"
+macro pager,index ,u ":source ~/.config/mutt/account.d/uib\n"
 
-source "~/.mutt/colors"
-source "~/.mutt/ignores"
-source "~/.mutt/gpg.rc"
+source /home/fox/.config/mutt/muttrc.d/aliases
+source /home/fox/.config/mutt/muttrc.d/colors
+source /home/fox/.config/mutt/muttrc.d/ignores
+source /home/fox/.config/mutt/muttrc.d/gpg.rc
