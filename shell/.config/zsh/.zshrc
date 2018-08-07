@@ -25,10 +25,12 @@ autoload run-help-git
 autoload run-help-svn
 autoload run-help-svk
 # }}}
-# Export{{{
-export HELPDIR=~/.config/zsh/zsh_help
+# Vars{{{
+HISTSIZE=1000000
+SAVEHIST=1000000
+HISTFILE=~/.local/share/zsh/history
+HELPDIR=~/.config/zsh/zsh_help
 export KEYTIMEOUT=1                     # For vim status line
-# export PAGER=/usr/bin/vimpager
 # }}}
 # {{{ stty
 stty ixany 
@@ -67,9 +69,9 @@ ZSH_THEME_GIT_PROMPT_DIRTY="*"
 PROMPT='%{$fg_bold[red]%}λ %{$fg[green]%}%c %{$fg_bold[red]%}$(git_prompt_info)» %{$reset_color%}'
 # }}}
 #Alias{{{
-alias tmux="tmux -2"
+alias tmux="tmux -2 -f \"$XDG_CONFIG_HOME/tmux/tmux.conf\""
 alias tmuxconf="vim ~/.tmux.conf"
-alias zshrc="vim ~/.zshrc && source ~/.zshrc"
+alias zshrc="vim ~/.config/zsh/.zshrc && source ~/.config/zsh/.zshrc"
 alias i3conf="vim ~/.config/i3/config"
 alias psg="ps aux | grep "
 alias g="grep -oEi"
@@ -110,11 +112,7 @@ alias nspawn="sudo systemd-nspawn -D / -x"
 # }}}
 # {{{ Functions
 function vimrc(){
-    vim ~/.vimrc -c "cd ~/.vim"
-}
-ss(){
-    pacman -Ss $1
-    as $1
+    vim ~/.config/vim/vimrc -c "cd ~/.config/vim"
 }
 function git_prompt_info() {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
@@ -135,6 +133,10 @@ zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-dir
 # }}}
 # misc commands{{{
     gpg-connect-agent updatestartuptty /bye >/dev/null
+if [[ $VTE_VERSION ]]; then
+    source /etc/profile.d/vte.sh
+    __vte_prompt_command
+fi
 # }}}
 
 # vim: fdm=marker

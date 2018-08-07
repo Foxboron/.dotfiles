@@ -11,6 +11,5 @@ export SAVEHIST=1000000
 export GPG_TTY=$(tty)
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*"'
 export HISTFILE=~/.local/share/zsh/history
-export VIMINIT=":source ~/.config"/vim/vimrc
 export ZDOTDIR=$HOME/.config/zsh
 . /etc/profile.d/vte.sh
