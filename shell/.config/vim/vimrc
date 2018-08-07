@@ -1,8 +1,10 @@
 set undodir=~/.cache/vim/undo
 set directory=~/.cache/vim/swap
 set backupdir=~/.cache/vim/backup
-set viminfo+='1000,n~/.cache/vim/viminfo
-set runtimepath=~/.config/vim,$VIMRUNTIME,~/.config/vim/after
+set viewdir=~/.cache/vim/view
+set viminfo='1000,n~/.cache/vim/viminfo
+set runtimepath=~/.config/vim,$VIMRUNTIME,/usr/share/vim/vimfiles/,~/.config/vim/after
+
 
 " {{{1 Plugin
 call plug#begin('~/.config/vim/bundle')
@@ -177,9 +179,6 @@ set wildignore+=.git
 set wildignore+=*.pyc
 set wildignore+=node_modules
 set wildignore+=.tags
-
-"cTags
-" set tags=./.tags;$HOME
 
 " =========
 " Searching

@@ -4,12 +4,6 @@
 	signingkey = 9FECBE16
 [commit]
     gpgsign = true
-[imap]
-    folder = "Drafts"
-    host = imaps://imap.linderud.pw
-    port = 993
-    sslverify = false
-    user = "morten@linderud.pw"
 [color]
 	ui = auto
 [alias]
@@ -76,3 +70,5 @@
 	trinity = git-trinity:fox/
 	default = trinity
 	github = git@github.com:Foxboron/
+[sendemail]
+	suppresscc = self
