@@ -1,0 +1,6 @@
+[Unit]
+Descripton=Sync task
+
+[Service]
+Type=oneshot
+ExecStart="/usr/bin/task sync"

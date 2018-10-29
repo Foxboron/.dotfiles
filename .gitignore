@@ -13,3 +13,8 @@ vpn-status
 *.netrwhist
 *__pycache__
 *cache.db
+qutebrowser/.config/qutebrowser/qsettings/
+keys.conf.*
+*qutebrowser/bookmarks*
+*qutebrowser/quickmarks*
+mutt/.config/mutt/muttrc.d/aliases

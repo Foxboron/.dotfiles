@@ -1,0 +1,6 @@
+[Unit]
+Descripton=Sync notes
+
+[Service]
+Type=oneshot
+ExecStart="/home/fox/Notes/commit.sh"

@@ -1,0 +1,231 @@
+---
+name: protege
+url: https://github.com/protegeproject/protege/tags
+filter: github
+---
+name: font-awesome
+url: https://github.com/FortAwesome/Font-AWesome/tags 
+filter: github
+---
+name: gephi
+url: https://github.com/gephi/gephi/tags 
+filter: github
+---
+name: python-send2trash
+url: https://github.com/hsoft/send2trash/tags
+filter: github
+---
+name: python-rope
+url: https://github.com/python-rope/rope/tags
+filter: github
+---
+name: python-pycountry
+url: https://bitbucket.org/flyingcircus/pycountry/downloads/?tab=tags
+filter: bitbucket
+---
+name: python-pew
+url: https://github.com/berdario/pew/tags
+filter: github
+---
+name: python2-functools32
+url: https://github.com/MiCHiLU/python-functools32/tags
+filter: github
+---
+name: python-autobahn
+url: https://github.com/crossbario/autobahn-python/tags
+filter: github
+---
+name: pass-otp 
+url: https://github.com/tadfisher/pass-otp/tags
+filter: github
+---
+name: minicom 
+url: https://alioth.debian.org/projects/minicom/
+filter: alioth
+---
+name: go-md2man
+url: https://github.com/cpuguy83/go-md2man/tags
+filter: github
+---
+name: rofi 
+url: https://github.com/DaveDavenport/rofi/tags
+filter: github
+---
+name: python-xapp
+url: https://github.com/linuxmint/python-xapp/tags
+filter: github
+---
+name: python-pyaes
+url: https://github.com/ricmoo/pyaes/tags
+filter: github
+---
+name: python-pipenv
+url: https://github.com/kennethreitz/pipenv/tags
+filter: github
+---
+name: python-jsonrpclib-pelix
+url: https://github.com/tcalmant/jsonrpclib/tags  
+filter: github
+---
+name: python-hidapi
+url: https://github.com/trezor/cython-hidapi/tags
+filter: github
+---
+name: python-babel
+url: https://github.com/python-babel/babel/tags
+filter: github
+---
+name: python-xlib
+url: https://github.com/python-xlib/python-xlib/tags 
+filter: github
+---
+name: python-sqlparse
+url: https://github.com/andialbrecht/sqlparse/tags
+filter: github
+---
+name: python-sqlobject
+url: https://github.com/sqlobject/sqlobject/tags
+filter: github
+---
+name: python-pyserial
+url: https://github.com/pyserial/pyserial/tags
+filter: github
+---
+name: python-psycopg2
+url: https://github.com/psycopg/psycopg2/tags
+filter: github
+---
+name: python-ldap
+url: https://github.com/python-ldap/python-ldap/tags
+filter: github
+---
+name: gopass 
+url: https://github.com/justwatchcom/gopass/tags
+filter: github
+---
+name: hexedit 
+url: https://github.com/pixel/hexedit/tags
+filter: github
+---
+name: i3-gaps
+url: https://github.com/Airblader/i3/tags
+filter: github
+---
+name: python-shutilwhich
+url: https://github.com/mbr/shutilwhich/tags
+filter: github
+---
+name: python-wheel
+url: https://github.com/pypa/wheel/tags
+filter: github
+---
+name: jgmenu 
+url: https://github.com/johanmalm/jgmenu/tags
+filter: github
+---
+name: neofetch 
+url: https://github.com/dylanaraps/neofetch/tags
+filter: github
+---
+name: python-pywal
+url: https://github.com/dylanaraps/pywal/tags
+filter: github
+---
+name: dep 
+url: https://github.com/golang/dep/tags
+filter: github
+---
+name: jp2a
+url: https://github.com/cslarsen/jp2a/tags
+filter: github
+---
+name: python-docker
+url: https://github.com/docker/docker-py/tags
+filter: github
+---
+name: delve 
+url: https://github.com/derekparker/delve/tags
+filter: github
+---
+name: python-docker-pycreds
+url: https://github.com/shin-/dockerpy-creds/tags
+filter: github
+---
+name: docker-compose
+url: https://github.com/docker/compose/tags
+filter: github
+---
+name: python-dockerpty
+url: https://github.com/d11wtq/dockerpty/tags
+filter: github
+---
+name: contianerd 
+url: https://github.com/containerd/containerd/tags
+filter: github
+---
+name: restic
+url: https://github.com/restic/restic/tags
+filter: github
+---
+name: influxdb 
+url: https://github.com/influxdata/influxdb/tags
+filter: github
+---
+name: mypy 
+url: https://github.com/python/mypy/tags
+filter: github
+---
+name: python-typed-ast
+url: https://github.com/python/typed_ast/tags
+filter: github
+---
+name: kakoune
+url: https://github.com/mawww/kakoune/tags
+filter: github
+---
+name: hy 
+url: https://github.com/hylang/hy/tags
+filter: github
+---
+name: python-json-rpc
+url: https://github.com/pavlov99/json-rpc/tags
+filter: github
+---
+name: python-pydocstyle
+url: https://github.com/PyCQA/pydocstyle/tags
+filter: github
+---
+name: python-language-server
+url: https://github.com/palantir/python-language-server/tags
+filter: github
+---
+name: udiskie 
+url: https://github.com/coldfix/udiskie/tags
+filter: github
+---
+name: python-keyutils 
+url: https://github.com/sassoftware/python-keyutils/tags
+filter: github
+---
+name: pdfjs
+url: https://github.com/mozilla/pdf.js/tags
+filter: github
+---
+name: qutebrowser
+url: https://github.com/qutebrowser/qutebrowser/tags
+filter: github
+---
+name: fzf 
+url: https://github.com/junegunn/fzf/tags
+filter: github
+---
+name: lostfiles
+url: https://github.com/graysky2/lostfiles/tags
+filter: github
+---
+name: git-lfs
+url: https://github.com/git-lfs/git-lfs/tags
+filter: github
+
+# Need gitlab filter
+# https://gitlab.com/m2crypto/m2crypto/tags

@@ -1,0 +1,9 @@
+display:
+  error: true
+  new: true
+  unchanged: false
+report:
+  stdout:
+    enabled: false
+  plain:
+    enabled: true

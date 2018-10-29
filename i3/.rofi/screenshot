@@ -1,1 +1,0 @@
-exec ~/.rofi/.screenshot/$(ls ~/.rofi/.screenshot | rofi -dmenu -p "")

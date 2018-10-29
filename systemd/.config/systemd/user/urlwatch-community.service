@@ -1,0 +1,6 @@
+[Unit]
+Description=Sync task
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/bash -c "/usr/bin/urlwatch --urls ~/.urlwatch/community.yaml | ~/bin/add-task project:tu"

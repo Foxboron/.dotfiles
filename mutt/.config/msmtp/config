@@ -1,0 +1,38 @@
+# Set default values for all following accounts.
+# openssl s_client -connect <domain> -starttls smtp < /dev/null 2>/dev/null | openssl x509 -fingerprint -noout | cut -d'=' -f2
+defaults
+auth            on
+tls             on
+tls_starttls    on
+tls_certcheck   on
+logfile         ~/.msmtp.log
+
+
+account         linderud 
+auto_from       on
+host            imap.linderud.pw
+port            465
+auth            plain
+user            morten@linderud.pw
+passwordeval    pass service/mail
+tls_fingerprint "AB:05:56:4E:DC:94:84:16:0B:CC:41:E4:20:E1:0F:E2:D4:22:5E:9A"
+
+
+account         archlinux
+auto_from       on
+user            foxboron 
+host            mail.archlinux.org
+port            587
+passwordeval    pass service/archlinux-mail
+tls_fingerprint "91:E1:3F:16:C6:08:AF:8C:5F:75:22:5D:4E:12:58:C9:CD:BA:F9:7A"
+
+
+account         uib
+auto_from       on
+user            yux004
+host            smtp.uib.no 
+port            465
+passwordeval    pass service/uib
+tls_fingerprint "28:E8:92:AA:1D:F0:19:9A:2B:D7:77:7C:5D:94:AA:A6:2D:27:A2:44"
+
+account default : linderud

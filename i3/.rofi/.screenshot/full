@@ -1,9 +1,0 @@
-export XAUTHORITY=/home/fox/.Xauthority
-export DISPLAY=:0.0
-FILENAME=~/Documents/Screenshots/Selection-`date +%Y-%m-%d`-`cat /dev/urandom | tr -cd 'a-f0-9' | head -c 32`.png
-
-scrot $FILENAME
-
-pbpst -Sf $FILENAME | xsel -i
-
-rm $FILENAME
